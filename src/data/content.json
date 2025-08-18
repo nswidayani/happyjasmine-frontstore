@@ -1,0 +1,64 @@
+{
+  "hero": {
+    "title": "Bebebe",
+    "subtitle": "Transform your business with our innovative solutions",
+    "buttonText": "Get Started",
+    "backgroundImage": "/hero-bg.jpg",
+    "imageSlider": [
+      {
+        "id": 1,
+        "image": "/hero-bg.jpg",
+        "title": "lucucuc",
+        "subtitle": "Transform your business with our innovative solutions"
+      },
+      {
+        "id": 2,
+        "image": "/globe.svg",
+        "title": "asas",
+        "subtitle": "Reaching customers worldwide"
+      },
+      {
+        "id": 3,
+        "image": "/window.svg",
+        "title": "Modern Technology",
+        "subtitle": "Built with cutting-edge technology"
+      }
+    ]
+  },
+  "features": {
+    "title": "Why Choose Us?",
+    "description": "Discover the advantages that set us apart from the competition",
+    "items": [
+      {
+        "id": 1,
+        "title": "Fast Performance",
+        "description": "Lightning-fast performance that scales with your needs",
+        "icon": "Speed"
+      },
+      {
+        "id": 2,
+        "title": "Secure & Reliable",
+        "description": "Bank-level security with 99.9% uptime guarantee",
+        "icon": "Security"
+      },
+      {
+        "id": 3,
+        "title": "Easy Integration",
+        "description": "Simple API integration that works with your existing tools",
+        "icon": "Integration"
+      }
+    ]
+  },
+  "about": {
+    "title": "About Our Company",
+    "description": "We are a leading technology company dedicated to providing innovative solutions that help businesses grow and succeed in the digital age.",
+    "image": "/about-image.jpg"
+  },
+  "contact": {
+    "title": "Get in Touch",
+    "description": "Ready to get started? Contact us today!",
+    "email": "hello@company.com",
+    "phone": "+1 (555) 123-4567",
+    "address": "123 Business St, City, State 12345"
+  }
+}

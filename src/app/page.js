@@ -1,95 +1,81 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+'use client';
+
+import { useEffect, useState } from 'react';
+import { Box, Typography } from '@mui/material';
+import { useTheme } from '../components/ThemeProvider';
+import Header from '../components/Header';
+import HeroSection from '../components/HeroSection';
+import FeaturesSection from '../components/FeaturesSection';
+import AboutSection from '../components/AboutSection';
+import ContactSection from '../components/ContactSection';
 
 export default function Home() {
-  return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol>
-          <li>
-            Get started by editing <code>src/app/page.js</code>.
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+  const { updateTheme } = useTheme();
+  const [content, setContent] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.secondary}
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className={styles.footer}>
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+  useEffect(() => {
+    fetchContent();
+  }, []);
+
+  const fetchContent = async () => {
+    try {
+      const response = await fetch('/api/content');
+      const data = await response.json();
+      setContent(data);
+      
+      // Apply theme from content if available
+      if (data.theme) {
+        updateTheme({
+          mode: data.theme.mode || 'light',
+          primaryColor: data.theme.primaryColor || '#1976d2',
+          secondaryColor: data.theme.secondaryColor || '#dc004e',
+        });
+      }
+    } catch (error) {
+      console.error('Failed to fetch content:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  if (loading) {
+    return (
+      <Box 
+        display="flex" 
+        justifyContent="center" 
+        alignItems="center" 
+        minHeight="100vh"
+      >
+        <Typography variant="h4">Loading...</Typography>
+      </Box>
+    );
+  }
+
+  return (
+    <Box>
+      {/* Header with Logo */}
+      <Header />
+
+      {/* Page Sections */}
+      <HeroSection heroData={content?.hero} />
+      <FeaturesSection features={content?.features} />
+      <AboutSection aboutData={content?.about} />
+      <ContactSection contactData={content?.contact} />
+      
+      {/* Footer */}
+      <Box 
+        sx={{ 
+          bgcolor: 'primary.main', 
+          color: 'white', 
+          py: 3, 
+          textAlign: 'center' 
+        }}
+      >
+        <Typography variant="body2">
+          © 2024 Happy Jasmine. All rights reserved.
+        </Typography>
+      </Box>
+    </Box>
   );
 }
