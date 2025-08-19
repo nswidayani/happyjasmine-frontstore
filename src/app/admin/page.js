@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import LoginForm from '../../components/LoginForm';
 import AdminDashboard from '../../components/AdminDashboard';
-import { subscribeToAuthChanges } from '../../lib/firebase';
+import { subscribeToAuthChanges } from '../../lib/supabase';
 
 export default function AdminPage() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);

@@ -10,7 +10,7 @@ import {
   Container,
 } from '@mui/material';
 import { Login } from '@mui/icons-material';
-import { signInUser } from '../lib/firebase';
+import { signInUser } from '../lib/supabase';
 
 export default function LoginForm({ onLogin }) {
   const [credentials, setCredentials] = useState({ email: '', password: '' });
@@ -86,7 +86,7 @@ export default function LoginForm({ onLogin }) {
 
             <Box mt={3} p={2} bgcolor="background.default" borderRadius={1}>
               <Typography variant="caption" color="text.secondary">
-                Use your Firebase authentication email and password
+                Use your Supabase authentication email and password
               </Typography>
             </Box>
           </CardContent>

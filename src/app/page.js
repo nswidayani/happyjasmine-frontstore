@@ -9,7 +9,7 @@ import FeaturesSection from '../components/FeaturesSection';
 import AboutSection from '../components/AboutSection';
 import ContactSection from '../components/ContactSection';
 import ProductsSection from '../components/ProductsSection';
-import { getContent } from '../lib/firebase';
+import { getContent } from '../lib/supabase';
 
 export default function Home() {
   const { updateTheme } = useTheme();

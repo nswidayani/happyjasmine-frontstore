@@ -1,10 +1,12 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
-import { Box, Typography, Card, CardMedia, CardContent, Button, CircularProgress, Alert, IconButton } from '@mui/material';
-import { Refresh, ChevronLeft, ChevronRight } from '@mui/icons-material';
+import { Box, Typography, Button, CircularProgress, Alert } from '@mui/material';
 import { useTheme } from './ThemeProvider';
-import { getContent } from '../lib/firebase';
+import { getContent } from '../lib/supabase';
+import ProductsHeader from './products/ProductsHeader';
+import SliderControls from './products/SliderControls';
+import ProductCard from './products/ProductCard';
 
 const ProductsSection = ({ products: propProducts = [] }) => {
   const { theme } = useTheme();
@@ -135,9 +137,7 @@ const ProductsSection = ({ products: propProducts = [] }) => {
     );
   }
 
-  const handleRefresh = () => {
-    fetchProducts();
-  };
+  const handleRefresh = () => { fetchProducts(); };
 
   const nextSlide = () => {
     setCurrentSlide((prev) => (prev + 1) % displayProducts.length);
@@ -216,47 +216,7 @@ const ProductsSection = ({ products: propProducts = [] }) => {
       }}
     >
       <Box sx={{ maxWidth: 'lg', mx: 'auto', px: 3 }}>
-        {/* Section Header */}
-        <Box sx={{ textAlign: 'center', mb: 6, position: 'relative' }}>
-          {isClient && (
-            <IconButton
-              onClick={handleRefresh}
-              sx={{
-                position: 'absolute',
-                right: 0,
-                top: 0,
-                color: 'primary.main',
-                '&:hover': {
-                  transform: 'rotate(180deg)',
-                  transition: 'transform 0.3s ease-in-out'
-                }
-              }}
-            >
-              <Refresh />
-            </IconButton>
-          )}
-          <Typography
-            variant="h2"
-            sx={{
-              color: 'primary.main',
-              mb: 2,
-              fontWeight: 700
-            }}
-          >
-            Our Products
-          </Typography>
-          <Typography
-            variant="h5"
-            sx={{
-              color: 'text.secondary',
-              maxWidth: '600px',
-              mx: 'auto',
-              lineHeight: 1.6
-            }}
-          >
-            Discover our premium collection of {displayProducts.length} high-quality products designed to meet your needs
-          </Typography>
-        </Box>
+        <ProductsHeader count={displayProducts.length} onRefresh={handleRefresh} showRefresh={isClient} />
 
         {/* Products Slider */}
         {displayProducts.length === 0 ? (
@@ -277,186 +237,18 @@ const ProductsSection = ({ products: propProducts = [] }) => {
           </Box>
         ) : (
           <Box sx={{ position: 'relative', mb: 6 }}>
-            {/* Navigation Arrows - only show on client */}
             {isClient && (
-              <>
-                <IconButton
-                  onClick={prevSlide}
-                  sx={{
-                    position: 'absolute',
-                    left: -20,
-                    top: '50%',
-                    transform: 'translateY(-50%)',
-                    bgcolor: 'background.paper',
-                    color: 'primary.main',
-                    border: '2px solid',
-                    borderColor: 'primary.main',
-                    zIndex: 2,
-                    '&:hover': {
-                      bgcolor: 'primary.main',
-                      color: 'white',
-                    },
-                    '@media (max-width: 600px)': {
-                      left: 10,
-                    }
-                  }}
-                >
-                  <ChevronLeft />
-                </IconButton>
-
-                <IconButton
-                  onClick={nextSlide}
-                  sx={{
-                    position: 'absolute',
-                    right: -20,
-                    top: '50%',
-                    transform: 'translateY(-50%)',
-                    bgcolor: 'background.paper',
-                    color: 'primary.main',
-                    border: '2px solid',
-                    borderColor: 'primary.main',
-                    zIndex: 2,
-                    '&:hover': {
-                      bgcolor: 'primary.main',
-                      color: 'white',
-                    },
-                    '@media (max-width: 600px)': {
-                      right: 10,
-                    }
-                  }}
-                >
-                  <ChevronRight />
-                </IconButton>
-              </>
+              <SliderControls
+                count={displayProducts.length}
+                current={currentSlide}
+                onPrev={prevSlide}
+                onNext={nextSlide}
+                onGoTo={goToSlide}
+              />
             )}
-
-            {/* Current Product Card */}
             <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-              <Card
-                sx={{
-                  maxWidth: 600,
-                  width: '100%',
-                  transition: 'all 0.3s ease-in-out',
-                  bgcolor: 'background.paper',
-                  border: '2px solid transparent',
-                  '&:hover': {
-                    transform: 'translateY(-4px)',
-                    boxShadow: '0 8px 25px rgba(0, 95, 115, 0.15)',
-                    borderColor: 'secondary.main',
-                  }
-                }}
-              >
-                <CardMedia
-                  component="img"
-                  image={displayProducts[currentSlide]?.image}
-                  alt={displayProducts[currentSlide]?.name}
-                  sx={{
-                    width: '100%',
-                    height: 'auto',
-                    maxHeight: '400px',
-                    aspectRatio: 'auto',
-                    objectFit: 'contain',
-                    borderBottom: `1px solid ${theme.palette.divider}`
-                  }}
-                />
-                <CardContent sx={{ p: 4, textAlign: 'center' }}>
-                  <Typography
-                    variant="h4"
-                    component="h3"
-                    sx={{
-                      color: 'primary.main',
-                      mb: 2,
-                      fontWeight: 600
-                    }}
-                  >
-                    {displayProducts[currentSlide]?.name}
-                  </Typography>
-                  <Typography
-                    variant="body1"
-                    sx={{
-                      color: 'text.primary',
-                      mb: 3,
-                      lineHeight: 1.6,
-                      fontSize: '1.1rem'
-                    }}
-                  >
-                    {displayProducts[currentSlide]?.description}
-                  </Typography>
-                  <Box
-                    sx={{
-                      display: 'flex',
-                      justifyContent: 'space-between',
-                      alignItems: 'center',
-                      flexWrap: 'wrap',
-                      gap: 2
-                    }}
-                  >
-                    <Typography
-                      variant="h5"
-                      sx={{
-                        color: 'secondary.main',
-                        fontWeight: 700,
-                        fontSize: '1.5rem'
-                      }}
-                    >
-                      {displayProducts[currentSlide]?.price}
-                    </Typography>
-                    <Button
-                      variant="contained"
-                      size="large"
-                      sx={{
-                        bgcolor: 'primary.main',
-                        color: 'white',
-                        px: 4,
-                        py: 1.5,
-                        '&:hover': {
-                          bgcolor: 'primary.dark',
-                        },
-                      }}
-                    >
-                      Learn More
-                    </Button>
-                  </Box>
-                </CardContent>
-              </Card>
+              <ProductCard product={displayProducts[currentSlide]} />
             </Box>
-
-            {/* Slide Indicators - only show on client */}
-            {isClient && (
-              <>
-                <Box sx={{ display: 'flex', justifyContent: 'center', mt: 4, gap: 1 }}>
-                  {displayProducts.map((_, index) => (
-                    <Box
-                      key={index}
-                      onClick={() => goToSlide(index)}
-                      sx={{
-                        width: 12,
-                        height: 12,
-                        borderRadius: '50%',
-                        bgcolor: index === currentSlide ? 'primary.main' : 'rgba(0, 95, 115, 0.2)',
-                        cursor: 'pointer',
-                        transition: 'all 0.3s ease-in-out',
-                        '&:hover': {
-                          bgcolor: index === currentSlide ? 'primary.dark' : 'rgba(0, 95, 115, 0.4)',
-                        }
-                      }}
-                    />
-                  ))}
-                </Box>
-
-                {/* Slide Counter */}
-                <Typography
-                  variant="body2"
-                  sx={{
-                    textAlign: 'center',
-                    color: 'text.secondary',
-                    mt: 2
-                  }}
-                >
-                  {currentSlide + 1} of {displayProducts.length}
-                </Typography>
-              </>
-            )}
           </Box>
         )}
 
