@@ -1,50 +1,80 @@
+// src/lib/theme.js
 import { createTheme } from '@mui/material/styles';
 
 export const createCustomTheme = (themeConfig = {}) => {
-  const { mode = 'light', primaryColor = '#1976d2', secondaryColor = '#dc004e' } = themeConfig;
-  
+  const {
+    mode = 'light',
+    primaryColor = '#FFE347',
+    secondaryColor = '#005F73',
+    warningColor = '#FF90AD',
+    backgroundDefault = '#F5F5F5',
+    backgroundPaper = '#FFFFFF',
+  } = themeConfig;
+
   return createTheme({
     palette: {
       mode,
       primary: {
         main: primaryColor,
+        contrastText: '#fff',
       },
       secondary: {
         main: secondaryColor,
+        contrastText: '#005F73',
+      },
+      warning: {
+        main: warningColor,
+        contrastText: '#fff',
       },
       background: {
-        default: mode === 'dark' ? '#121212' : '#f5f5f5',
-        paper: mode === 'dark' ? '#1e1e1e' : '#ffffff',
+        default: backgroundDefault,
+        paper: backgroundPaper,
+      },
+      text: {
+        primary: '#222222',
+        secondary: primaryColor,
+      },
+      info: {
+        main: primaryColor,
+        contrastText: '#fff',
+      },
+      success: {
+        main: secondaryColor,
+        contrastText: '#005F73',
+      },
+      error: {
+        main: warningColor,
+        contrastText: '#fff',
       },
     },
     typography: {
-      fontFamily: '"Bemio", "Helvetica", "Arial", sans-serif',
+      fontFamily: '"Gilroy", sans-serif',
       h1: {
         fontWeight: 700,
         fontSize: 'clamp(2rem, 5vw, 4rem)',
-        fontStyle: 'italic',
+        color: primaryColor,
       },
       h2: {
         fontWeight: 600,
         fontSize: 'clamp(1.5rem, 4vw, 3rem)',
-        fontStyle: 'italic',
+        color: primaryColor,
       },
       h3: {
         fontWeight: 600,
         fontSize: 'clamp(1.25rem, 3vw, 2rem)',
-        fontStyle: 'italic',
+        color: primaryColor,
       },
       h4: {
         fontSize: 'clamp(1.1rem, 2.5vw, 1.5rem)',
-        fontStyle: 'italic',
+        color: primaryColor,
       },
       h5: {
         fontSize: 'clamp(1rem, 2vw, 1.25rem)',
-        fontStyle: 'italic',
+        color: primaryColor,
       },
       body1: {
         fontSize: 'clamp(0.875rem, 1.5vw, 1rem)',
-        fontStyle: 'italic',
+        color: '#222222',
       },
     },
     breakpoints: {
@@ -68,15 +98,37 @@ export const createCustomTheme = (themeConfig = {}) => {
               fontSize: '0.875rem',
             },
           },
+          containedPrimary: {
+            backgroundColor: primaryColor,
+            color: '#fff',
+            '&:hover': {
+              backgroundColor: '#004d5a',
+            },
+          },
+          containedSecondary: {
+            backgroundColor: secondaryColor,
+            color: '#005F73',
+            '&:hover': {
+              backgroundColor: '#e6d13f',
+            },
+          },
+          containedWarning: {
+            backgroundColor: warningColor,
+            color: '#fff',
+            '&:hover': {
+              backgroundColor: '#e67a99',
+            },
+          },
         },
       },
       MuiCard: {
         styleOverrides: {
           root: {
             borderRadius: 12,
-            boxShadow: mode === 'dark' 
-              ? '0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2)'
-              : '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
+            boxShadow: mode === 'dark'
+                ? '0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2)'
+                : '0 4px 6px -1px rgba(0, 95, 115, 0.1), 0 2px 4px -1px rgba(0, 95, 115, 0.06)',
+            backgroundColor: backgroundPaper,
           },
         },
       },
@@ -95,9 +147,19 @@ export const createCustomTheme = (themeConfig = {}) => {
       MuiAppBar: {
         styleOverrides: {
           root: {
+            backgroundColor: primaryColor,
+            color: '#fff',
             boxShadow: mode === 'dark'
-              ? '0 2px 4px -1px rgba(0, 0, 0, 0.4)'
-              : '0 2px 4px -1px rgba(0, 0, 0, 0.2)',
+                ? '0 2px 4px -1px rgba(0, 0, 0, 0.4)'
+                : '0 2px 4px -1px rgba(0, 95, 115, 0.2)',
+          },
+        },
+      },
+      MuiAlert: {
+        styleOverrides: {
+          standardWarning: {
+            backgroundColor: warningColor,
+            color: '#fff',
           },
         },
       },
@@ -105,6 +167,5 @@ export const createCustomTheme = (themeConfig = {}) => {
   });
 };
 
-// Default theme
 const theme = createCustomTheme();
 export default theme;

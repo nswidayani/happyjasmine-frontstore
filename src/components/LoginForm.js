@@ -89,7 +89,7 @@ export default function LoginForm({ onLogin }) {
               </Button>
             </form>
 
-            <Box mt={3} p={2} bgcolor="grey.50" borderRadius={1}>
+            <Box mt={3} p={2} bgcolor="background.default" borderRadius={1}>
               <Typography variant="caption" color="text.secondary">
                 Demo credentials: Username: <strong>admin</strong>, Password: <strong>admin123</strong>
               </Typography>

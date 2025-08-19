@@ -1,12 +1,15 @@
 import { Box, Typography, Container, Grid, Card, CardContent, Button } from '@mui/material';
 import { Email, Phone, LocationOn, Send } from '@mui/icons-material';
+import { useTheme } from './ThemeProvider';
 
 export default function ContactSection({ contactData }) {
+  const { theme } = useTheme();
+  
   return (
     <Box 
       sx={{ 
         py: { xs: 12, md: 20 },
-        bgcolor: 'var(--background)',
+        bgcolor: 'background.default',
         position: 'relative',
         overflow: 'hidden',
         '&::before': {
@@ -16,7 +19,7 @@ export default function ContactSection({ contactData }) {
           left: 0,
           right: 0,
           height: '1px',
-          background: 'linear-gradient(90deg, transparent 0%, var(--border) 50%, transparent 100%)',
+          background: 'linear-gradient(90deg, transparent 0%, rgba(0, 95, 115, 0.2) 50%, transparent 100%)',
         }
       }}
     >
@@ -29,8 +32,8 @@ export default function ContactSection({ contactData }) {
           width: 250,
           height: 250,
           borderRadius: '50%',
-          background: 'radial-gradient(circle, var(--primary-light) 0%, transparent 70%)',
-          opacity: 0.02,
+          background: 'radial-gradient(circle, rgba(0, 95, 115, 0.1) 0%, transparent 70%)',
+          opacity: 0.1,
           zIndex: 0,
         }}
       />
@@ -42,8 +45,8 @@ export default function ContactSection({ contactData }) {
           width: 180,
           height: 180,
           borderRadius: '50%',
-          background: 'radial-gradient(circle, var(--accent) 0%, transparent 70%)',
-          opacity: 0.02,
+          background: 'radial-gradient(circle, rgba(255, 227, 71, 0.1) 0%, transparent 70%)',
+          opacity: 0.1,
           zIndex: 0,
         }}
       />
@@ -57,10 +60,7 @@ export default function ContactSection({ contactData }) {
               mb: 3,
               fontSize: { xs: '2.5rem', sm: '3rem', md: '3.5rem', lg: '4rem' },
               fontWeight: 700,
-              background: 'var(--gradient-primary)',
-              backgroundClip: 'text',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
+              color: 'primary.main',
               letterSpacing: '-0.02em',
             }}
           >
@@ -71,7 +71,7 @@ export default function ContactSection({ contactData }) {
             variant="h6"
             sx={{
               fontSize: { xs: '1.1rem', md: '1.3rem' },
-              color: 'var(--muted)',
+              color: 'text.secondary',
               maxWidth: '600px',
               mx: 'auto',
               lineHeight: 1.6,
@@ -89,10 +89,10 @@ export default function ContactSection({ contactData }) {
               sx={{
                 textAlign: 'center',
                 height: '100%',
-                background: 'var(--card)',
-                border: '1px solid var(--border)',
+                background: 'background.paper',
+                border: '1px solid rgba(0, 95, 115, 0.2)',
                 borderRadius: '20px',
-                boxShadow: 'var(--shadow-sm)',
+                boxShadow: '0 4px 6px rgba(0, 95, 115, 0.1)',
                 transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
                 position: 'relative',
                 overflow: 'hidden',
@@ -103,20 +103,20 @@ export default function ContactSection({ contactData }) {
                   left: 0,
                   right: 0,
                   height: '3px',
-                  background: 'var(--gradient-primary)',
+                  background: 'primary.main',
                   transform: 'scaleX(0)',
                   transition: 'transform 0.3s ease',
                 },
                 '&:hover': {
                   transform: 'translateY(-8px)',
-                  boxShadow: 'var(--shadow-xl)',
-                  borderColor: 'var(--primary-light)',
+                  boxShadow: '0 8px 25px rgba(0, 95, 115, 0.15)',
+                  borderColor: 'primary.main',
                   '&::before': {
                     transform: 'scaleX(1)',
                   },
                   '& .icon-wrapper': {
                     transform: 'scale(1.1)',
-                    background: 'var(--gradient-primary)',
+                    background: 'primary.main',
                   },
                   '& .icon': {
                     color: 'white',
@@ -134,7 +134,7 @@ export default function ContactSection({ contactData }) {
                     width: 70,
                     height: 70,
                     borderRadius: '18px',
-                    background: 'var(--card-hover)',
+                    background: 'rgba(0, 95, 115, 0.1)',
                     mb: 3,
                     transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
                   }}
@@ -143,28 +143,28 @@ export default function ContactSection({ contactData }) {
                     className="icon"
                     sx={{ 
                       fontSize: 32, 
-                      color: 'var(--primary)',
+                      color: 'primary.main',
                       transition: 'all 0.3s ease',
                     }} 
                   />
                 </Box>
-                <Typography variant="h6" sx={{ mb: 2, fontWeight: 600, color: 'var(--foreground)' }}>
+                <Typography variant="h6" sx={{ mb: 2, fontWeight: 600, color: 'text.primary' }}>
                   Email
                 </Typography>
-                <Typography variant="body1" color="var(--muted)" sx={{ mb: 2, fontWeight: 400 }}>
+                <Typography variant="body1" color="text.secondary" sx={{ mb: 2, fontWeight: 400 }}>
                   {contactData?.email || 'hello@company.com'}
                 </Typography>
                 <Button
                   variant="outlined"
                   size="small"
                   sx={{
-                    borderColor: 'var(--border)',
-                    color: 'var(--primary)',
+                    borderColor: 'rgba(0, 95, 115, 0.2)',
+                    color: 'primary.main',
                     borderRadius: '20px',
                     px: 2,
                     '&:hover': {
-                      borderColor: 'var(--primary)',
-                      bgcolor: 'var(--primary)',
+                      borderColor: 'primary.main',
+                      bgcolor: 'primary.main',
                       color: 'white',
                     },
                     transition: 'all 0.2s ease',
@@ -182,10 +182,10 @@ export default function ContactSection({ contactData }) {
               sx={{
                 textAlign: 'center',
                 height: '100%',
-                background: 'var(--card)',
-                border: '1px solid var(--border)',
+                background: 'background.paper',
+                border: '1px solid rgba(0, 95, 115, 0.2)',
                 borderRadius: '20px',
-                boxShadow: 'var(--shadow-sm)',
+                boxShadow: '0 4px 6px rgba(0, 95, 115, 0.1)',
                 transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
                 position: 'relative',
                 overflow: 'hidden',
@@ -196,23 +196,23 @@ export default function ContactSection({ contactData }) {
                   left: 0,
                   right: 0,
                   height: '3px',
-                  background: 'var(--gradient-accent)',
+                  background: 'secondary.main',
                   transform: 'scaleX(0)',
                   transition: 'transform 0.3s ease',
                 },
                 '&:hover': {
                   transform: 'translateY(-8px)',
-                  boxShadow: 'var(--shadow-xl)',
-                  borderColor: 'var(--primary-light)',
+                  boxShadow: '0 8px 25px rgba(0, 95, 115, 0.15)',
+                  borderColor: 'secondary.main',
                   '&::before': {
                     transform: 'scaleX(1)',
                   },
                   '& .icon-wrapper': {
                     transform: 'scale(1.1)',
-                    background: 'var(--gradient-accent)',
+                    background: 'secondary.main',
                   },
                   '& .icon': {
-                    color: 'white',
+                    color: 'primary.main',
                   }
                 },
               }}
@@ -227,7 +227,7 @@ export default function ContactSection({ contactData }) {
                     width: 70,
                     height: 70,
                     borderRadius: '18px',
-                    background: 'var(--card-hover)',
+                    background: 'rgba(255, 227, 71, 0.1)',
                     mb: 3,
                     transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
                   }}
@@ -236,29 +236,29 @@ export default function ContactSection({ contactData }) {
                     className="icon"
                     sx={{ 
                       fontSize: 32, 
-                      color: 'var(--primary)',
+                      color: 'secondary.main',
                       transition: 'all 0.3s ease',
                     }} 
                   />
                 </Box>
-                <Typography variant="h6" sx={{ mb: 2, fontWeight: 600, color: 'var(--foreground)' }}>
+                <Typography variant="h6" sx={{ mb: 2, fontWeight: 600, color: 'text.primary' }}>
                   Phone
                 </Typography>
-                <Typography variant="body1" color="var(--muted)" sx={{ mb: 2, fontWeight: 400 }}>
+                <Typography variant="body1" color="text.secondary" sx={{ mb: 2, fontWeight: 400 }}>
                   {contactData?.phone || '+1 (555) 123-4567'}
                 </Typography>
                 <Button
                   variant="outlined"
                   size="small"
                   sx={{
-                    borderColor: 'var(--border)',
-                    color: 'var(--primary)',
+                    borderColor: 'rgba(0, 95, 115, 0.2)',
+                    color: 'secondary.main',
                     borderRadius: '20px',
                     px: 2,
                     '&:hover': {
-                      borderColor: 'var(--primary)',
-                      bgcolor: 'var(--primary)',
-                      color: 'white',
+                      borderColor: 'secondary.main',
+                      bgcolor: 'secondary.main',
+                      color: 'primary.main',
                     },
                     transition: 'all 0.2s ease',
                   }}
@@ -275,10 +275,10 @@ export default function ContactSection({ contactData }) {
               sx={{
                 textAlign: 'center',
                 height: '100%',
-                background: 'var(--card)',
-                border: '1px solid var(--border)',
+                background: 'background.paper',
+                border: '1px solid rgba(0, 95, 115, 0.2)',
                 borderRadius: '20px',
-                boxShadow: 'var(--shadow-sm)',
+                boxShadow: '0 4px 6px rgba(0, 95, 115, 0.1)',
                 transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
                 position: 'relative',
                 overflow: 'hidden',
@@ -289,20 +289,20 @@ export default function ContactSection({ contactData }) {
                   left: 0,
                   right: 0,
                   height: '3px',
-                  background: 'var(--gradient-secondary)',
+                  background: 'warning.main',
                   transform: 'scaleX(0)',
                   transition: 'transform 0.3s ease',
                 },
                 '&:hover': {
                   transform: 'translateY(-8px)',
-                  boxShadow: 'var(--shadow-xl)',
-                  borderColor: 'var(--primary-light)',
+                  boxShadow: '0 8px 25px rgba(0, 95, 115, 0.15)',
+                  borderColor: 'warning.main',
                   '&::before': {
                     transform: 'scaleX(1)',
                   },
                   '& .icon-wrapper': {
                     transform: 'scale(1.1)',
-                    background: 'var(--gradient-secondary)',
+                    background: 'warning.main',
                   },
                   '& .icon': {
                     color: 'white',
@@ -320,7 +320,7 @@ export default function ContactSection({ contactData }) {
                     width: 70,
                     height: 70,
                     borderRadius: '18px',
-                    background: 'var(--card-hover)',
+                    background: 'rgba(255, 144, 173, 0.1)',
                     mb: 3,
                     transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
                   }}
@@ -329,28 +329,28 @@ export default function ContactSection({ contactData }) {
                     className="icon"
                     sx={{ 
                       fontSize: 32, 
-                      color: 'var(--primary)',
+                      color: 'warning.main',
                       transition: 'all 0.3s ease',
                     }} 
                   />
                 </Box>
-                <Typography variant="h6" sx={{ mb: 2, fontWeight: 600, color: 'var(--foreground)' }}>
+                <Typography variant="h6" sx={{ mb: 2, fontWeight: 600, color: 'text.primary' }}>
                   Address
                 </Typography>
-                <Typography variant="body1" color="var(--muted)" sx={{ mb: 2, fontWeight: 400, lineHeight: 1.6 }}>
+                <Typography variant="body1" color="text.secondary" sx={{ mb: 2, fontWeight: 400, lineHeight: 1.6 }}>
                   {contactData?.address || '123 Business St, City, State 12345'}
                 </Typography>
                 <Button
                   variant="outlined"
                   size="small"
                   sx={{
-                    borderColor: 'var(--border)',
-                    color: 'var(--primary)',
+                    borderColor: 'rgba(0, 95, 115, 0.2)',
+                    color: 'warning.main',
                     borderRadius: '20px',
                     px: 2,
                     '&:hover': {
-                      borderColor: 'var(--primary)',
-                      bgcolor: 'var(--primary)',
+                      borderColor: 'warning.main',
+                      bgcolor: 'warning.main',
                       color: 'white',
                     },
                     transition: 'all 0.2s ease',
@@ -371,17 +371,17 @@ export default function ContactSection({ contactData }) {
             textAlign: 'center',
           }}
         >
-          <Typography variant="h4" sx={{ mb: 4, fontWeight: 600, color: 'var(--foreground)' }}>
+          <Typography variant="h4" sx={{ mb: 4, fontWeight: 600, color: 'text.primary' }}>
             Send us a Message
           </Typography>
           
           <Box
             sx={{
-              background: 'var(--card)',
-              border: '1px solid var(--border)',
+              background: 'background.paper',
+              border: '1px solid rgba(0, 95, 115, 0.2)',
               borderRadius: '20px',
               p: 4,
-              boxShadow: 'var(--shadow-sm)',
+              boxShadow: '0 4px 6px rgba(0, 95, 115, 0.1)',
             }}
           >
             <Button
@@ -389,18 +389,18 @@ export default function ContactSection({ contactData }) {
               size="large"
               startIcon={<Send />}
               sx={{
-                bgcolor: 'var(--primary)',
+                bgcolor: 'primary.main',
                 color: 'white',
                 px: 6,
                 py: 2,
                 borderRadius: '50px',
                 fontWeight: 600,
                 fontSize: '1.1rem',
-                boxShadow: 'var(--shadow-md)',
+                boxShadow: '0 4px 12px rgba(0, 95, 115, 0.2)',
                 '&:hover': {
-                  bgcolor: 'var(--primary-dark)',
+                  bgcolor: 'primary.dark',
                   transform: 'translateY(-2px)',
-                  boxShadow: 'var(--shadow-lg)',
+                  boxShadow: '0 8px 25px rgba(0, 95, 115, 0.3)',
                 },
                 transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
               }}

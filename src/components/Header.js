@@ -9,8 +9,8 @@ export default function Header() {
       sx={{ 
         bgcolor: 'rgba(255, 255, 255, 0.95)',
         backdropFilter: 'blur(10px)',
-        boxShadow: '0 2px 20px rgba(0,0,0,0.1)',
-        borderBottom: '1px solid rgba(0,0,0,0.05)'
+        boxShadow: '0 2px 20px rgba(0, 95, 115, 0.1)',
+        borderBottom: '1px solid rgba(0, 95, 115, 0.05)'
       }}
     >
       <Container maxWidth="lg">
@@ -50,7 +50,7 @@ export default function Header() {
                 fontWeight: 500,
                 color: 'text.primary',
                 '&:hover': {
-                  bgcolor: 'rgba(99, 102, 241, 0.1)'
+                  bgcolor: 'rgba(0, 95, 115, 0.1)'
                 }
               }}
             >
@@ -62,7 +62,7 @@ export default function Header() {
                 fontWeight: 500,
                 color: 'text.primary',
                 '&:hover': {
-                  bgcolor: 'rgba(99, 102, 241, 0.1)'
+                  bgcolor: 'rgba(0, 95, 115, 0.1)'
                 }
               }}
             >
@@ -74,7 +74,7 @@ export default function Header() {
                 fontWeight: 500,
                 color: 'text.primary',
                 '&:hover': {
-                  bgcolor: 'rgba(99, 102, 241, 0.1)'
+                  bgcolor: 'rgba(0, 95, 115, 0.1)'
                 }
               }}
             >
@@ -93,7 +93,7 @@ export default function Header() {
                 '&:hover': {
                   bgcolor: 'primary.dark',
                   transform: 'translateY(-1px)',
-                  boxShadow: '0 4px 20px rgba(99, 102, 241, 0.3)'
+                  boxShadow: '0 4px 20px rgba(0, 95, 115, 0.3)'
                 },
                 transition: 'all 0.2s ease'
               }}

@@ -7,13 +7,13 @@
     "imageSlider": [
       {
         "id": 1,
-        "image": "/hero-bg.jpg",
-        "title": "lucucuc",
+        "image": "/campaigns/slider2.png",
+        "title": "Dirgahayu Republik Indonesia",
         "subtitle": "Transform your business with our innovative solutions"
       },
       {
         "id": 2,
-        "image": "/globe.svg",
+        "image": "/campaigns/slider1.jpeg",
         "title": "asas",
         "subtitle": "Reaching customers worldwide"
       },
@@ -26,8 +26,8 @@
     ]
   },
   "features": {
-    "title": "Why Choose Us?",
-    "description": "Discover the advantages that set us apart from the competition",
+    "title": "Produk Kita",
+    "description": "Produk Produk yang kita miliki",
     "items": [
       {
         "id": 1,
@@ -39,7 +39,7 @@
         "id": 2,
         "title": "Secure & Reliable",
         "description": "Bank-level security with 99.9% uptime guarantee",
-        "icon": "Security"
+        "icon": "Integration"
       },
       {
         "id": 3,
@@ -49,6 +49,43 @@
       }
     ]
   },
+  "products": [
+    {
+      "id": 1,
+      "name": "Premium Product 1",
+      "description": "High-quality product with excellent features and modern design",
+      "image": "/products/WhatsApp Image 2025-08-18 at 16.45.48.jpeg",
+      "price": "$99.99"
+    },
+    {
+      "id": 2,
+      "name": "Premium Product 2",
+      "description": "Premium product designed for modern needs and professional use",
+      "image": "/products/WhatsApp Image 2025-08-18 at 16.42.28 (2).jpeg",
+      "price": "$149.99"
+    },
+    {
+      "id": 3,
+      "name": "Premium Product 3",
+      "description": "Innovative solution for everyday challenges and business growth",
+      "image": "/products/WhatsApp Image 2025-08-18 at 16.42.28 (1).jpeg",
+      "price": "$79.99"
+    },
+    {
+      "id": 4,
+      "name": "Premium Product 4",
+      "description": "Reliable product built to last with exceptional quality standards",
+      "image": "/products/WhatsApp Image 2025-08-18 at 16.42.28.jpeg",
+      "price": "$129.99"
+    },
+    {
+      "id": 5,
+      "name": "Premium Product 5",
+      "description": "Cutting-edge technology for the future and competitive advantage",
+      "image": "/products/WhatsApp Image 2025-08-18 at 16.42.27.jpeg",
+      "price": "$199.99"
+    }
+  ],
   "about": {
     "title": "About Our Company",
     "description": "We are a leading technology company dedicated to providing innovative solutions that help businesses grow and succeed in the digital age.",

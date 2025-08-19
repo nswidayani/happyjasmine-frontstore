@@ -29,8 +29,11 @@ export default function ClientThemeProvider({ children }) {
   const [emotionCache] = useState(clientSideEmotionCache);
   const [themeConfig, setThemeConfig] = useState({
     mode: 'light',
-    primaryColor: '#1976d2',
-    secondaryColor: '#dc004e',
+    primaryColor: '#005F73',
+    secondaryColor: '#FFE347',
+    warningColor: '#FF90AD',
+    backgroundDefault: '#F5F5F5',
+    backgroundPaper: '#FFFFFF',
   });
   const [theme, setTheme] = useState(() => createCustomTheme(themeConfig));
 
@@ -44,7 +47,7 @@ export default function ClientThemeProvider({ children }) {
   }, [themeConfig]);
 
   return (
-    <ThemeContext.Provider value={{ themeConfig, updateTheme }}>
+    <ThemeContext.Provider value={{ themeConfig, updateTheme, theme }}>
       <CacheProvider value={emotionCache}>
         <ThemeProvider theme={theme}>
           <CssBaseline />

@@ -34,7 +34,7 @@ export default function HeroSection({ heroData }) {
           left: 0,
           right: 0,
           bottom: 0,
-          background: 'radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.3) 0%, transparent 50%)',
+          background: 'radial-gradient(circle at 20% 80%, rgba(0, 95, 115, 0.3) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(255, 227, 71, 0.3) 0%, transparent 50%)',
           zIndex: 2,
         }
       }}
@@ -97,7 +97,7 @@ export default function HeroSection({ heroData }) {
               fontWeight: 800,
               mb: { xs: 2, md: 3 },
               textShadow: '0 4px 20px rgba(0,0,0,0.1)',
-              background: 'linear-gradient(135deg, #ffffff 0%, #f0f9ff 100%)',
+              background: 'linear-gradient(135deg, #ffffff 0%, rgba(0, 95, 115, 0.1) 100%)',
               backgroundClip: 'text',
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent',

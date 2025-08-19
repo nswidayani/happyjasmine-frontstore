@@ -211,7 +211,7 @@ export default function AdminDashboard({ onLogout }) {
                   <Typography variant="h6" sx={{ mt: 3, mb: 2 }}>Image Slider</Typography>
                   
                   {/* Preview Section */}
-                  <Box sx={{ mb: 3, p: 2, border: '1px solid #e0e0e0', borderRadius: 1, backgroundColor: '#f5f5f5' }}>
+                  <Box sx={{ mb: 3, p: 2, border: '1px solid rgba(0, 95, 115, 0.2)', borderRadius: 1, backgroundColor: 'background.default' }}>
                     <Typography variant="subtitle2" sx={{ mb: 2, color: 'text.secondary' }}>
                       Preview (showing first slide):
                     </Typography>
@@ -251,7 +251,7 @@ export default function AdminDashboard({ onLogout }) {
                   </Box>
                   
                   {content?.hero?.imageSlider?.map((slide, index) => (
-                    <Paper key={slide.id} sx={{ p: 2, mb: 2, border: '1px solid #e0e0e0' }}>
+                    <Paper key={slide.id} sx={{ p: 2, mb: 2, border: '1px solid rgba(0, 95, 115, 0.2)' }}>
                       <Grid container spacing={2} alignItems="center">
                         <Grid item xs={12} md={3}>
                           <TextField
@@ -375,7 +375,7 @@ export default function AdminDashboard({ onLogout }) {
                   <Typography variant="h6" sx={{ mt: 3, mb: 2 }}>Feature Items</Typography>
                   
                   {/* Preview Section */}
-                  <Box sx={{ mb: 3, p: 2, border: '1px solid #e0e0e0', borderRadius: 1, backgroundColor: '#f5f5f5' }}>
+                  <Box sx={{ mb: 3, p: 2, border: '1px solid rgba(0, 95, 115, 0.2)', borderRadius: 1, backgroundColor: 'background.default' }}>
                     <Typography variant="subtitle2" sx={{ mb: 2, color: 'text.secondary' }}>
                       Preview (showing first 3 features):
                     </Typography>
@@ -387,9 +387,9 @@ export default function AdminDashboard({ onLogout }) {
                             <Box
                               sx={{
                                 p: 2,
-                                border: '1px solid #e0e0e0',
+                                border: '1px solid rgba(0, 95, 115, 0.2)',
                                 borderRadius: 1,
-                                backgroundColor: 'white',
+                                backgroundColor: 'background.paper',
                                 textAlign: 'center',
                                 height: '100%',
                               }}
@@ -415,7 +415,7 @@ export default function AdminDashboard({ onLogout }) {
                   </Box>
                   
                   {content?.features?.items?.map((feature, index) => (
-                    <Paper key={feature.id} sx={{ p: 2, mb: 2, border: '1px solid #e0e0e0' }}>
+                    <Paper key={feature.id} sx={{ p: 2, mb: 2, border: '1px solid rgba(0, 95, 115, 0.2)' }}>
                       <Grid container spacing={2} alignItems="center">
                         <Grid item xs={12} md={1}>
                           <Typography variant="body2" color="text.secondary" sx={{ textAlign: 'center' }}>
