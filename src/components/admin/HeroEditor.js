@@ -1,8 +1,11 @@
+import { useState } from 'react';
 import { Box, Typography, Grid, Paper, TextField, Button } from '@mui/material';
+import { uploadImageToStorage } from '../../lib/supabase';
 
-export default function HeroEditor({ content, setContent }) {
+export default function HeroEditor({ content, setContent, onError, onUploadNotice }) {
   const hero = content?.hero || {};
   const slider = hero?.imageSlider || [];
+  const [uploadingIndex, setUploadingIndex] = useState(null);
 
   const updateSlideAt = (index, updated) => {
     const newSlider = [...slider];
@@ -18,6 +21,25 @@ export default function HeroEditor({ content, setContent }) {
   const addSlide = () => {
     const newSlide = { id: Date.now(), image: '', title: '', subtitle: '' };
     setContent({ ...content, hero: { ...hero, imageSlider: [...slider, newSlide] } });
+  };
+
+  const handleUploadAt = async (index, file) => {
+    try {
+      if (!file) return;
+      setUploadingIndex(index);
+      const upload = await uploadImageToStorage(file, 'campaigns');
+      if (upload.success) {
+        const current = slider[index] || {};
+        updateSlideAt(index, { ...current, image: upload.url });
+        onUploadNotice && onUploadNotice('Slide image uploaded');
+      } else {
+        onError && onError(upload.error || 'Failed to upload image');
+      }
+    } catch (_err) {
+      onError && onError('Failed to upload image');
+    } finally {
+      setUploadingIndex(null);
+    }
   };
 
   return (
@@ -75,6 +97,25 @@ export default function HeroEditor({ content, setContent }) {
                     value={slide.image || ''}
                     onChange={(e) => updateSlideAt(index, { ...slide, image: e.target.value })}
                   />
+                  <Box sx={{ display: 'flex', gap: 1, mt: 1 }}>
+                    <input
+                      type="file"
+                      id={`slide-image-${index}`}
+                      style={{ display: 'none' }}
+                      accept="image/*"
+                      onChange={async (e) => {
+                        const inputEl = e.target;
+                        const file = inputEl.files?.[0];
+                        await handleUploadAt(index, file);
+                        inputEl.value = '';
+                      }}
+                    />
+                    <label htmlFor={`slide-image-${index}`}>
+                      <Button component="span" variant="outlined" size="small" disabled={uploadingIndex === index}>
+                        {uploadingIndex === index ? 'Uploading...' : 'Upload Image'}
+                      </Button>
+                    </label>
+                  </Box>
                 </Grid>
                 <Grid item xs={12} md={3}>
                   <TextField

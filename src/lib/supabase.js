@@ -80,7 +80,7 @@ const getDefaultContent = () => ({
 // Table: content (id: text primary key, data: jsonb)
 export const getContent = async () => {
   try {
-    const { data, error } = await supabase.from('content').select('data').eq('id', 'main').single();
+    const { data, error } = await supabase.from('content').select('data').eq('id', 1).single();
     if (error && error.code !== 'PGRST116') {
       return { success: false, error: error.message };
     }
@@ -95,7 +95,7 @@ export const getContent = async () => {
 
 export const updateContent = async (content) => {
   try {
-    const { error } = await supabase.from('content').upsert({ id: 'main', data: content }, { onConflict: 'id' });
+    const { error } = await supabase.from('content').upsert({ id: 1, data: content }, { onConflict: 'id' });
     if (error) return { success: false, error: error.message };
     return { success: true };
   } catch (err) {

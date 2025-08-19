@@ -138,7 +138,7 @@ export default function AdminDashboard({ onLogout }) {
         <Grid container spacing={4}>
           {/* Hero Section */}
           <Grid item xs={12}>
-            <HeroEditor content={content} setContent={setContent} />
+            <HeroEditor content={content} setContent={setContent} onError={setError} onUploadNotice={setUploadNotice} />
           </Grid>
 
           {/* Features Section */}
