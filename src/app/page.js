@@ -9,6 +9,7 @@ import FeaturesSection from '../components/FeaturesSection';
 import AboutSection from '../components/AboutSection';
 import ContactSection from '../components/ContactSection';
 import ProductsSection from '../components/ProductsSection';
+import { getContent } from '../lib/firebase';
 
 export default function Home() {
   const { updateTheme } = useTheme();
@@ -23,20 +24,23 @@ export default function Home() {
   useEffect(() => {
     const fetchContent = async () => {
       try {
-        const response = await fetch('/api/content');
-        const data = await response.json();
-        setContent(data);
-        
-        // Apply theme from content if available
-        if (data.theme) {
-          updateThemeRef.current({
-            mode: data.theme.mode || 'light',
-            primaryColor: data.theme.primaryColor || '#005F73',
-            secondaryColor: data.theme.secondaryColor || '#FFE347',
-            warningColor: data.theme.warningColor || '#FF90AD',
-            backgroundDefault: data.theme.backgroundDefault || '#F5F5F5',
-            backgroundPaper: data.theme.backgroundPaper || '#FFFFFF',
-          });
+        const result = await getContent();
+        if (result.success) {
+          setContent(result.data);
+          
+          // Apply theme from content if available
+          if (result.data.theme) {
+            updateThemeRef.current({
+              mode: result.data.theme.mode || 'light',
+              primaryColor: result.data.theme.primaryColor || '#005F73',
+              secondaryColor: result.data.theme.secondaryColor || '#FFE347',
+              warningColor: result.data.theme.warningColor || '#FF90AD',
+              backgroundDefault: result.data.theme.backgroundDefault || '#F5F5F5',
+              backgroundPaper: result.data.theme.backgroundPaper || '#FFFFFF',
+            });
+          }
+        } else {
+          console.error('Failed to fetch content:', result.error);
         }
       } catch (error) {
         console.error('Failed to fetch content:', error);

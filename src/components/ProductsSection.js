@@ -1,10 +1,19 @@
 'use client';
 
-import { Box, Typography, Grid, Card, CardMedia, CardContent, Button } from '@mui/material';
+import { useState, useEffect, useCallback } from 'react';
+import { Box, Typography, Card, CardMedia, CardContent, Button, CircularProgress, Alert, IconButton } from '@mui/material';
+import { Refresh, ChevronLeft, ChevronRight } from '@mui/icons-material';
 import { useTheme } from './ThemeProvider';
+import { getContent } from '../lib/firebase';
 
-const ProductsSection = ({ products = [] }) => {
+const ProductsSection = ({ products: propProducts = [] }) => {
   const { theme } = useTheme();
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
+  const [refreshing, setRefreshing] = useState(false);
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [isClient, setIsClient] = useState(false);
 
   // Default products if none provided
   const defaultProducts = [
@@ -45,7 +54,155 @@ const ProductsSection = ({ products = [] }) => {
     }
   ];
 
+  const fetchProducts = useCallback(async () => {
+    try {
+      setLoading(true);
+      setError('');
+      
+      console.log('Fetching products...', { propProducts: propProducts.length });
+      
+      // If products are passed as props, use them
+      if (propProducts.length > 0) {
+        console.log('Using products from props');
+        setProducts(propProducts);
+        setLoading(false);
+        return;
+      }
+
+      // Otherwise, fetch from Firebase
+      console.log('Fetching from Firebase...');
+      const result = await getContent();
+      console.log('Firebase result:', result);
+      
+      if (result.success && result.data.products) {
+        console.log('Setting products from Firebase:', result.data.products);
+        setProducts(result.data.products);
+      } else {
+        // Fallback to default products if Firebase fetch fails
+        console.log('Using default products');
+        setProducts(defaultProducts);
+      }
+    } catch (error) {
+      console.error('Failed to fetch products:', error);
+      setError('Failed to load products');
+      setProducts(defaultProducts);
+    } finally {
+      setLoading(false);
+    }
+  }, [propProducts]);
+
   const displayProducts = products.length > 0 ? products : defaultProducts;
+
+  useEffect(() => {
+    fetchProducts();
+  }, [fetchProducts]);
+
+  // Set client flag to prevent hydration mismatch
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  // Auto-advance slider - only on client side
+  useEffect(() => {
+    if (!isClient) return; // Wait for client hydration
+    if (displayProducts.length <= 1) return;
+    
+    const interval = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % displayProducts.length);
+    }, 5000); // Change slide every 5 seconds
+
+    return () => clearInterval(interval);
+  }, [displayProducts.length, isClient]);
+
+  // Show a simple loading state during SSR to prevent hydration mismatch
+  if (!isClient) {
+    return (
+      <Box
+        sx={{
+          py: 8,
+          bgcolor: 'background.default',
+          minHeight: '100vh',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center'
+        }}
+      >
+        <Typography variant="h4" color="text.secondary">
+          Loading...
+        </Typography>
+      </Box>
+    );
+  }
+
+  const handleRefresh = () => {
+    fetchProducts();
+  };
+
+  const nextSlide = () => {
+    setCurrentSlide((prev) => (prev + 1) % displayProducts.length);
+  };
+
+  const prevSlide = () => {
+    setCurrentSlide((prev) => (prev - 1 + displayProducts.length) % displayProducts.length);
+  };
+
+  const goToSlide = (index) => {
+    setCurrentSlide(index);
+  };
+
+  // Show loading state - only show on client to prevent hydration mismatch
+  if (loading && isClient) {
+    return (
+      <Box
+        sx={{
+          py: 8,
+          bgcolor: 'background.default',
+          minHeight: '100vh',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center'
+        }}
+      >
+        <CircularProgress size={60} sx={{ color: 'primary.main', mb: 3 }} />
+        <Typography variant="h6" color="text.secondary">
+          Loading products...
+        </Typography>
+      </Box>
+    );
+  }
+
+  // Show error state - only show on client to prevent hydration mismatch
+  if (error && isClient) {
+    return (
+      <Box
+        sx={{
+          py: 8,
+          bgcolor: 'background.default',
+          minHeight: '100vh',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center'
+        }}
+      >
+        <Alert severity="error" sx={{ mb: 3, maxWidth: 600 }}>
+          {error}
+        </Alert>
+        <Typography variant="body1" color="text.secondary" sx={{ mb: 3 }}>
+          Showing default products
+        </Typography>
+        <Button
+          variant="outlined"
+          onClick={handleRefresh}
+          sx={{ color: 'primary.main', borderColor: 'primary.main' }}
+        >
+          Try Again
+        </Button>
+      </Box>
+    );
+  }
 
   return (
     <Box
@@ -60,7 +217,24 @@ const ProductsSection = ({ products = [] }) => {
     >
       <Box sx={{ maxWidth: 'lg', mx: 'auto', px: 3 }}>
         {/* Section Header */}
-        <Box sx={{ textAlign: 'center', mb: 6 }}>
+        <Box sx={{ textAlign: 'center', mb: 6, position: 'relative' }}>
+          {isClient && (
+            <IconButton
+              onClick={handleRefresh}
+              sx={{
+                position: 'absolute',
+                right: 0,
+                top: 0,
+                color: 'primary.main',
+                '&:hover': {
+                  transform: 'rotate(180deg)',
+                  transition: 'transform 0.3s ease-in-out'
+                }
+              }}
+            >
+              <Refresh />
+            </IconButton>
+          )}
           <Typography
             variant="h2"
             sx={{
@@ -80,24 +254,93 @@ const ProductsSection = ({ products = [] }) => {
               lineHeight: 1.6
             }}
           >
-            Discover our premium collection of high-quality products designed to meet your needs
+            Discover our premium collection of {displayProducts.length} high-quality products designed to meet your needs
           </Typography>
         </Box>
 
-        {/* Products Grid */}
-        <Grid container spacing={4}>
-          {displayProducts.map((product) => (
-            <Grid item xs={12} sm={6} md={4} key={product.id}>
+        {/* Products Slider */}
+        {displayProducts.length === 0 ? (
+          <Box sx={{ textAlign: 'center', py: 8 }}>
+            <Typography variant="h6" color="text.secondary" sx={{ mb: 2 }}>
+              No products available at the moment
+            </Typography>
+            <Typography variant="body1" color="text.secondary" sx={{ mb: 3 }}>
+              Check back soon for our latest products!
+            </Typography>
+            <Button
+              variant="outlined"
+              onClick={handleRefresh}
+              sx={{ color: 'primary.main', borderColor: 'primary.main' }}
+            >
+              Try Again
+            </Button>
+          </Box>
+        ) : (
+          <Box sx={{ position: 'relative', mb: 6 }}>
+            {/* Navigation Arrows - only show on client */}
+            {isClient && (
+              <>
+                <IconButton
+                  onClick={prevSlide}
+                  sx={{
+                    position: 'absolute',
+                    left: -20,
+                    top: '50%',
+                    transform: 'translateY(-50%)',
+                    bgcolor: 'background.paper',
+                    color: 'primary.main',
+                    border: '2px solid',
+                    borderColor: 'primary.main',
+                    zIndex: 2,
+                    '&:hover': {
+                      bgcolor: 'primary.main',
+                      color: 'white',
+                    },
+                    '@media (max-width: 600px)': {
+                      left: 10,
+                    }
+                  }}
+                >
+                  <ChevronLeft />
+                </IconButton>
+
+                <IconButton
+                  onClick={nextSlide}
+                  sx={{
+                    position: 'absolute',
+                    right: -20,
+                    top: '50%',
+                    transform: 'translateY(-50%)',
+                    bgcolor: 'background.paper',
+                    color: 'primary.main',
+                    border: '2px solid',
+                    borderColor: 'primary.main',
+                    zIndex: 2,
+                    '&:hover': {
+                      bgcolor: 'primary.main',
+                      color: 'white',
+                    },
+                    '@media (max-width: 600px)': {
+                      right: 10,
+                    }
+                  }}
+                >
+                  <ChevronRight />
+                </IconButton>
+              </>
+            )}
+
+            {/* Current Product Card */}
+            <Box sx={{ display: 'flex', justifyContent: 'center' }}>
               <Card
                 sx={{
-                  height: '100%',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  transition: 'transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out',
+                  maxWidth: 600,
+                  width: '100%',
+                  transition: 'all 0.3s ease-in-out',
                   bgcolor: 'background.paper',
-                  border: `2px solid transparent`,
+                  border: '2px solid transparent',
                   '&:hover': {
-                    transform: 'translateY(-8px)',
+                    transform: 'translateY(-4px)',
                     boxShadow: '0 8px 25px rgba(0, 95, 115, 0.15)',
                     borderColor: 'secondary.main',
                   }
@@ -105,8 +348,8 @@ const ProductsSection = ({ products = [] }) => {
               >
                 <CardMedia
                   component="img"
-                  image={product.image}
-                  alt={product.name}
+                  image={displayProducts[currentSlide]?.image}
+                  alt={displayProducts[currentSlide]?.name}
                   sx={{
                     width: '100%',
                     height: 'auto',
@@ -116,64 +359,59 @@ const ProductsSection = ({ products = [] }) => {
                     borderBottom: `1px solid ${theme.palette.divider}`
                   }}
                 />
-                <CardContent
-                  sx={{
-                    flexGrow: 1,
-                    display: 'flex',
-                    flexDirection: 'column',
-                    p: 3
-                  }}
-                >
+                <CardContent sx={{ p: 4, textAlign: 'center' }}>
                   <Typography
-                    variant="h5"
+                    variant="h4"
                     component="h3"
                     sx={{
                       color: 'primary.main',
-                      mb: 1,
+                      mb: 2,
                       fontWeight: 600
                     }}
                   >
-                    {product.name}
+                    {displayProducts[currentSlide]?.name}
                   </Typography>
                   <Typography
                     variant="body1"
                     sx={{
                       color: 'text.primary',
-                      mb: 2,
-                      flexGrow: 1,
-                      lineHeight: 1.6
+                      mb: 3,
+                      lineHeight: 1.6,
+                      fontSize: '1.1rem'
                     }}
                   >
-                    {product.description}
+                    {displayProducts[currentSlide]?.description}
                   </Typography>
                   <Box
                     sx={{
                       display: 'flex',
                       justifyContent: 'space-between',
                       alignItems: 'center',
-                      mt: 'auto'
+                      flexWrap: 'wrap',
+                      gap: 2
                     }}
                   >
                     <Typography
-                      variant="h6"
+                      variant="h5"
                       sx={{
                         color: 'secondary.main',
                         fontWeight: 700,
-                        fontSize: '1.25rem'
+                        fontSize: '1.5rem'
                       }}
                     >
-                      {product.price}
+                      {displayProducts[currentSlide]?.price}
                     </Typography>
                     <Button
                       variant="contained"
+                      size="large"
                       sx={{
                         bgcolor: 'primary.main',
                         color: 'white',
+                        px: 4,
+                        py: 1.5,
                         '&:hover': {
                           bgcolor: 'primary.dark',
                         },
-                        px: 3,
-                        py: 1
                       }}
                     >
                       Learn More
@@ -181,9 +419,46 @@ const ProductsSection = ({ products = [] }) => {
                   </Box>
                 </CardContent>
               </Card>
-            </Grid>
-          ))}
-        </Grid>
+            </Box>
+
+            {/* Slide Indicators - only show on client */}
+            {isClient && (
+              <>
+                <Box sx={{ display: 'flex', justifyContent: 'center', mt: 4, gap: 1 }}>
+                  {displayProducts.map((_, index) => (
+                    <Box
+                      key={index}
+                      onClick={() => goToSlide(index)}
+                      sx={{
+                        width: 12,
+                        height: 12,
+                        borderRadius: '50%',
+                        bgcolor: index === currentSlide ? 'primary.main' : 'rgba(0, 95, 115, 0.2)',
+                        cursor: 'pointer',
+                        transition: 'all 0.3s ease-in-out',
+                        '&:hover': {
+                          bgcolor: index === currentSlide ? 'primary.dark' : 'rgba(0, 95, 115, 0.4)',
+                        }
+                      }}
+                    />
+                  ))}
+                </Box>
+
+                {/* Slide Counter */}
+                <Typography
+                  variant="body2"
+                  sx={{
+                    textAlign: 'center',
+                    color: 'text.secondary',
+                    mt: 2
+                  }}
+                >
+                  {currentSlide + 1} of {displayProducts.length}
+                </Typography>
+              </>
+            )}
+          </Box>
+        )}
 
         {/* Call to Action */}
         <Box sx={{ textAlign: 'center', mt: 6 }}>

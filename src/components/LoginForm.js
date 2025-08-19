@@ -10,9 +10,10 @@ import {
   Container,
 } from '@mui/material';
 import { Login } from '@mui/icons-material';
+import { signInUser } from '../lib/firebase';
 
 export default function LoginForm({ onLogin }) {
-  const [credentials, setCredentials] = useState({ username: '', password: '' });
+  const [credentials, setCredentials] = useState({ email: '', password: '' });
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
@@ -22,18 +23,11 @@ export default function LoginForm({ onLogin }) {
     setError('');
 
     try {
-      const response = await fetch('/api/auth', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(credentials),
-      });
-
-      const data = await response.json();
-      if (data.success) {
-        localStorage.setItem('admin-token', data.token);
+      const result = await signInUser(credentials.email, credentials.password);
+      if (result.success) {
         onLogin(true);
       } else {
-        setError(data.message || 'Login failed');
+        setError(result.error || 'Login failed');
       }
     } catch (error) {
       setError('Network error. Please try again.');
@@ -59,9 +53,10 @@ export default function LoginForm({ onLogin }) {
             <form onSubmit={handleSubmit}>
               <TextField
                 fullWidth
-                label="Username"
-                name="username"
-                value={credentials.username}
+                label="Email"
+                name="email"
+                type="email"
+                value={credentials.email}
                 onChange={(e) => setCredentials({...credentials, [e.target.name]: e.target.value})}
                 margin="normal"
                 required
@@ -91,7 +86,7 @@ export default function LoginForm({ onLogin }) {
 
             <Box mt={3} p={2} bgcolor="background.default" borderRadius={1}>
               <Typography variant="caption" color="text.secondary">
-                Demo credentials: Username: <strong>admin</strong>, Password: <strong>admin123</strong>
+                Use your Firebase authentication email and password
               </Typography>
             </Box>
           </CardContent>

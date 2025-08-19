@@ -33,6 +33,7 @@ import Shield from '@mui/icons-material/Shield';
 import FlashOn from '@mui/icons-material/FlashOn';
 import FavoriteBorder from '@mui/icons-material/FavoriteBorder';
 import EmojiEvents from '@mui/icons-material/EmojiEvents';
+import { getContent, updateContent, signOutUser } from '../lib/firebase';
 
 const iconMap = {
   Speed,
@@ -70,9 +71,12 @@ export default function AdminDashboard({ onLogout }) {
 
   const fetchContent = async () => {
     try {
-      const response = await fetch('/api/content');
-      const data = await response.json();
-      setContent(data);
+      const result = await getContent();
+      if (result.success) {
+        setContent(result.data);
+      } else {
+        setError('Failed to fetch content: ' + result.error);
+      }
     } catch (error) {
       setError('Failed to fetch content');
     } finally {
@@ -83,16 +87,11 @@ export default function AdminDashboard({ onLogout }) {
   const saveContent = async () => {
     setSaving(true);
     try {
-      const response = await fetch('/api/content', {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(content),
-      });
-
-      if (response.ok) {
+      const result = await updateContent(content);
+      if (result.success) {
         setSuccess(true);
       } else {
-        setError('Failed to save content');
+        setError('Failed to save content: ' + result.error);
       }
     } catch (error) {
       setError('Failed to save content');
@@ -101,9 +100,14 @@ export default function AdminDashboard({ onLogout }) {
     }
   };
 
-  const handleLogout = () => {
-    localStorage.removeItem('admin-token');
-    onLogout();
+  const handleLogout = async () => {
+    try {
+      await signOutUser();
+      onLogout();
+    } catch (error) {
+      console.error('Logout error:', error);
+      onLogout();
+    }
   };
 
   if (loading) {

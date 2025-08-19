@@ -3,18 +3,21 @@
 import { useState, useEffect } from 'react';
 import LoginForm from '../../components/LoginForm';
 import AdminDashboard from '../../components/AdminDashboard';
+import { subscribeToAuthChanges } from '../../lib/firebase';
 
 export default function AdminPage() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Check if user is already logged in
-    const token = localStorage.getItem('admin-token');
-    if (token) {
-      setIsAuthenticated(true);
-    }
-    setLoading(false);
+    // Listen to Firebase authentication state changes
+    const unsubscribe = subscribeToAuthChanges((user) => {
+      setIsAuthenticated(!!user);
+      setLoading(false);
+    });
+
+    // Cleanup subscription
+    return () => unsubscribe();
   }, []);
 
   const handleLogin = (success) => {
