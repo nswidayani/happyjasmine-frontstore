@@ -72,7 +72,7 @@ export default function Home() {
 
       {/* Page Sections */}
       <HeroSection heroData={content?.hero} />
-      {/* <FeaturesSection features={content?.features} /> */}
+      <FeaturesSection features={content?.features} />
       <ProductsSection products={content?.products} />
       <AboutSection aboutData={content?.about} />
       <ContactSection contactData={content?.contact} />

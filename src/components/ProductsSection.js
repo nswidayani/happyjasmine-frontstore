@@ -5,7 +5,7 @@ import { Box, Typography, Button, CircularProgress, Alert } from '@mui/material'
 import { useTheme } from './ThemeProvider';
 import { getContent } from '../lib/supabase';
 import ProductsHeader from './products/ProductsHeader';
-import SliderControls from './products/SliderControls';
+import ProductCarousel from './products/ProductCarousel';
 import ProductCard from './products/ProductCard';
 
 const ProductsSection = ({ products: propProducts = [] }) => {
@@ -51,7 +51,7 @@ const ProductsSection = ({ products: propProducts = [] }) => {
       id: 5,
       name: 'Product 5',
       description: 'Cutting-edge technology for the future',
-      image: '/products/WhatsApp Image 2025-08-18 at 16.42.27.jpeg',
+      image: '/products/WhatsApp Image 2025-08-18 at 16.42.28.jpeg',
       price: '$199.99'
     }
   ];
@@ -107,7 +107,7 @@ const ProductsSection = ({ products: propProducts = [] }) => {
   // Auto-advance slider - only on client side
   useEffect(() => {
     if (!isClient) return; // Wait for client hydration
-    if (displayProducts.length <= 1) return;
+    if (displayProducts.length <= 3) return; // Don't auto-advance if only 3 or fewer products
     
     const interval = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % displayProducts.length);
@@ -157,7 +157,7 @@ const ProductsSection = ({ products: propProducts = [] }) => {
       <Box
         sx={{
           py: 8,
-          bgcolor: 'background.default',
+          bgcolor: 'primary.main',
           minHeight: '100vh',
           display: 'flex',
           flexDirection: 'column',
@@ -218,7 +218,7 @@ const ProductsSection = ({ products: propProducts = [] }) => {
       <Box sx={{ maxWidth: 'lg', mx: 'auto', px: 3 }}>
         <ProductsHeader count={displayProducts.length} onRefresh={handleRefresh} showRefresh={isClient} />
 
-        {/* Products Slider */}
+        {/* Products Carousel */}
         {displayProducts.length === 0 ? (
           <Box sx={{ textAlign: 'center', py: 8 }}>
             <Typography variant="h6" color="text.secondary" sx={{ mb: 2 }}>
@@ -237,18 +237,38 @@ const ProductsSection = ({ products: propProducts = [] }) => {
           </Box>
         ) : (
           <Box sx={{ position: 'relative', mb: 6 }}>
-            {isClient && (
-              <SliderControls
-                count={displayProducts.length}
-                current={currentSlide}
+            {isClient && displayProducts.length > 3 && (
+              <ProductCarousel
+                products={displayProducts}
+                currentIndex={currentSlide}
                 onPrev={prevSlide}
                 onNext={nextSlide}
                 onGoTo={goToSlide}
               />
             )}
-            <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-              <ProductCard product={displayProducts[currentSlide]} />
-            </Box>
+            {/* Fallback for 3 or fewer products - show them all */}
+            {isClient && displayProducts.length <= 3 && (
+              <Box sx={{ 
+                display: 'flex', 
+                justifyContent: 'center', 
+                gap: 4, 
+                flexWrap: 'wrap',
+                py: 4
+              }}>
+                {displayProducts.map((product, index) => (
+                  <Box key={product.id} sx={{ 
+                    flex: index === 1 ? '1 1 auto' : '0 0 auto',
+                    maxWidth: index === 1 ? '600px' : '400px'
+                  }}>
+                    <ProductCard 
+                      product={product} 
+                      variant={index === 1 ? 'focused' : 'compact'}
+                      isFocused={index === 1}
+                    />
+                  </Box>
+                ))}
+              </Box>
+            )}
           </Box>
         )}
 
