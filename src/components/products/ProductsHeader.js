@@ -13,10 +13,10 @@ export default function ProductsHeader({ count, onRefresh, showRefresh }) {
         </IconButton>
       )}
       <Typography variant="h2" sx={{ color: 'primary.main', mb: 2, fontWeight: 700 }}>
-        Our Products
+        Varian Rasa HappyJasmine
       </Typography>
       <Typography variant="h5" sx={{ color: 'text.secondary', maxWidth: '600px', mx: 'auto', lineHeight: 1.6 }}>
-        Discover our premium collection of {count} high-quality products designed to meet your needs
+        Pilihan Rasa Terbaik untukmu
       </Typography>
     </Box>
   );

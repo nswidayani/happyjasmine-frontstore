@@ -168,7 +168,7 @@ export default function ImageSlider({ slides = [] }) {
                             size="large"
                             sx={{
                                 bgcolor: 'primary.main',
-                                color: 'white',
+                                color: 'secondary.main',
                                 px: { xs: 3, md: 5 },
                                 py: { xs: 1.5, md: 2 },
                                 fontSize: { xs: '1rem', md: '1.1rem' },
@@ -178,22 +178,6 @@ export default function ImageSlider({ slides = [] }) {
                             }}
                         >
                             Get Started
-                        </Button>
-                        <Button
-                            variant="outlined"
-                            size="large"
-                            sx={{
-                                borderColor: 'primary.main',
-                                color: 'primary.main',
-                                px: { xs: 3, md: 5 },
-                                py: { xs: 1.5, md: 2 },
-                                fontSize: { xs: '1rem', md: '1.1rem' },
-                                fontWeight: 500,
-                                borderRadius: '50px',
-                                minWidth: { xs: '140px', md: '180px' },
-                            }}
-                        >
-                            Learn More
                         </Button>
                     </Box>
                 </Box>

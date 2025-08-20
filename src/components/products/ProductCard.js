@@ -40,11 +40,11 @@ export default function ProductCard({ product }) {
           {product.description}
         </Typography>
         <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 2 }}>
-          <Typography variant="h5" sx={{ color: 'secondary.main', fontWeight: 700, fontSize: '1.5rem' }}>
+          <Typography variant="h5" sx={{ color: 'primary.main', fontWeight: 700, fontSize: '1.5rem' }}>
             {product.price}
           </Typography>
-          <Button variant="contained" size="large" sx={{ bgcolor: 'primary.main', color: 'white', px: 4, py: 1.5, '&:hover': { bgcolor: 'primary.dark' } }}>
-            Learn More
+          <Button variant="contained" size="large" sx={{ bgcolor: 'primary.main', color: 'secondary.main', fontWeight: 700, px: 4, py: 1.5, '&:hover': { bgcolor: 'primary.dark' } }}>
+            Jelajah Rasa
           </Button>
         </Box>
       </CardContent>

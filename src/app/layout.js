@@ -2,8 +2,8 @@ import ClientThemeProvider from '../components/ThemeProvider';
 import "./globals.css";
 
 export const metadata = {
-  title: "Landing Page Admin",
-  description: "Dynamic landing page with admin dashboard",
+  title: "Happy Jasmine - A part of the family",
+  description: "Berbagi keseruan bersama",
 };
 
 export default function RootLayout({ children }) {

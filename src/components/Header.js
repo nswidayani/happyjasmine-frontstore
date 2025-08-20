@@ -7,7 +7,7 @@ export default function Header() {
     <AppBar 
       position="sticky" 
       sx={{ 
-        bgcolor: 'rgba(255, 255, 255, 0.95)',
+        bgcolor: 'secondary.main',
         backdropFilter: 'blur(10px)',
         boxShadow: '0 2px 20px rgba(0, 95, 115, 0.1)',
         borderBottom: '1px solid rgba(0, 95, 115, 0.05)'
@@ -85,7 +85,7 @@ export default function Header() {
               href="/admin"
               sx={{
                 bgcolor: 'primary.main',
-                color: 'white',
+                color: 'secondary.main',
                 px: 3,
                 py: 1,
                 borderRadius: '25px',
@@ -93,6 +93,7 @@ export default function Header() {
                 '&:hover': {
                   bgcolor: 'primary.dark',
                   transform: 'translateY(-1px)',
+                  color: 'secondary.main',
                   boxShadow: '0 4px 20px rgba(0, 95, 115, 0.3)'
                 },
                 transition: 'all 0.2s ease'

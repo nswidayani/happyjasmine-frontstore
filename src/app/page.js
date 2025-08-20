@@ -74,7 +74,7 @@ export default function Home() {
       <HeroSection heroData={content?.hero} />
       {/* <FeaturesSection features={content?.features} /> */}
       <ProductsSection products={content?.products} />
-      {/* <AboutSection aboutData={content?.about} /> */}
+      <AboutSection aboutData={content?.about} />
       <ContactSection contactData={content?.contact} />
       
       {/* Footer */}

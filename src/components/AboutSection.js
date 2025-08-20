@@ -6,7 +6,7 @@ export default function AboutSection({ aboutData }) {
     <Box 
       sx={{ 
         py: { xs: 12, md: 20 },
-        bgcolor: 'var(--card-hover)',
+        bgcolor: 'secondary.main',
         position: 'relative',
         overflow: 'hidden',
         '&::before': {
@@ -55,7 +55,7 @@ export default function AboutSection({ aboutData }) {
               <Typography
                 variant="overline"
                 sx={{
-                  color: 'var(--primary)',
+                  color: 'primary.main',
                   fontWeight: 600,
                   letterSpacing: '0.1em',
                   mb: 2,
@@ -73,12 +73,11 @@ export default function AboutSection({ aboutData }) {
                   mb: 4,
                   fontSize: { xs: '2.5rem', sm: '3rem', md: '3.5rem', lg: '4rem' },
                   fontWeight: 700,
-                  background: 'var(--gradient-primary)',
-                  backgroundClip: 'text',
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                  letterSpacing: '-0.02em',
-                  lineHeight: 1.1,
+                  color: 'primary.main',
+                  fontWeight: 600,
+                  letterSpacing: '0.1em',
+                  mb: 2,
+                  display: 'block',
                 }}
               >
                 {aboutData?.title || 'About Our Company'}
@@ -97,7 +96,7 @@ export default function AboutSection({ aboutData }) {
                 {aboutData?.description || 'We are a leading technology company dedicated to providing innovative solutions that help businesses grow and succeed in the digital age.'}
               </Typography>
               
-              <Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap' }}>
+              {/* <Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap' }}>
                 <Button
                   variant="contained"
                   size="large"
@@ -142,11 +141,11 @@ export default function AboutSection({ aboutData }) {
                 >
                   Contact Us
                 </Button>
-              </Box>
+              </Box> */}
             </Box>
           </Grid>
           
-          <Grid item xs={12} md={6}>
+          {/* <Grid item xs={12} md={6}>
             <Box
               sx={{
                 position: 'relative',
@@ -217,7 +216,7 @@ export default function AboutSection({ aboutData }) {
                 </Box>
               </Box>
             </Box>
-          </Grid>
+          </Grid> */}
         </Grid>
       </Container>
     </Box>

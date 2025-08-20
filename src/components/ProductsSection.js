@@ -258,8 +258,8 @@ const ProductsSection = ({ products: propProducts = [] }) => {
             variant="contained"
             size="large"
             sx={{
-              bgcolor: 'secondary.main',
-              color: 'primary.main',
+              bgcolor: 'primary.main',
+              color: 'secondary.main',
               px: 4,
               py: 2,
               fontSize: '1.1rem',
@@ -271,7 +271,7 @@ const ProductsSection = ({ products: propProducts = [] }) => {
               transition: 'all 0.3s ease-in-out'
             }}
           >
-            View All Products
+            Jelajah Semua Rasa
           </Button>
         </Box>
       </Box>
