@@ -49,7 +49,7 @@ export default function FeaturesSection({ features }) {
     <Box 
       sx={{ 
         py: { xs: 8, md: 16 },
-        bgcolor: 'var(--background)',
+        bgcolor: 'primary.main',
         position: 'relative',
         overflow: 'hidden',
         '&::before': {
