@@ -61,40 +61,16 @@ export default function Header() {
               <IconButton
                 onClick={toggleMenu}
                 sx={{
-                  color: 'white',
-                  bgcolor: 'rgba(255, 255, 255, 0.1)',
-                  border: '1px solid rgba(255, 255, 255, 0.2)',
+                  color: 'primary.main',
                   '&:hover': {
-                    bgcolor: 'rgba(255, 255, 255, 0.2)',
-                    transform: 'scale(1.05)'
+                    transform: 'scale(1.25)'
                   },
                   transition: 'all 0.2s ease-in-out'
                 }}
               >
-                <MenuIcon sx={{ fontSize: 24 }} />
+                <MenuIcon sx={{ fontSize: 40 }} />
+                MENU
               </IconButton>
-              
-              <Button 
-                variant="contained"
-                href="/admin"
-                sx={{
-                  bgcolor: 'primary.main',
-                  color: 'secondary.main',
-                  px: 3,
-                  py: 1,
-                  borderRadius: '25px',
-                  fontWeight: 600,
-                  '&:hover': {
-                    bgcolor: 'primary.dark',
-                    transform: 'translateY(-1px)',
-                    color: 'secondary.main',
-                    boxShadow: '0 4px 20px rgba(0, 95, 115, 0.3)'
-                  },
-                  transition: 'all 0.2s ease'
-                }}
-              >
-                Admin
-              </Button>
             </Box>
           </Toolbar>
         </Container>

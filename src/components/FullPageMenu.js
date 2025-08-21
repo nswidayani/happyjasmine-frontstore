@@ -13,7 +13,8 @@ import {
   Home as HomeIcon,
   Category as ProductsIcon,
   Info as AboutIcon,
-  Campaign as CampaignIcon
+  Campaign as CampaignIcon,
+  AdminPanelSettings as AdminIcon
 } from '@mui/icons-material';
 import Link from 'next/link';
 
@@ -46,6 +47,14 @@ const menuItems = [
     path: '#',
     color: 'rgba(255, 255, 255, 0.5)',
     disabled: true
+  },
+  {
+    title: 'Admin',
+    description: 'Access admin panel',
+    icon: <AdminIcon sx={{ fontSize: 48, color: 'white' }} />,
+    path: '/admin',
+    color: 'rgba(255, 255, 255, 0.9)',
+    external: true
   }
 ];
 
@@ -66,8 +75,12 @@ export default function FullPageMenu({ open, onClose }) {
   const handleMenuClick = (item) => {
     if (!item.disabled) {
       onClose();
-      // Smooth scroll to section if it's an anchor link
-      if (item.path.includes('#')) {
+      
+      if (item.external) {
+        // For external links like Admin, navigate directly
+        window.location.href = item.path;
+      } else if (item.path.includes('#')) {
+        // Smooth scroll to section if it's an anchor link
         const element = document.querySelector(item.path.substring(1));
         if (element) {
           element.scrollIntoView({ behavior: 'smooth' });
@@ -132,7 +145,8 @@ export default function FullPageMenu({ open, onClose }) {
               item 
               xs={12} 
               sm={6} 
-              md={3} 
+              md={4} 
+              lg={3}
               key={item.title}
               sx={{
                 opacity: animateIn ? 1 : 0,
