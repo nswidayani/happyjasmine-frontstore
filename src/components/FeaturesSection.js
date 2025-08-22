@@ -48,49 +48,11 @@ export default function FeaturesSection({ features }) {
   return (
     <Box 
       sx={{ 
-        py: { xs: 8, md: 16 },
-        bgcolor: 'primary.main',
+        py: { xs: 4, md: 6 },
         position: 'relative',
-        overflow: 'hidden',
-        '&::before': {
-          content: '""',
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          right: 0,
-          height: '1px',
-          background: 'linear-gradient(90deg, transparent 0%, var(--border) 50%, transparent 100%)',
-        }
+        overflow: 'hidden'
       }}
     >
-      {/* Background decorative elements */}
-      <Box
-        sx={{
-          position: 'absolute',
-          top: '10%',
-          right: '5%',
-          width: 200,
-          height: 200,
-          borderRadius: '50%',
-          background: 'radial-gradient(circle, var(--primary-light) 0%, transparent 70%)',
-          opacity: 0.03,
-          zIndex: 0,
-        }}
-      />
-      <Box
-        sx={{
-          position: 'absolute',
-          bottom: '20%',
-          left: '5%',
-          width: 150,
-          height: 150,
-          borderRadius: '50%',
-          background: 'radial-gradient(circle, var(--accent) 0%, transparent 70%)',
-          opacity: 0.03,
-          zIndex: 0,
-        }}
-      />
-
       <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 1 }}>
         <Box textAlign="center" sx={{ mb: { xs: 6, md: 10 } }}>
           <Typography

@@ -121,9 +121,7 @@ const ProductsSection = ({ products: propProducts = [] }) => {
     return (
       <Box
         sx={{
-          py: 8,
-          bgcolor: 'background.default',
-          minHeight: '100vh',
+          py: 4,
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'center',
@@ -156,9 +154,7 @@ const ProductsSection = ({ products: propProducts = [] }) => {
     return (
       <Box
         sx={{
-          py: 8,
-          bgcolor: 'primary.main',
-          minHeight: '100vh',
+          py: 4,
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'center',
@@ -178,9 +174,7 @@ const ProductsSection = ({ products: propProducts = [] }) => {
     return (
       <Box
         sx={{
-          py: 8,
-          bgcolor: 'background.default',
-          minHeight: '100vh',
+          py: 4,
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'center',
@@ -196,7 +190,7 @@ const ProductsSection = ({ products: propProducts = [] }) => {
         <Button
           variant="outlined"
           onClick={handleRefresh}
-          sx={{ color: 'primary.main', borderColor: 'primary.main' }}
+          sx={{ color: 'secondary.main', borderColor: 'secondary.main' }}
         >
           Try Again
         </Button>
@@ -207,9 +201,7 @@ const ProductsSection = ({ products: propProducts = [] }) => {
   return (
     <Box
       sx={{
-        py: 8,
-        bgcolor: 'background.default',
-        minHeight: '100vh',
+        py: 4,
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center'
@@ -230,7 +222,7 @@ const ProductsSection = ({ products: propProducts = [] }) => {
             <Button
               variant="outlined"
               onClick={handleRefresh}
-              sx={{ color: 'primary.main', borderColor: 'primary.main' }}
+              sx={{ color: 'secondary.main', borderColor: 'secondary.main' }}
             >
               Try Again
             </Button>
@@ -278,8 +270,8 @@ const ProductsSection = ({ products: propProducts = [] }) => {
             variant="contained"
             size="large"
             sx={{
-              bgcolor: 'primary.main',
-              color: 'secondary.main',
+              bgcolor: 'secondary.main',
+              color: 'primary.main',
               px: 4,
               py: 2,
               fontSize: '1.1rem',

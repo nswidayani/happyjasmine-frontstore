@@ -43,12 +43,12 @@ const menuItems = [
   }
 ];
 
-export default function AdminSidebar({ open, onClose, currentPath }) {
+export default function AdminSidebar({ open, onClose }) {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const pathname = usePathname();
 
-  const drawerWidth = 280;
+  const drawerWidth = isMobile ? '100%' : 280;
 
   const handleNavigation = (path) => {
     if (isMobile) {
@@ -57,22 +57,29 @@ export default function AdminSidebar({ open, onClose, currentPath }) {
   };
 
   const drawerContent = (
-    <Box sx={{ width: drawerWidth, height: '100%' }}>
+    <Box sx={{ width: '100%', height: '100%' }}>
       {/* Header */}
       <Box sx={{ 
-        p: 3, 
+        p: { xs: 2, md: 3 }, 
         borderBottom: `1px solid ${theme.palette.divider}`,
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between'
       }}>
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-          <WebIcon sx={{ color: 'primary.main', fontSize: 28 }} />
+          <WebIcon sx={{ color: 'primary.main', fontSize: { xs: 24, md: 28 } }} />
           <Box>
-            <Box sx={{ fontWeight: 700, fontSize: '1.1rem', color: 'primary.main' }}>
+            <Box sx={{ 
+              fontWeight: 700, 
+              fontSize: { xs: '1rem', md: '1.1rem' }, 
+              color: 'primary.main' 
+            }}>
               Admin Panel
             </Box>
-            <Box sx={{ fontSize: '0.8rem', color: 'text.secondary' }}>
+            <Box sx={{ 
+              fontSize: { xs: '0.7rem', md: '0.8rem' }, 
+              color: 'text.secondary' 
+            }}>
               Happy Jasmine
             </Box>
           </Box>
@@ -85,7 +92,7 @@ export default function AdminSidebar({ open, onClose, currentPath }) {
       </Box>
 
       {/* Navigation Menu */}
-      <List sx={{ px: 2, py: 1 }}>
+      <List sx={{ px: { xs: 1, md: 2 }, py: 1 }}>
         {menuItems.map((item) => {
           const isActive = pathname === item.path;
           return (
@@ -100,12 +107,13 @@ export default function AdminSidebar({ open, onClose, currentPath }) {
                       bgcolor: isActive ? 'primary.dark' : 'action.hover',
                     },
                     transition: 'all 0.2s ease-in-out',
-                    py: 2
+                    py: { xs: 1.5, md: 2 },
+                    px: { xs: 1.5, md: 2 }
                   }}
                 >
                   <ListItemIcon sx={{ 
                     color: isActive ? 'primary.contrastText' : 'primary.main',
-                    minWidth: 40
+                    minWidth: { xs: 36, md: 40 }
                   }}>
                     {item.icon}
                   </ListItemIcon>
@@ -114,10 +122,10 @@ export default function AdminSidebar({ open, onClose, currentPath }) {
                     secondary={item.description}
                     primaryTypographyProps={{
                       fontWeight: isActive ? 600 : 500,
-                      fontSize: '0.95rem'
+                      fontSize: { xs: '0.9rem', md: '0.95rem' }
                     }}
                     secondaryTypographyProps={{
-                      fontSize: '0.75rem',
+                      fontSize: { xs: '0.7rem', md: '0.75rem' },
                       color: isActive ? 'rgba(255,255,255,0.7)' : 'text.secondary'
                     }}
                   />
@@ -128,14 +136,21 @@ export default function AdminSidebar({ open, onClose, currentPath }) {
         })}
       </List>
 
-      <Divider sx={{ my: 2 }} />
+      <Divider sx={{ my: { xs: 1, md: 2 } }} />
 
       {/* User Info */}
-      <Box sx={{ p: 3, textAlign: 'center' }}>
-        <Box sx={{ fontSize: '0.8rem', color: 'text.secondary', mb: 1 }}>
+      <Box sx={{ p: { xs: 2, md: 3 }, textAlign: 'center' }}>
+        <Box sx={{ 
+          fontSize: { xs: '0.7rem', md: '0.8rem' }, 
+          color: 'text.secondary', 
+          mb: 1 
+        }}>
           Logged in as Admin
         </Box>
-        <Box sx={{ fontSize: '0.7rem', color: 'text.disabled' }}>
+        <Box sx={{ 
+          fontSize: { xs: '0.6rem', md: '0.7rem' }, 
+          color: 'text.disabled' 
+        }}>
           Happy Jasmine Admin Panel
         </Box>
       </Box>
@@ -151,7 +166,8 @@ export default function AdminSidebar({ open, onClose, currentPath }) {
         ModalProps={{ keepMounted: true }}
         sx={{
           '& .MuiDrawer-paper': {
-            width: drawerWidth,
+            width: '100%',
+            maxWidth: '320px',
             boxSizing: 'border-box',
           },
         }}

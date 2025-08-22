@@ -5,10 +5,9 @@ import { Box, Typography } from '@mui/material';
 import { useTheme } from '../components/ThemeProvider';
 import Header from '../components/Header';
 import HeroSection from '../components/HeroSection';
-import FeaturesSection from '../components/FeaturesSection';
+import ProductsFeaturesSection from '../components/ProductsFeaturesSection';
 import AboutSection from '../components/AboutSection';
 import ContactSection from '../components/ContactSection';
-import ProductsSection from '../components/ProductsSection';
 import { getContent } from '../lib/supabase';
 
 export default function Home() {
@@ -72,8 +71,7 @@ export default function Home() {
 
       {/* Page Sections */}
       <HeroSection heroData={content?.hero} />
-      <FeaturesSection features={content?.features} />
-      <ProductsSection products={content?.products} />
+      <ProductsFeaturesSection products={content?.products} features={content?.features} />
       <AboutSection aboutData={content?.about} />
       <ContactSection contactData={content?.contact} />
       

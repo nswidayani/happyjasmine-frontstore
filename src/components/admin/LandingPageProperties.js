@@ -11,8 +11,7 @@ import {
 } from '@mui/material';
 import { getContent, updateContent } from '../../lib/supabase';
 import HeroEditor from './HeroEditor';
-import FeaturesEditor from './FeaturesEditor';
-import ProductsEditor from './ProductsEditor';
+import ProductsFeaturesEditor from './ProductsFeaturesEditor';
 import AboutEditor from './AboutEditor';
 import ContactEditor from './ContactEditor';
 
@@ -74,10 +73,19 @@ export default function LandingPageProperties() {
   }
 
   return (
-    <Container maxWidth="xl" sx={{ py: 2 }}>
+    <Container maxWidth="xl" sx={{ py: { xs: 1, sm: 2 } }}>
       {/* Header */}
-      <Box sx={{ mb: 4 }}>
-        <Typography variant="h3" component="h1" sx={{ mb: 2, color: 'primary.main', fontWeight: 700 }}>
+      <Box sx={{ mb: { xs: 2, sm: 3, md: 4 } }}>
+        <Typography 
+          variant="h3" 
+          component="h1" 
+          sx={{ 
+            mb: { xs: 1, sm: 2 }, 
+            color: 'primary.main', 
+            fontWeight: 700,
+            fontSize: { xs: '1.75rem', sm: '2.25rem', md: '3rem' }
+          }}
+        >
           Landing Page Properties
         </Typography>
         <Typography variant="body1" color="text.secondary" sx={{ mb: 3 }}>
@@ -149,7 +157,7 @@ export default function LandingPageProperties() {
       </Box>
 
       {/* Content Editors */}
-      <Grid container spacing={4}>
+      <Grid container spacing={{ xs: 2, sm: 3, md: 4 }}>
         {/* Hero Section */}
         <Grid item xs={12}>
           <HeroEditor 
@@ -160,17 +168,9 @@ export default function LandingPageProperties() {
           />
         </Grid>
 
-        {/* Features Section */}
+        {/* Products and Features Section */}
         <Grid item xs={12}>
-          <FeaturesEditor 
-            content={content} 
-            setContent={setContent} 
-          />
-        </Grid>
-
-        {/* Products Section */}
-        <Grid item xs={12}>
-          <ProductsEditor 
+          <ProductsFeaturesEditor 
             content={content} 
             setContent={setContent} 
             onError={setError} 

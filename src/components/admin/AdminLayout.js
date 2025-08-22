@@ -67,7 +67,12 @@ export default function AdminLayout({ children, onLogout }) {
             zIndex: theme.zIndex.drawer + 1
           }}
         >
-          <Toolbar sx={{ px: { xs: 2, md: 3 } }}>
+          <Toolbar sx={{ 
+            px: { xs: 1, sm: 2, md: 3 },
+            py: { xs: 1, md: 1.5 },
+            flexWrap: 'wrap',
+            gap: { xs: 1, sm: 2 }
+          }}>
             {/* Mobile Menu Button */}
             {isMobile && (
               <IconButton
@@ -75,7 +80,10 @@ export default function AdminLayout({ children, onLogout }) {
                 color="inherit"
                 aria-label="menu"
                 onClick={toggleSidebar}
-                sx={{ mr: 2 }}
+                sx={{ 
+                  mr: { xs: 1, sm: 2 },
+                  color: 'primary.main'
+                }}
               >
                 <MenuIcon />
               </IconButton>
@@ -97,8 +105,8 @@ export default function AdminLayout({ children, onLogout }) {
                 <Image
                   src="/logo.svg"
                   alt="Happy Jasmine"
-                  width={60}
-                  height={30}
+                  width={isMobile ? 50 : 60}
+                  height={isMobile ? 25 : 30}
                   style={{
                     height: 'auto',
                     maxWidth: '100%',
@@ -111,18 +119,28 @@ export default function AdminLayout({ children, onLogout }) {
 
             {/* Page Title */}
             <Typography 
-              variant="h6" 
+              variant={isMobile ? "subtitle1" : "h6"}
               sx={{ 
                 flexGrow: 1,
                 color: 'primary.main',
-                fontWeight: 600
+                fontWeight: 600,
+                fontSize: { xs: '1rem', sm: '1.1rem', md: '1.25rem' },
+                minWidth: 0,
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+                whiteSpace: 'nowrap'
               }}
             >
               {getPageTitle()}
             </Typography>
 
             {/* Action Buttons */}
-            <Box sx={{ display: 'flex', gap: 1 }}>
+            <Box sx={{ 
+              display: 'flex', 
+              gap: { xs: 0.5, sm: 1 },
+              flexWrap: 'wrap',
+              alignItems: 'center'
+            }}>
               <Button 
                 color="inherit" 
                 href="/" 
@@ -130,15 +148,19 @@ export default function AdminLayout({ children, onLogout }) {
                 sx={{ 
                   color: 'primary.main',
                   borderColor: 'primary.main',
+                  fontSize: { xs: '0.75rem', sm: '0.875rem' },
+                  px: { xs: 1.5, sm: 2 },
+                  py: { xs: 0.5, sm: 1 },
+                  minWidth: { xs: 'auto', sm: 'auto' },
                   '&:hover': {
                     bgcolor: 'primary.main',
                     color: 'white'
                   }
                 }}
                 variant="outlined"
-                size="small"
+                size={isMobile ? "small" : "medium"}
               >
-                View Site
+                {isMobile ? 'View' : 'View Site'}
               </Button>
               <Button 
                 color="inherit" 
@@ -147,15 +169,19 @@ export default function AdminLayout({ children, onLogout }) {
                 sx={{ 
                   color: 'error.main',
                   borderColor: 'error.main',
+                  fontSize: { xs: '0.75rem', sm: '0.875rem' },
+                  px: { xs: 1.5, sm: 2 },
+                  py: { xs: 0.5, sm: 1 },
+                  minWidth: { xs: 'auto', sm: 'auto' },
                   '&:hover': {
                     bgcolor: 'error.main',
                     color: 'white'
                   }
                 }}
                 variant="outlined"
-                size="small"
+                size={isMobile ? "small" : "medium"}
               >
-                Logout
+                {isMobile ? 'Logout' : 'Logout'}
               </Button>
             </Box>
           </Toolbar>
@@ -168,7 +194,9 @@ export default function AdminLayout({ children, onLogout }) {
             flexGrow: 1,
             bgcolor: 'background.default',
             minHeight: 'calc(100vh - 64px)',
-            p: { xs: 2, md: 3 }
+            p: { xs: 1, sm: 2, md: 3 },
+            width: '100%',
+            overflow: 'hidden'
           }}
         >
           {children}

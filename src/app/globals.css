@@ -176,3 +176,96 @@ button {
     padding: 0 4rem;
   }
 }
+
+/* Custom Tab Animations */
+@keyframes tabGlow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(99, 102, 241, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(99, 102, 241, 0.6), 0 0 40px rgba(99, 102, 241, 0.3);
+  }
+}
+
+@keyframes tabPulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.02);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes tabSlideIn {
+  0% {
+    opacity: 0;
+    transform: translateY(30px) scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes tabBounce {
+  0%, 20%, 53%, 80%, 100% {
+    transform: translate3d(0, 0, 0);
+  }
+  40%, 43% {
+    transform: translate3d(0, -8px, 0);
+  }
+  70% {
+    transform: translate3d(0, -4px, 0);
+  }
+  90% {
+    transform: translate3d(0, -2px, 0);
+  }
+}
+
+/* Tab hover effects */
+.tab-hover-glow:hover {
+  animation: tabGlow 2s ease-in-out infinite;
+}
+
+.tab-hover-pulse:hover {
+  animation: tabPulse 0.6s ease-in-out;
+}
+
+.tab-hover-bounce:hover {
+  animation: tabBounce 0.8s ease-in-out;
+}
+
+/* Floating animation for tab icons */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+.tab-icon-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Gradient text animation */
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.gradient-text-animated {
+  background-size: 200% 200%;
+  animation: gradientShift 3s ease infinite;
+}
