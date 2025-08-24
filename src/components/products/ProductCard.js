@@ -13,7 +13,7 @@ export default function ProductCard({ product, variant = 'default', isFocused = 
       maxImageHeight: '400px',
       titleVariant: 'h4',
       descriptionFontSize: '1.1rem',
-      priceFontSize: '1.5rem',
+      priceFontSize: '1.3rem',
       buttonSize: 'large',
       padding: 4
     },
@@ -47,17 +47,17 @@ export default function ProductCard({ product, variant = 'default', isFocused = 
         maxWidth: size.maxWidth,
         width: '100%',
         transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
-        bgcolor: 'background.paper',
+        bgcolor: 'primary.main',
         border: isFocused ? '3px solid' : '2px solid transparent',
         borderColor: isFocused ? 'secondary.main' : 'transparent',
         transform: isFocused ? 'scale(1.05)' : 'scale(1)',
-        boxShadow: isFocused 
-          ? '0 12px 40px rgba(0, 95, 115, 0.25)' 
+        boxShadow: isFocused
+          ? '0 12px 40px rgba(0, 95, 115, 0.25)'
           : '0 4px 20px rgba(0, 95, 115, 0.1)',
         '&:hover': {
           transform: isFocused ? 'scale(1.08)' : 'translateY(-4px)',
-          boxShadow: isFocused 
-            ? '0 16px 50px rgba(0, 95, 115, 0.3)' 
+          boxShadow: isFocused
+            ? '0 16px 50px rgba(0, 95, 115, 0.3)'
             : '0 8px 25px rgba(0, 95, 115, 0.15)',
           borderColor: 'secondary.main',
         }
@@ -72,69 +72,70 @@ export default function ProductCard({ product, variant = 'default', isFocused = 
           height: size.imageHeight,
           maxHeight: size.maxImageHeight,
           aspectRatio: 'auto',
+          borderRadius: '20px',
           objectFit: 'contain',
           borderBottom: `1px solid ${theme.palette.divider}`,
           transition: 'all 0.3s ease-in-out'
         }}
       />
       <CardContent sx={{ p: size.padding, textAlign: 'center' }}>
-        <Typography 
-          variant={size.titleVariant} 
-          component="h3" 
-          sx={{ 
-            color: 'primary.main', 
-            mb: 2, 
+        <Typography
+          variant={size.titleVariant}
+          component="h3"
+          sx={{
+            color: 'secondary.main',
+            mb: 2,
             fontWeight: 600,
             fontSize: isFocused ? { xs: '1.5rem', sm: '1.8rem', md: '2rem', lg: '2.2rem' } : undefined
           }}
         >
           {product.name}
         </Typography>
-        <Typography 
-          variant="body1" 
-          sx={{ 
-            color: 'text.primary', 
-            mb: 3, 
-            lineHeight: 1.6, 
-            fontSize: size.descriptionFontSize 
-          }}
-        >
-          {product.description}
-        </Typography>
-        <Box sx={{ 
-          display: 'flex', 
-          justifyContent: 'space-between', 
-          alignItems: 'center', 
-          flexWrap: 'wrap', 
-          gap: 2 
+        {/*<Typography*/}
+        {/*  variant="body1"*/}
+        {/*  sx={{*/}
+        {/*    color: 'secondary.main',*/}
+        {/*    mb: 3,*/}
+        {/*    lineHeight: 1.6,*/}
+        {/*    fontSize: size.descriptionFontSize*/}
+        {/*  }}*/}
+        {/*>*/}
+        {/*  {product.description}*/}
+        {/*</Typography>*/}
+        <Box sx={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          flexWrap: 'wrap',
+          gap: 2
         }}>
-          <Typography 
-            variant="h5" 
-            sx={{ 
-              color: 'primary.main', 
-              fontWeight: 700, 
-              fontSize: size.priceFontSize 
+          <Typography
+            variant="h5"
+            sx={{
+              color: 'secondary.main',
+              fontWeight: 700,
+              fontSize: size.priceFontSize
             }}
           >
             {product.price}
           </Typography>
-          <Button 
-            variant="contained" 
-            size={size.buttonSize} 
-            sx={{ 
-              bgcolor: 'primary.main', 
-              color: 'secondary.main', 
-              fontWeight: 700, 
-              px: isFocused ? { xs: 3, sm: 4, md: 5 } : { xs: 2, sm: 3, md: 4 }, 
-              py: isFocused ? { xs: 1.5, sm: 2 } : { xs: 1, sm: 1.5 }, 
-              '&:hover': { 
-                bgcolor: 'primary.dark',
+          <Button
+            variant="contained"
+            size={size.buttonSize}
+            sx={{
+              bgcolor: 'secondary.main',
+              color: 'primary.main',
+              fontWeight: 700,
+              px: isFocused ? { xs: 3, sm: 4, md: 5 } : { xs: 2, sm: 3, md: 4 },
+              py: isFocused ? { xs: 1.5, sm: 2 } : { xs: 1, sm: 1.5 },
+              '&:hover': {
+                bgcolor: 'seconday.dark',
                 transform: 'scale(1.05)'
               },
               transition: 'all 0.2s ease-in-out'
             }}
           >
-            Jelajah Rasa
+            Detail
           </Button>
         </Box>
       </CardContent>
