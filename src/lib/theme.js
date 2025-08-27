@@ -6,6 +6,7 @@ export const createCustomTheme = (themeConfig = {}) => {
     mode = 'light',
     primaryColor = '#FFE347',
     secondaryColor = '#005F73',
+    tertiaryColor = '#FF90AD',
     warningColor = '#FF90AD',
     backgroundDefault = '#F5F5F5',
     backgroundPaper = '#FFFFFF',
@@ -21,6 +22,10 @@ export const createCustomTheme = (themeConfig = {}) => {
       secondary: {
         main: secondaryColor,
         contrastText: '#005F73',
+      },
+      tertiary: {
+        main: tertiaryColor,
+        contrastText: '#1A1A1A',
       },
       warning: {
         main: warningColor,
