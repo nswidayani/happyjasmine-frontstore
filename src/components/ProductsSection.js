@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { Box, Typography, Button, CircularProgress, Alert } from '@mui/material';
 import { useTheme } from './ThemeProvider';
 import { getContent } from '../lib/supabase';
@@ -16,6 +16,11 @@ const ProductsSection = ({ products: propProducts = [] }) => {
     const [refreshing, setRefreshing] = useState(false);
     const [currentSlide, setCurrentSlide] = useState(0);
     const [isClient, setIsClient] = useState(false);
+    const [isVisible, setIsVisible] = useState(false);
+    const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+    const [hoveredProduct, setHoveredProduct] = useState(null);
+    const sectionRef = useRef(null);
+    const productsRef = useRef([]);
 
     // Default products if none provided
     const defaultProducts = [
@@ -56,10 +61,48 @@ const ProductsSection = ({ products: propProducts = [] }) => {
         }
     ];
 
+    // Mouse tracking for interactive effects
+    useEffect(() => {
+        const handleMouseMove = (e) => {
+            if (sectionRef.current) {
+                const rect = sectionRef.current.getBoundingClientRect();
+                setMousePosition({
+                    x: ((e.clientX - rect.left) / rect.width) * 100,
+                    y: ((e.clientY - rect.top) / rect.height) * 100
+                });
+            }
+        };
+
+        const section = sectionRef.current;
+        if (section) {
+            section.addEventListener('mousemove', handleMouseMove);
+            return () => section.removeEventListener('mousemove', handleMouseMove);
+        }
+    }, []);
+
+    // Intersection Observer for scroll animations
+    useEffect(() => {
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                if (entry.isIntersecting) {
+                    setIsVisible(true);
+                }
+            },
+            { threshold: 0.1 }
+        );
+
+        if (sectionRef.current) {
+            observer.observe(sectionRef.current);
+        }
+
+        return () => observer.disconnect();
+    }, []);
+
     const fetchProducts = useCallback(async () => {
         try {
             setLoading(true);
             setError('');
+            setRefreshing(true);
 
             console.log('Fetching products...', { propProducts: propProducts.length });
 
@@ -68,6 +111,7 @@ const ProductsSection = ({ products: propProducts = [] }) => {
                 console.log('Using products from props');
                 setProducts(propProducts);
                 setLoading(false);
+                setRefreshing(false);
                 return;
             }
 
@@ -90,6 +134,7 @@ const ProductsSection = ({ products: propProducts = [] }) => {
             setProducts(defaultProducts);
         } finally {
             setLoading(false);
+            setRefreshing(false);
         }
     }, [propProducts]);
 
@@ -123,7 +168,10 @@ const ProductsSection = ({ products: propProducts = [] }) => {
         );
     }
 
-    const handleRefresh = () => { fetchProducts(); };
+    const handleRefresh = () => {
+        setRefreshing(true);
+        fetchProducts();
+    };
 
     const nextSlide = () => {
         setCurrentSlide((prev) => (prev + 1) % displayProducts.length);
@@ -137,30 +185,84 @@ const ProductsSection = ({ products: propProducts = [] }) => {
         setCurrentSlide(index);
     };
 
-    // Show loading state - only show on client to prevent hydration mismatch
+    // Enhanced loading state with animations
     if (loading && isClient) {
         return (
             <Box
+                ref={sectionRef}
                 sx={{
                     py: 4,
                     display: 'flex',
                     flexDirection: 'column',
                     justifyContent: 'center',
-                    alignItems: 'center'
+                    alignItems: 'center',
+                    position: 'relative',
+                    minHeight: '400px',
+                    overflow: 'hidden'
                 }}
             >
-                <CircularProgress size={60} sx={{ color: 'primary.main', mb: 3 }} />
-                <Typography variant="h6" color="text.secondary">
-                    Loading products...
-                </Typography>
+                {/* Animated background elements */}
+                <Box sx={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                    pointerEvents: 'none',
+                    zIndex: 0
+                }}>
+                    {[...Array(5)].map((_, index) => (
+                        <Box
+                            key={`loading-bubble-${index}`}
+                            sx={{
+                                position: 'absolute',
+                                top: `${20 + (index * 15)}%`,
+                                left: `${10 + (index * 20)}%`,
+                                width: `${30 + (index * 10)}px`,
+                                height: `${30 + (index * 10)}px`,
+                                borderRadius: '50%',
+                                background: 'rgba(255, 255, 255, 0.1)',
+                                animation: `loadingFloat ${2 + index}s ease-in-out infinite`,
+                                animationDelay: `${index * 0.2}s`
+                            }}
+                        />
+                    ))}
+                </Box>
+
+                <Box sx={{
+                    position: 'relative',
+                    zIndex: 1,
+                    textAlign: 'center'
+                }}>
+                    <CircularProgress
+                        size={60}
+                        sx={{
+                            color: 'primary.main',
+                            mb: 3,
+                            animation: 'pulse 2s ease-in-out infinite'
+                        }}
+                    />
+                    <Typography
+                        variant="h6"
+                        color="text.secondary"
+                        sx={{
+                            animation: 'fadeInUp 1s ease-out',
+                            animationDelay: '0.5s',
+                            animationFillMode: 'both'
+                        }}
+                    >
+                        Loading products...
+                    </Typography>
+                </Box>
             </Box>
         );
     }
 
-    // Show error state - only show on client to prevent hydration mismatch
+    // Enhanced error state with animations
     if (error && isClient) {
         return (
             <Box
+                ref={sectionRef}
                 sx={{
                     py: 4,
                     display: 'flex',
@@ -169,18 +271,46 @@ const ProductsSection = ({ products: propProducts = [] }) => {
                     alignItems: 'center'
                 }}
             >
-                <Alert severity="error" sx={{ mb: 3, maxWidth: 600 }}>
+                <Alert
+                    severity="error"
+                    sx={{
+                        mb: 3,
+                        maxWidth: 600,
+                        animation: 'slideInFromLeft 0.8s ease-out'
+                    }}
+                >
                     {error}
                 </Alert>
-                <Typography variant="body1" color="text.secondary" sx={{ mb: 3 }}>
+                <Typography
+                    variant="body1"
+                    color="text.secondary"
+                    sx={{
+                        mb: 3,
+                        animation: 'fadeIn 1s ease-out',
+                        animationDelay: '0.3s',
+                        animationFillMode: 'both'
+                    }}
+                >
                     Showing default products
                 </Typography>
                 <Button
                     variant="outlined"
                     onClick={handleRefresh}
-                    sx={{ color: 'secondary.main', borderColor: 'secondary.main' }}
+                    disabled={refreshing}
+                    sx={{
+                        color: 'secondary.main',
+                        borderColor: 'secondary.main',
+                        animation: 'bounceIn 1s ease-out',
+                        animationDelay: '0.6s',
+                        animationFillMode: 'both',
+                        '&:hover': {
+                            transform: 'scale(1.05)',
+                            boxShadow: '0 4px 20px rgba(0,0,0,0.1)'
+                        },
+                        transition: 'all 0.3s ease'
+                    }}
                 >
-                    Try Again
+                    {refreshing ? 'Loading...' : 'Try Again'}
                 </Button>
             </Box>
         );
@@ -188,39 +318,137 @@ const ProductsSection = ({ products: propProducts = [] }) => {
 
     return (
         <Box
+            ref={sectionRef}
             sx={{
                 py: 4,
                 display: 'flex',
                 flexDirection: 'column',
-                justifyContent: 'center'
+                justifyContent: 'center',
+                position: 'relative',
+                overflow: 'hidden'
             }}
         >
+            {/* Interactive Background Elements */}
             <Box sx={{
-                maxWidth: { xs: '100%', sm: 'xl', md: '1400px', lg: '1600px', xl: '1800px' }, // Expanded from 'lg'
-                mx: 'auto',
-                px: { xs: 2, sm: 3, md: 4, lg: 6, xl: 8 } // Adjusted padding for wider layout
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                right: 0,
+                bottom: 0,
+                pointerEvents: 'none',
+                zIndex: 0,
+                opacity: 0.6
             }}>
-                <ProductsHeader count={displayProducts.length} onRefresh={handleRefresh} showRefresh={isClient} />
+                {/* Floating product-themed elements */}
+                {[...Array(8)].map((_, index) => (
+                    <Box
+                        key={`bg-element-${index}`}
+                        sx={{
+                            position: 'absolute',
+                            top: `${15 + (index * 12)}%`,
+                            left: `${8 + (index * 11)}%`,
+                            width: `${20 + (index * 5)}px`,
+                            height: `${20 + (index * 5)}px`,
+                            borderRadius: index % 2 === 0 ? '50%' : '20%',
+                            background: `rgba(255, 255, 255, ${0.05 + (index * 0.01)})`,
+                            animation: `productFloat${index % 3} ${8 + index}s ease-in-out infinite`,
+                            transform: `translate(${mousePosition.x * (0.2 + index * 0.05)}px, ${mousePosition.y * (0.1 + index * 0.03)}px)`,
+                            transition: 'transform 0.5s ease-out',
+                            backdropFilter: 'blur(1px)',
+                            border: '1px solid rgba(255, 255, 255, 0.1)'
+                        }}
+                    />
+                ))}
+
+                {/* Gradient orbs */}
+                {[...Array(3)].map((_, index) => (
+                    <Box
+                        key={`gradient-orb-${index}`}
+                        sx={{
+                            position: 'absolute',
+                            top: `${30 + (index * 25)}%`,
+                            right: `${10 + (index * 15)}%`,
+                            width: `${60 + (index * 20)}px`,
+                            height: `${60 + (index * 20)}px`,
+                            borderRadius: '50%',
+                            background: `radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%)`,
+                            animation: `orbPulse ${6 + index * 2}s ease-in-out infinite`,
+                            filter: 'blur(2px)'
+                        }}
+                    />
+                ))}
+            </Box>
+
+            <Box sx={{
+                maxWidth: { xs: '100%', sm: 'xl', md: '1400px', lg: '1600px', xl: '1800px' },
+                mx: 'auto',
+                px: { xs: 2, sm: 3, md: 4, lg: 6, xl: 8 },
+                position: 'relative',
+                zIndex: 1
+            }}>
+                {/* Animated Header */}
+                <Box sx={{
+                    animation: isVisible ? 'slideInFromTop 1s ease-out' : 'none',
+                    animationFillMode: 'both'
+                }}>
+                    <ProductsHeader
+                        count={displayProducts.length}
+                        onRefresh={handleRefresh}
+                        showRefresh={isClient}
+                    />
+                </Box>
 
                 {/* Products Carousel */}
                 {displayProducts.length === 0 ? (
-                    <Box sx={{ textAlign: 'center', py: 8 }}>
-                        <Typography variant="h6" color="text.secondary" sx={{ mb: 2 }}>
+                    <Box sx={{
+                        textAlign: 'center',
+                        py: 8,
+                        animation: isVisible ? 'fadeInUp 1s ease-out' : 'none',
+                        animationDelay: '0.3s',
+                        animationFillMode: 'both'
+                    }}>
+                        <Typography
+                            variant="h6"
+                            color="text.secondary"
+                            sx={{
+                                mb: 2,
+                                animation: 'textGlow 2s ease-in-out infinite'
+                            }}
+                        >
                             No products available at the moment
                         </Typography>
-                        <Typography variant="body1" color="text.secondary" sx={{ mb: 3 }}>
+                        <Typography
+                            variant="body1"
+                            color="text.secondary"
+                            sx={{ mb: 3 }}
+                        >
                             Check back soon for our latest products!
                         </Typography>
                         <Button
                             variant="outlined"
                             onClick={handleRefresh}
-                            sx={{ color: 'secondary.main', borderColor: 'secondary.main' }}
+                            disabled={refreshing}
+                            sx={{
+                                color: 'secondary.main',
+                                borderColor: 'secondary.main',
+                                '&:hover': {
+                                    transform: 'scale(1.05) translateY(-2px)',
+                                    boxShadow: '0 8px 25px rgba(0,0,0,0.15)'
+                                },
+                                transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)'
+                            }}
                         >
-                            Try Again
+                            {refreshing ? 'Loading...' : 'Try Again'}
                         </Button>
                     </Box>
                 ) : (
-                    <Box sx={{ position: 'relative', mb: 6 }}>
+                    <Box sx={{
+                        position: 'relative',
+                        mb: 6,
+                        animation: isVisible ? 'slideInFromBottom 1s ease-out' : 'none',
+                        animationDelay: '0.5s',
+                        animationFillMode: 'both'
+                    }}>
                         {isClient && displayProducts.length > 3 && (
                             <ProductCarousel
                                 products={displayProducts}
@@ -230,24 +458,60 @@ const ProductsSection = ({ products: propProducts = [] }) => {
                                 onGoTo={goToSlide}
                             />
                         )}
-                        {/* Fallback for 3 or fewer products - show them all */}
+
+                        {/* Enhanced Fallback for 3 or fewer products */}
                         {isClient && displayProducts.length <= 3 && (
                             <Box sx={{
                                 display: 'flex',
                                 justifyContent: 'center',
-                                gap: { xs: 2, sm: 3, md: 4, lg: 6, xl: 8 }, // Increased gap for wider layout
+                                gap: { xs: 2, sm: 3, md: 4, lg: 6, xl: 8 },
                                 flexWrap: 'wrap',
                                 py: 4
                             }}>
                                 {displayProducts.map((product, index) => (
-                                    <Box key={product.id} sx={{
-                                        flex: index === 1 ? '1 1 auto' : '0 0 auto',
-                                        maxWidth: index === 1 ? { md: '600px', lg: '700px', xl: '800px' } : { md: '400px', lg: '500px', xl: '600px' }
-                                    }}>
+                                    <Box
+                                        key={product.id}
+                                        ref={el => productsRef.current[index] = el}
+                                        onMouseEnter={() => setHoveredProduct(index)}
+                                        onMouseLeave={() => setHoveredProduct(null)}
+                                        sx={{
+                                            flex: index === 1 ? '1 1 auto' : '0 0 auto',
+                                            maxWidth: index === 1 ?
+                                                { md: '600px', lg: '700px', xl: '800px' } :
+                                                { md: '400px', lg: '500px', xl: '600px' },
+                                            animation: isVisible ? `productCardSlideIn 0.8s ease-out` : 'none',
+                                            animationDelay: `${0.7 + (index * 0.2)}s`,
+                                            animationFillMode: 'both',
+                                            transform: hoveredProduct === index ?
+                                                'translateY(-8px) scale(1.02)' :
+                                                'translateY(0) scale(1)',
+                                            transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+                                            filter: hoveredProduct !== null && hoveredProduct !== index ?
+                                                'blur(2px) brightness(0.7)' :
+                                                'blur(0) brightness(1)',
+                                            '&:hover': {
+                                                zIndex: 10,
+                                                boxShadow: '0 20px 40px rgba(0,0,0,0.1)',
+                                                '&::before': {
+                                                    content: '""',
+                                                    position: 'absolute',
+                                                    top: '-5px',
+                                                    left: '-5px',
+                                                    right: '-5px',
+                                                    bottom: '-5px',
+                                                    background: 'linear-gradient(45deg, rgba(255,255,255,0.1), transparent)',
+                                                    borderRadius: '20px',
+                                                    zIndex: -1,
+                                                    animation: 'shimmerGlow 2s ease-in-out infinite'
+                                                }
+                                            }
+                                        }}
+                                    >
                                         <ProductCard
                                             product={product}
-                                            variant={index === 1 ? 'focused' : 'compact'}
-                                            isFocused={index === 1}
+                                            isCenter={index === 1}
+                                            isVisible={isVisible}
+                                            delay={index * 100}
                                         />
                                     </Box>
                                 ))}
@@ -256,8 +520,14 @@ const ProductsSection = ({ products: propProducts = [] }) => {
                     </Box>
                 )}
 
-                {/* Call to Action */}
-                <Box sx={{ textAlign: 'center', mt: 6 }}>
+                {/* Enhanced Call to Action */}
+                <Box sx={{
+                    textAlign: 'center',
+                    mt: 6,
+                    animation: isVisible ? 'bounceInUp 1s ease-out' : 'none',
+                    animationDelay: '1.2s',
+                    animationFillMode: 'both'
+                }}>
                     <Button
                         variant="contained"
                         size="large"
@@ -268,17 +538,132 @@ const ProductsSection = ({ products: propProducts = [] }) => {
                             py: 2,
                             fontSize: '1.1rem',
                             fontWeight: 600,
+                            position: 'relative',
+                            overflow: 'hidden',
+                            '&::before': {
+                                content: '""',
+                                position: 'absolute',
+                                top: 0,
+                                left: '-100%',
+                                width: '100%',
+                                height: '100%',
+                                background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent)',
+                                transition: 'left 0.6s ease'
+                            },
                             '&:hover': {
                                 bgcolor: 'primary.dark',
-                                transform: 'scale(1.05)',
+                                transform: 'scale(1.05) translateY(-2px)',
+                                boxShadow: '0 10px 30px rgba(0,0,0,0.2)',
+                                '&::before': {
+                                    left: '100%'
+                                }
                             },
-                            transition: 'all 0.3s ease-in-out'
+                            '&:active': {
+                                transform: 'scale(0.98)'
+                            },
+                            transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)'
                         }}
                     >
                         Jelajah Semua Rasa
                     </Button>
                 </Box>
             </Box>
+
+            {/* Enhanced Global Styles */}
+            <style jsx global>{`
+                @keyframes loadingFloat {
+                    0%, 100% { transform: translateY(0px) scale(1); opacity: 0.6; }
+                    50% { transform: translateY(-15px) scale(1.1); opacity: 1; }
+                }
+
+                @keyframes productFloat0 {
+                    0%, 100% { transform: translateY(0px) rotate(0deg); }
+                    33% { transform: translateY(-8px) rotate(1deg); }
+                    66% { transform: translateY(-12px) rotate(-1deg); }
+                }
+
+                @keyframes productFloat1 {
+                    0%, 100% { transform: translateY(0px) rotate(0deg); }
+                    50% { transform: translateY(-10px) rotate(2deg); }
+                }
+
+                @keyframes productFloat2 {
+                    0%, 100% { transform: translateY(0px) rotate(0deg); }
+                    25% { transform: translateY(-6px) rotate(-1deg); }
+                    75% { transform: translateY(-14px) rotate(1deg); }
+                }
+
+                @keyframes orbPulse {
+                    0%, 100% { transform: scale(1); opacity: 0.3; }
+                    50% { transform: scale(1.2); opacity: 0.7; }
+                }
+
+                @keyframes fadeInUp {
+                    0% { opacity: 0; transform: translateY(30px); }
+                    100% { opacity: 1; transform: translateY(0); }
+                }
+
+                @keyframes slideInFromTop {
+                    0% { opacity: 0; transform: translateY(-50px); }
+                    100% { opacity: 1; transform: translateY(0); }
+                }
+
+                @keyframes slideInFromBottom {
+                    0% { opacity: 0; transform: translateY(50px); }
+                    100% { opacity: 1; transform: translateY(0); }
+                }
+
+                @keyframes slideInFromLeft {
+                    0% { opacity: 0; transform: translateX(-50px); }
+                    100% { opacity: 1; transform: translateX(0); }
+                }
+
+                @keyframes bounceIn {
+                    0% { opacity: 0; transform: scale(0.3); }
+                    50% { opacity: 1; transform: scale(1.05); }
+                    70% { transform: scale(0.9); }
+                    100% { opacity: 1; transform: scale(1); }
+                }
+
+                @keyframes bounceInUp {
+                    0% { opacity: 0; transform: translateY(50px) scale(0.8); }
+                    60% { opacity: 1; transform: translateY(-10px) scale(1.1); }
+                    80% { transform: translateY(5px) scale(0.95); }
+                    100% { opacity: 1; transform: translateY(0) scale(1); }
+                }
+
+                @keyframes productCardSlideIn {
+                    0% { opacity: 0; transform: translateY(40px) scale(0.9); }
+                    100% { opacity: 1; transform: translateY(0) scale(1); }
+                }
+
+                @keyframes textGlow {
+                    0%, 100% { text-shadow: 0 0 5px rgba(255,255,255,0.3); }
+                    50% { text-shadow: 0 0 20px rgba(255,255,255,0.6); }
+                }
+
+                @keyframes shimmerGlow {
+                    0% { background-position: -200% 0; }
+                    100% { background-position: 200% 0; }
+                }
+
+                @keyframes pulse {
+                    0%, 100% { opacity: 1; transform: scale(1); }
+                    50% { opacity: 0.7; transform: scale(1.05); }
+                }
+
+                @keyframes fadeIn {
+                    0% { opacity: 0; }
+                    100% { opacity: 1; }
+                }
+
+                /* Staggered animation delays for multiple elements */
+                .stagger-1 { animation-delay: 0.1s; }
+                .stagger-2 { animation-delay: 0.2s; }
+                .stagger-3 { animation-delay: 0.3s; }
+                .stagger-4 { animation-delay: 0.4s; }
+                .stagger-5 { animation-delay: 0.5s; }
+            `}</style>
         </Box>
     );
 };
