@@ -53,7 +53,7 @@ export default function ProductsFeaturesSection({ features, products }) {
             py: { xs: 6, md: 8 },
             width: '100%',
             position: 'relative',
-            background: `linear-gradient(135deg, ${theme.palette.secondary.main} 0%, ${theme.palette.secondary.light || theme.palette.secondary.main} 100%)`,
+            background: 'transparent',
             overflow: 'hidden',
             minHeight: '100vh'
           }}
@@ -87,17 +87,17 @@ export default function ProductsFeaturesSection({ features, products }) {
                     '&::before': {
                       content: '""',
                       position: 'absolute',
-                      top: '20%',
-                      left: '20%',
+                      top: '10%',
+                      left: '10%',
                       width: '30%',
                       height: '30%',
                       borderRadius: '50%',
-                      background: `rgba(255, 255, 255, ${0.15 + (index * 0.02)})`,
-                      animation: `bubbleShine ${3 + index}s ease-in-out infinite`
+                      background: 'rgba(255, 255, 255, 0.4)',
+                      animation: 'bubbleShine 3s ease-in-out infinite'
                     },
                     '&:hover': {
-                      transform: `scale(1.2) translate(${mousePosition.x * (0.5 + index * 0.1)}px, ${mousePosition.y * (0.3 + index * 0.05)}px)`,
-                      background: `rgba(255, 255, 255, ${0.15 + (index * 0.02)})`
+                      transform: 'scale(1.1)',
+                      transition: 'transform 0.3s ease'
                     }
                   }}
               />
@@ -181,14 +181,13 @@ export default function ProductsFeaturesSection({ features, products }) {
             {/* Tab Container with Enhanced Glassmorphism */}
             <Box sx={{
               display: 'flex',
-              position: 'relative',
-              bgcolor: `rgba(${theme.palette.secondary.main === '#FFE347' ? '255, 227, 71' : '255, 255, 255'}, 0.15)`,
+              background: `rgba(${theme.palette.secondary.main === '#FFE347' ? '255, 227, 71' : '255, 255, 255'}, 0.1)`,
               backdropFilter: 'blur(20px)',
               borderRadius: '50px',
-              p: 0.5,
-              border: '2px solid',
-              borderColor: `rgba(${theme.palette.secondary.main === '#FFE347' ? '255, 227, 71' : '255, 255, 255'}, 0.3)`,
-              boxShadow: '0 8px 32px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.2)',
+              p: 0.75,
+              border: `1px solid rgba(${theme.palette.secondary.main === '#FFE347' ? '255, 227, 71' : '255, 255, 255'}, 0.2)`,
+              boxShadow: '0 8px 32px rgba(0, 0, 0, 0.1)',
+              position: 'relative',
               overflow: 'hidden',
               '&::before': {
                 content: '""',
@@ -197,124 +196,96 @@ export default function ProductsFeaturesSection({ features, products }) {
                 left: 0,
                 right: 0,
                 bottom: 0,
-                background: `linear-gradient(135deg, rgba(${theme.palette.secondary.main === '#FFE347' ? '255, 227, 71' : '255, 255, 255'}, 0.3) 0%, rgba(${theme.palette.secondary.main === '#FFE347' ? '255, 227, 71' : '255, 255, 255'}, 0.1) 100%)`,
-                borderRadius: '50px',
-                zIndex: 0
-              },
-              '&::after': {
-                content: '""',
-                position: 'absolute',
-                top: '-2px',
-                left: '-2px',
-                right: '-2px',
-                bottom: '-2px',
-                background: `linear-gradient(45deg, ${theme.palette.secondary.main}, ${theme.palette.secondary.light || theme.palette.secondary.main}, ${theme.palette.primary.main})`,
-                borderRadius: '50px',
-                zIndex: -1,
-                animation: 'gradientShift 3s ease infinite',
-                backgroundSize: '400% 400%'
+                background: `linear-gradient(45deg, rgba(${theme.palette.secondary.main === '#FFE347' ? '255, 227, 71' : '255, 255, 255'}, 0.1) 0%, transparent 50%, rgba(${theme.palette.secondary.main === '#FFE347' ? '255, 227, 71' : '255, 255, 255'}, 0.1) 100%)`,
+                animation: 'shimmer 3s ease-in-out infinite',
+                pointerEvents: 'none'
               }
             }}>
-              {/* Sliding Active Tab Indicator */}
-              <Box
-                  sx={{
-                    position: 'absolute',
-                    top: '50%',
-                    left: activeTab === 0 ? '0.5rem' : '50%',
-                    transform: 'translateY(-50%)',
-                    width: `calc(50% - 0.5rem)`,
-                    height: 'calc(100% - 1rem)',
-                    background: `linear-gradient(135deg, ${theme.palette.tertiary?.main || theme.palette.primary.main} 0%, ${theme.palette.secondary.main} 100%)`,
-                    borderRadius: '40px',
-                    transition: 'left 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-                    zIndex: 0,
-                    boxShadow: '0 4px 15px rgba(0, 0, 0, 0.2)',
-                    '&::before': {
-                      content: '""',
-                      position: 'absolute',
-                      top: '10%',
-                      left: '10%',
-                      right: '10%',
-                      bottom: '10%',
-                      background: 'rgba(255, 255, 255, 0.2)',
-                      borderRadius: '30px',
-                      animation: 'shimmer 2s ease-in-out infinite'
-                    }
-                  }}
-              />
-
               {tabLabels.map((tab, index) => (
                   <Box
-                      key={tab.label}
+                      key={index}
                       ref={el => tabsRef.current[index] = el}
                       onClick={() => handleTabChange(index)}
-                      onMouseEnter={(e) => {
-                        if (!isMobile) {
-                          e.currentTarget.style.transform = 'scale(1.02) translateY(-2px)';
-                        }
-                      }}
-                      onMouseLeave={(e) => {
-                        if (!isMobile) {
-                          e.currentTarget.style.transform = activeTab === index ? 'scale(1.05)' : 'scale(1)';
-                        }
-                      }}
+                      className="magnetic-tab"
                       sx={{
-                        position: 'relative',
-                        zIndex: 2,
                         display: 'flex',
                         alignItems: 'center',
-                        gap: 1,
-                        px: { xs: 3, sm: 4 },
+                        gap: 1.5,
+                        px: { xs: 3, sm: 4, md: 5 },
                         py: { xs: 1.5, sm: 2 },
                         borderRadius: '40px',
                         cursor: 'pointer',
-                        transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-                        transform: activeTab === index ? 'scale(1.05)' : 'scale(1)',
-                        color: activeTab === index ? 'white' : 'text.primary',
-                        fontWeight: activeTab === index ? 700 : 500,
-                        width: '50%',
+                        position: 'relative',
+                        zIndex: 2,
+                        overflow: 'hidden',
+                        minWidth: { xs: '120px', sm: '140px', md: '160px' },
                         justifyContent: 'center',
-                        '&:active': {
-                          transform: 'scale(0.98)',
+                        // Active tab with tertiary background
+                        background: activeTab === index
+                            ? theme.palette.tertiary.main
+                            : 'transparent',
+                        color: activeTab === index
+                            ? 'white'
+                            : theme.palette.text.primary,
+                        boxShadow: activeTab === index
+                            ? '0 6px 20px rgba(255, 144, 173, 0.4)'
+                            : 'none',
+                        transform: activeTab === index ? 'translateY(-2px)' : 'translateY(0)',
+                        transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+                        '&::before': {
+                          content: '""',
+                          position: 'absolute',
+                          top: 0,
+                          left: 0,
+                          right: 0,
+                          bottom: 0,
+                          background: activeTab === index
+                              ? 'linear-gradient(135deg, rgba(255, 144, 173, 0.8) 0%, rgba(255, 144, 173, 0.9) 100%)'
+                              : 'transparent',
+                          borderRadius: '40px',
+                          zIndex: -1,
+                          transition: 'all 0.4s ease'
                         },
-                        // Ripple effect
                         '&::after': {
                           content: '""',
                           position: 'absolute',
                           top: '50%',
                           left: '50%',
+                          transform: 'translate(-50%, -50%)',
                           width: '0',
                           height: '0',
-                          borderRadius: '50%',
                           background: 'rgba(255, 255, 255, 0.3)',
-                          transform: 'translate(-50%, -50%)',
-                          transition: 'width 0.6s, height 0.6s',
-                          pointerEvents: 'none'
+                          borderRadius: '50%',
+                          transition: 'all 0.6s ease',
+                          zIndex: -1
                         },
-                        '&:active::after': {
-                          width: '100px',
-                          height: '100px'
+                        '&:hover': {
+                          '&::after': {
+                            width: '120%',
+                            height: '120%'
+                          }
                         }
                       }}
                   >
                     <Typography
-                        variant="h6"
                         sx={{
-                          fontSize: { xs: '1.5rem', sm: '1.8rem' },
-                          filter: activeTab === index ? 'drop-shadow(0 2px 4px rgba(0,0,0,0.3))' : 'none',
-                          transition: 'all 0.3s ease',
-                          animation: activeTab === index ? 'iconBounce 0.6s ease-out' : 'none'
+                          fontSize: { xs: '0.9rem', sm: '1rem', md: '1.1rem' },
+                          fontWeight: activeTab === index ? 600 : 500,
+                          position: 'relative',
+                          zIndex: 3,
+                          transition: 'all 0.3s ease'
                         }}
                     >
                       {tab.icon}
                     </Typography>
                     <Typography
-                        variant="h6"
                         sx={{
-                          fontSize: { xs: '1rem', sm: '1.1rem' },
-                          fontWeight: 'inherit',
-                          textTransform: 'none',
-                          letterSpacing: '0.5px',
+                          fontSize: { xs: '0.85rem', sm: '0.95rem', md: '1rem' },
+                          fontWeight: activeTab === index ? 600 : 500,
+                          position: 'relative',
+                          zIndex: 3,
+                          whiteSpace: 'nowrap',
+                          animation: activeTab === index ? 'iconBounce 1s ease-in-out' : 'none',
                           transition: 'all 0.3s ease'
                         }}
                     >
@@ -350,32 +321,17 @@ export default function ProductsFeaturesSection({ features, products }) {
           }}>
             {/* Content with Slide Transition */}
             <Box sx={{
-              position: 'relative',
-              width: '200%',
-              height: '100%',
-              display: 'flex',
-              transform: `translateX(${activeTab * -50}%)`,
-              transition: 'transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)'
+              width: '100%',
+              opacity: isTransitioning ? 0.3 : 1,
+              transform: isTransitioning ? 'scale(0.98)' : 'scale(1)',
+              transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+              filter: isTransitioning ? 'blur(2px)' : 'blur(0px)'
             }}>
-              {/* Products Tab */}
-              <Box sx={{
-                width: '50%',
-                opacity: isTransitioning ? 0.7 : 1,
-                transform: isTransitioning ? 'scale(0.98)' : 'scale(1)',
-                transition: 'opacity 0.3s ease, transform 0.3s ease'
-              }}>
-                <ProductsSection products={products} />
-              </Box>
-
-              {/* Features Tab */}
-              <Box sx={{
-                width: '50%',
-                opacity: isTransitioning ? 0.7 : 1,
-                transform: isTransitioning ? 'scale(0.98)' : 'scale(1)',
-                transition: 'opacity 0.3s ease, transform 0.3s ease'
-              }}>
-                <FeaturesSection features={features} />
-              </Box>
+              {activeTab === 0 ? (
+                  <ProductsSection products={products} />
+              ) : (
+                  <FeaturesSection features={features} />
+              )}
             </Box>
           </Box>
         </Box>
@@ -412,8 +368,8 @@ export default function ProductsFeaturesSection({ features, products }) {
           }
 
           @keyframes breathe {
-            0%, 100% { transform: scale(1) rotate(var(--rotation, 0deg)); opacity: 0.6; }
-            50% { transform: scale(1.1) rotate(var(--rotation, 0deg)); opacity: 1; }
+            0%, 100% { transform: scale(1) rotate(-15deg); opacity: 0.6; }
+            50% { transform: scale(1.1) rotate(-15deg); opacity: 1; }
           }
 
           @keyframes drift {

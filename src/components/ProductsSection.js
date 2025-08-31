@@ -158,12 +158,41 @@ const ProductsSection = ({ products: propProducts = [] }) => {
                     display: 'flex',
                     flexDirection: 'column',
                     justifyContent: 'center',
-                    alignItems: 'center'
+                    alignItems: 'center',
+                    bgcolor: 'tertiary.main',
+                    position: 'relative',
+                    overflow: 'hidden',
+                    '&::before': {
+                        content: '""',
+                        position: 'absolute',
+                        top: 0,
+                        left: 0,
+                        right: 0,
+                        height: '60px',
+                        background: 'inherit',
+                        clipPath: 'polygon(0 0, 100% 0, 100% 70%, 90% 100%, 80% 70%, 70% 100%, 60% 70%, 50% 100%, 40% 70%, 30% 100%, 20% 70%, 10% 100%, 0 70%)',
+                        animation: 'topWave 8s ease-in-out infinite',
+                        zIndex: 2
+                    },
+                    '&::after': {
+                        content: '""',
+                        position: 'absolute',
+                        bottom: 0,
+                        left: 0,
+                        right: 0,
+                        height: '60px',
+                        background: 'inherit',
+                        clipPath: 'polygon(0 30%, 10% 0, 20% 30%, 30% 0, 40% 30%, 50% 0, 60% 30%, 70% 0, 80% 30%, 90% 0, 100% 30%, 100% 100%, 0 100%)',
+                        animation: 'bottomWave 8s ease-in-out infinite reverse',
+                        zIndex: 2
+                    }
                 }}
             >
-                <Typography variant="h4" color="text.secondary">
-                    Loading...
-                </Typography>
+                <Box sx={{ mt: 4, mb: 4, position: 'relative', zIndex: 1 }}>
+                    <Typography variant="h4" color="text.secondary">
+                        Loading...
+                    </Typography>
+                </Box>
             </Box>
         );
     }
@@ -198,7 +227,32 @@ const ProductsSection = ({ products: propProducts = [] }) => {
                     alignItems: 'center',
                     position: 'relative',
                     minHeight: '400px',
-                    overflow: 'hidden'
+                    overflow: 'hidden',
+                    bgcolor: 'tertiary.main',
+                    '&::before': {
+                        content: '""',
+                        position: 'absolute',
+                        top: 0,
+                        left: 0,
+                        right: 0,
+                        height: '60px',
+                        background: 'inherit',
+                        clipPath: 'polygon(0 0, 100% 0, 100% 70%, 90% 100%, 80% 70%, 70% 100%, 60% 70%, 50% 100%, 40% 70%, 30% 100%, 20% 70%, 10% 100%, 0 70%)',
+                        animation: 'topWave 8s ease-in-out infinite',
+                        zIndex: 2
+                    },
+                    '&::after': {
+                        content: '""',
+                        position: 'absolute',
+                        bottom: 0,
+                        left: 0,
+                        right: 0,
+                        height: '60px',
+                        background: 'inherit',
+                        clipPath: 'polygon(0 30%, 10% 0, 20% 30%, 30% 0, 40% 30%, 50% 0, 60% 30%, 70% 0, 80% 30%, 90% 0, 100% 30%, 100% 100%, 0 100%)',
+                        animation: 'bottomWave 8s ease-in-out infinite reverse',
+                        zIndex: 2
+                    }
                 }}
             >
                 {/* Animated background elements */}
@@ -232,7 +286,9 @@ const ProductsSection = ({ products: propProducts = [] }) => {
                 <Box sx={{
                     position: 'relative',
                     zIndex: 1,
-                    textAlign: 'center'
+                    textAlign: 'center',
+                    mt: 4,
+                    mb: 4
                 }}>
                     <CircularProgress
                         size={60}
@@ -268,50 +324,79 @@ const ProductsSection = ({ products: propProducts = [] }) => {
                     display: 'flex',
                     flexDirection: 'column',
                     justifyContent: 'center',
-                    alignItems: 'center'
+                    alignItems: 'center',
+                    bgcolor: 'tertiary.main',
+                    position: 'relative',
+                    overflow: 'hidden',
+                    '&::before': {
+                        content: '""',
+                        position: 'absolute',
+                        top: 0,
+                        left: 0,
+                        right: 0,
+                        height: '60px',
+                        background: 'inherit',
+                        clipPath: 'polygon(0 0, 100% 0, 100% 70%, 90% 100%, 80% 70%, 70% 100%, 60% 70%, 50% 100%, 40% 70%, 30% 100%, 20% 70%, 10% 100%, 0 70%)',
+                        animation: 'topWave 8s ease-in-out infinite',
+                        zIndex: 2
+                    },
+                    '&::after': {
+                        content: '""',
+                        position: 'absolute',
+                        bottom: 0,
+                        left: 0,
+                        right: 0,
+                        height: '60px',
+                        background: 'inherit',
+                        clipPath: 'polygon(0 30%, 10% 0, 20% 30%, 30% 0, 40% 30%, 50% 0, 60% 30%, 70% 0, 80% 30%, 90% 0, 100% 30%, 100% 100%, 0 100%)',
+                        animation: 'bottomWave 8s ease-in-out infinite reverse',
+                        zIndex: 2
+                    }
                 }}
             >
-                <Alert
-                    severity="error"
-                    sx={{
-                        mb: 3,
-                        maxWidth: 600,
-                        animation: 'slideInFromLeft 0.8s ease-out'
-                    }}
-                >
-                    {error}
-                </Alert>
-                <Typography
-                    variant="body1"
-                    color="text.secondary"
-                    sx={{
-                        mb: 3,
-                        animation: 'fadeIn 1s ease-out',
-                        animationDelay: '0.3s',
-                        animationFillMode: 'both'
-                    }}
-                >
-                    Showing default products
-                </Typography>
-                <Button
-                    variant="outlined"
-                    onClick={handleRefresh}
-                    disabled={refreshing}
-                    sx={{
-                        color: 'secondary.main',
-                        borderColor: 'secondary.main',
-                        animation: 'bounceIn 1s ease-out',
-                        animationDelay: '0.6s',
-                        animationFillMode: 'both',
-                        '&:hover': {
-                            transform: 'scale(1.05)',
-                            boxShadow: '0 4px 20px rgba(0,0,0,0.1)'
-                        },
-                        transition: 'all 0.3s ease'
-                    }}
-                >
-                    {refreshing ? 'Loading...' : 'Try Again'}
-                </Button>
+                <Box sx={{ mt: 4, mb: 4, position: 'relative', zIndex: 1, textAlign: 'center' }}>
+                    <Alert
+                        severity="error"
+                        sx={{
+                            mb: 3,
+                            maxWidth: 600,
+                            animation: 'slideInFromLeft 0.8s ease-out'
+                        }}
+                    >
+                        {error}
+                    </Alert>
+                    <Typography
+                        variant="body1"
+                        color="text.secondary"
+                        sx={{
+                            mb: 3,
+                            animation: 'fadeIn 1s ease-out',
+                            animationDelay: '0.3s',
+                            animationFillMode: 'both'
+                        }}
+                    >
+                        Showing default products
+                    </Typography>
+                    <Button
+                        variant="outlined"
+                        onClick={handleRefresh}
+                        disabled={refreshing}
+                        sx={{
+                            color: 'secondary.main',
+                            borderColor: 'secondary.main',
+                            animation: 'bounceIn 1s ease-out',
+                            animationDelay: '0.6s',
+                            animationFillMode: 'both',
+                            '&:hover': {
+                                transform: 'scale(1.05)',
+                                boxShadow: '0 4px 20px rgba(0,0,0,0.1)'
+                            },
+                            transition: 'all 0.3s ease'
+                        }}
+                    >
+                        {refreshing ? 'Loading...' : 'Try Again'}
+                    </Button>
+                </Box>
             </Box>
         );
     }
@@ -325,7 +410,32 @@ const ProductsSection = ({ products: propProducts = [] }) => {
                 flexDirection: 'column',
                 justifyContent: 'center',
                 position: 'relative',
-                overflow: 'hidden'
+                overflow: 'hidden',
+                bgcolor: 'tertiary.main',
+                '&::before': {
+                    content: '""',
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    height: '60px',
+                    background: 'inherit',
+                    clipPath: 'polygon(0 0, 100% 0, 100% 70%, 90% 100%, 80% 70%, 70% 100%, 60% 70%, 50% 100%, 40% 70%, 30% 100%, 20% 70%, 10% 100%, 0 70%)',
+                    animation: 'topWave 8s ease-in-out infinite',
+                    zIndex: 2
+                },
+                '&::after': {
+                    content: '""',
+                    position: 'absolute',
+                    bottom: 0,
+                    left: 0,
+                    right: 0,
+                    height: '60px',
+                    background: 'inherit',
+                    clipPath: 'polygon(0 30%, 10% 0, 20% 30%, 30% 0, 40% 30%, 50% 0, 60% 30%, 70% 0, 80% 30%, 90% 0, 100% 30%, 100% 100%, 0 100%)',
+                    animation: 'bottomWave 8s ease-in-out infinite reverse',
+                    zIndex: 2
+                }
             }}
         >
             {/* Interactive Background Elements */}
@@ -384,7 +494,9 @@ const ProductsSection = ({ products: propProducts = [] }) => {
                 mx: 'auto',
                 px: { xs: 2, sm: 3, md: 4, lg: 6, xl: 8 },
                 position: 'relative',
-                zIndex: 1
+                zIndex: 1,
+                mt: 4, // Add margin to account for top wave
+                mb: 4  // Add margin to account for bottom wave
             }}>
                 {/* Animated Header */}
                 <Box sx={{
@@ -571,6 +683,36 @@ const ProductsSection = ({ products: propProducts = [] }) => {
 
             {/* Enhanced Global Styles */}
             <style jsx global>{`
+                @keyframes topWave {
+                    0%, 100% {
+                        clip-path: polygon(0 0, 100% 0, 100% 70%, 90% 100%, 80% 70%, 70% 100%, 60% 70%, 50% 100%, 40% 70%, 30% 100%, 20% 70%, 10% 100%, 0 70%);
+                    }
+                    25% {
+                        clip-path: polygon(0 0, 100% 0, 100% 100%, 90% 70%, 80% 100%, 70% 70%, 60% 100%, 50% 70%, 40% 100%, 30% 70%, 20% 100%, 10% 70%, 0 100%);
+                    }
+                    50% {
+                        clip-path: polygon(0 0, 100% 0, 100% 70%, 90% 100%, 80% 70%, 70% 100%, 60% 70%, 50% 100%, 40% 70%, 30% 100%, 20% 70%, 10% 100%, 0 70%);
+                    }
+                    75% {
+                        clip-path: polygon(0 0, 100% 0, 100% 100%, 90% 70%, 80% 100%, 70% 70%, 60% 100%, 50% 70%, 40% 100%, 30% 70%, 20% 100%, 10% 70%, 0 100%);
+                    }
+                }
+
+                @keyframes bottomWave {
+                    0%, 100% {
+                        clip-path: polygon(0 30%, 10% 0, 20% 30%, 30% 0, 40% 30%, 50% 0, 60% 30%, 70% 0, 80% 30%, 90% 0, 100% 30%, 100% 100%, 0 100%);
+                    }
+                    25% {
+                        clip-path: polygon(0 0, 10% 30%, 20% 0, 30% 30%, 40% 0, 50% 30%, 60% 0, 70% 30%, 80% 0, 90% 30%, 100% 0, 100% 100%, 0 100%);
+                    }
+                    50% {
+                        clip-path: polygon(0 30%, 10% 0, 20% 30%, 30% 0, 40% 30%, 50% 0, 60% 30%, 70% 0, 80% 30%, 90% 0, 100% 30%, 100% 100%, 0 100%);
+                    }
+                    75% {
+                        clip-path: polygon(0 0, 10% 30%, 20% 0, 30% 30%, 40% 0, 50% 30%, 60% 0, 70% 30%, 80% 0, 90% 30%, 100% 0, 100% 100%, 0 100%);
+                    }
+                }
+
                 @keyframes loadingFloat {
                     0%, 100% { transform: translateY(0px) scale(1); opacity: 0.6; }
                     50% { transform: translateY(-15px) scale(1.1); opacity: 1; }
