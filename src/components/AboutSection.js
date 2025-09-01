@@ -3,8 +3,9 @@ import { ArrowForward } from '@mui/icons-material';
 
 export default function AboutSection({ aboutData }) {
   return (
-    <Box 
-      sx={{ 
+    <Box
+      id="about"
+      sx={{
         py: { xs: 12, md: 20 },
         bgcolor: 'secondary.main',
         position: 'relative',

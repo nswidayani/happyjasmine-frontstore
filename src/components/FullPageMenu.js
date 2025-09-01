@@ -22,21 +22,21 @@ const menuItems = [
   {
     title: 'Home',
     description: 'Welcome to Happy Jasmine',
-    icon: <HomeIcon sx={{ fontSize: 48, color: 'white' }} />,
-    path: '/',
+    icon: <HomeIcon sx={{ fontSize: 48, color: 'primary.main' }} />,
+    path: '/#hero',
     color: 'rgba(255, 255, 255, 0.9)'
   },
   {
     title: 'Products',
     description: 'Explore our amazing products',
-    icon: <ProductsIcon sx={{ fontSize: 48, color: 'white' }} />,
+    icon: <ProductsIcon sx={{ fontSize: 48, color: 'primary.main' }} />,
     path: '/#products',
     color: 'rgba(255, 255, 255, 0.9)'
   },
   {
     title: 'About',
     description: 'Learn more about our company',
-    icon: <AboutIcon sx={{ fontSize: 48, color: 'white' }} />,
+    icon: <AboutIcon sx={{ fontSize: 48, color: 'primary.main' }} />,
     path: '/#about',
     color: 'rgba(255, 255, 255, 0.9)'
   },
@@ -51,7 +51,7 @@ const menuItems = [
   {
     title: 'Admin',
     description: 'Access admin panel',
-    icon: <AdminIcon sx={{ fontSize: 48, color: 'white' }} />,
+    icon: <AdminIcon sx={{ fontSize: 48, color: 'primary.main' }} />,
     path: '/admin',
     color: 'rgba(255, 255, 255, 0.9)',
     external: true

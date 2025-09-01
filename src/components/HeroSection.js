@@ -1,15 +1,33 @@
+import { useEffect } from 'react';
 import { Box, Typography, Button, Container } from '@mui/material';
 import ImageSlider from './ImageSlider';
 
 export default function HeroSection({ heroData }) {
+  console.log('HeroSection received heroData:', heroData);
+  console.log('Background video URL:', heroData?.backgroundVideo);
+
+  // Test video URL accessibility
+  useEffect(() => {
+    if (heroData?.backgroundVideo) {
+      fetch(heroData.backgroundVideo, { method: 'HEAD' })
+        .then(response => {
+          console.log('Video URL accessible:', response.ok, response.status);
+        })
+        .catch(error => {
+          console.error('Video URL not accessible:', error);
+        });
+    }
+  }, [heroData?.backgroundVideo]);
+
   // If image slider data exists, use the slider
-  if (heroData?.imageSlider && heroData.imageSlider.length > 0) {
-    return <ImageSlider slides={heroData.imageSlider} />;
-  }
+  // if (heroData?.imageSlider && heroData.imageSlider.length > 0) {
+  //   return <ImageSlider slides={heroData.imageSlider} />;
+  // }
 
   // Fallback to static hero section
   return (
     <Box
+      id="hero"
       sx={{
         position: 'relative',
         minHeight: '100vh',
@@ -24,8 +42,8 @@ export default function HeroSection({ heroData }) {
           left: 0,
           right: 0,
           bottom: 0,
-          background: 'var(--gradient-primary)',
-          zIndex: 1,
+          background: 'rgba(0, 95, 115, 0.7)', // Semi-transparent overlay
+          zIndex: 2,
         },
         '&::after': {
           content: '""',
@@ -34,11 +52,61 @@ export default function HeroSection({ heroData }) {
           left: 0,
           right: 0,
           bottom: 0,
-          background: 'radial-gradient(circle at 20% 80%, rgba(0, 95, 115, 0.3) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(255, 227, 71, 0.3) 0%, transparent 50%)',
-          zIndex: 2,
+          background: 'radial-gradient(circle at 20% 80%, rgba(0, 95, 115, 0.2) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(255, 227, 71, 0.2) 0%, transparent 50%)',
+          zIndex: 3,
         }
       }}
     >
+      {/* Video Background */}
+      {heroData?.backgroundVideo && (
+        <>
+          <Box
+            component="video"
+            autoPlay
+            muted
+            loop
+            playsInline
+            sx={{
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover',
+              zIndex: 0,
+              backgroundColor: 'black', // Fallback background
+            }}
+            onLoadStart={() => console.log('Video load started:', heroData.backgroundVideo)}
+            onLoadedData={() => console.log('Video loaded successfully:', heroData.backgroundVideo)}
+            onError={(e) => {
+              console.error('Video failed to load:', heroData.backgroundVideo, e);
+              e.target.style.display = 'none';
+            }}
+            onCanPlay={() => console.log('Video can play:', heroData.backgroundVideo)}
+          >
+            <source src={heroData.backgroundVideo} type="video/mp4" />
+            <source src={heroData.backgroundVideo} type="video/webm" />
+            <source src={heroData.backgroundVideo} type="video/ogg" />
+            Your browser does not support the video tag.
+          </Box>
+          {/* Debug indicator */}
+          <Box
+            sx={{
+              position: 'absolute',
+              top: '10px',
+              right: '10px',
+              backgroundColor: 'rgba(0,0,0,0.7)',
+              color: 'white',
+              padding: '5px 10px',
+              borderRadius: '4px',
+              fontSize: '12px',
+              zIndex: 10,
+            }}
+          >
+            Video: {heroData.backgroundVideo ? 'Set' : 'Not Set'}
+          </Box>
+        </>
+      )}
       {/* Floating geometric shapes */}
       <Box
         sx={{

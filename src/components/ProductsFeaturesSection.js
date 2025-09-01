@@ -48,6 +48,7 @@ export default function ProductsFeaturesSection({ features, products }) {
 
   return (
       <Box
+          id="products"
           ref={containerRef}
           sx={{
             py: { xs: 6, md: 8 },

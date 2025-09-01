@@ -48,8 +48,9 @@ const getDefaultContent = () => ({
     subtitle: 'Transform your business with our innovative solutions',
     buttonText: 'Get Started',
     backgroundImage: '/hero-bg.jpg',
-    imageSlider: [
-      { id: 1, image: '/campaigns/slider2.png', title: 'Welcome', subtitle: 'Transform your business with our innovative solutions' },
+    backgroundVideo: '',
+    campaigns: [
+      { id: 1, image: '/campaigns/slider2.png', title: 'Welcome Campaign', subtitle: 'Transform your business with our innovative solutions' },
     ],
   },
   features: {
@@ -105,12 +106,12 @@ export const updateContent = async (content) => {
 
 // Storage helpers
 // Bucket: assets (public)
-export const uploadImageToStorage = async (file, folder = 'uploads') => {
+export const uploadFileToStorage = async (file, folder = 'uploads') => {
   try {
     if (!file) return { success: false, error: 'No file provided' };
     const fileExtension = file.name?.split('.').pop() || 'jpg';
     const timestamp = Date.now();
-    const safeName = (file.name || `image.${fileExtension}`).replace(/[^a-zA-Z0-9_.-]/g, '_');
+    const safeName = (file.name || `file.${fileExtension}`).replace(/[^a-zA-Z0-9_.-]/g, '_');
     const path = `${folder}/${timestamp}-${safeName}`;
     const { error: uploadError } = await supabase.storage.from('assets').upload(path, file, { upsert: true, cacheControl: '3600' });
     if (uploadError) return { success: false, error: uploadError.message };
@@ -120,6 +121,9 @@ export const uploadImageToStorage = async (file, folder = 'uploads') => {
     return { success: false, error: err.message };
   }
 };
+
+// Legacy alias for backward compatibility
+export const uploadImageToStorage = uploadFileToStorage;
 
 export default supabase;
 

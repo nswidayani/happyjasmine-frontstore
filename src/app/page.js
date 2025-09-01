@@ -5,6 +5,8 @@ import { Box, Typography } from '@mui/material';
 import { useTheme } from '../components/ThemeProvider';
 import Header from '../components/Header';
 import HeroSection from '../components/HeroSection';
+import CampaignSection from '../components/CampaignSection';
+import AnimatedSpacer from '../components/AnimatedSpacer';
 import ProductsFeaturesSection from '../components/ProductsFeaturesSection';
 import AboutSection from '../components/AboutSection';
 import ContactSection from '../components/ContactSection';
@@ -71,6 +73,8 @@ export default function Home() {
 
       {/* Page Sections */}
       <HeroSection heroData={content?.hero} />
+      <AnimatedSpacer />
+      <CampaignSection campaigns={content?.hero?.campaigns} />
       <ProductsFeaturesSection products={content?.products} features={content?.features} />
       <AboutSection aboutData={content?.about} />
       <ContactSection contactData={content?.contact} />
