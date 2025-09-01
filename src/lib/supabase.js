@@ -125,6 +125,57 @@ export const uploadFileToStorage = async (file, folder = 'uploads') => {
 // Legacy alias for backward compatibility
 export const uploadImageToStorage = uploadFileToStorage;
 
+// Products CRUD operations
+export const getProducts = async () => {
+  try {
+    const { data, error } = await supabase.from('products').select('*').order('created_at', { ascending: false });
+    if (error) return { success: false, error: error.message };
+    return { success: true, data: data || [] };
+  } catch (err) {
+    return { success: false, error: err.message };
+  }
+};
+
+export const getProductById = async (id) => {
+  try {
+    const { data, error } = await supabase.from('products').select('*').eq('id', id).single();
+    if (error) return { success: false, error: error.message };
+    return { success: true, data };
+  } catch (err) {
+    return { success: false, error: err.message };
+  }
+};
+
+export const createProduct = async (product) => {
+  try {
+    const { data, error } = await supabase.from('products').insert(product).select().single();
+    if (error) return { success: false, error: error.message };
+    return { success: true, data };
+  } catch (err) {
+    return { success: false, error: err.message };
+  }
+};
+
+export const updateProduct = async (id, updates) => {
+  try {
+    const { data, error } = await supabase.from('products').update(updates).eq('id', id).select().single();
+    if (error) return { success: false, error: error.message };
+    return { success: true, data };
+  } catch (err) {
+    return { success: false, error: err.message };
+  }
+};
+
+export const deleteProduct = async (id) => {
+  try {
+    const { error } = await supabase.from('products').delete().eq('id', id);
+    if (error) return { success: false, error: error.message };
+    return { success: true };
+  } catch (err) {
+    return { success: false, error: err.message };
+  }
+};
+
 export default supabase;
 
 
