@@ -30,6 +30,7 @@ import {
   InputLabel,
   Select,
   MenuItem,
+  FormHelperText,
   Divider,
   Avatar,
   Stack,
@@ -48,7 +49,7 @@ import {
   CloudUpload as UploadIcon,
   Clear as ClearIcon
 } from '@mui/icons-material';
-import { getProducts, createProduct, updateProduct, deleteProduct, uploadFileToStorage } from '../../lib/supabase';
+import { getProducts, createProduct, updateProduct, deleteProduct, uploadFileToStorage, getCategories } from '../../lib/supabase';
 
 export default function ProductsAdmin() {
   const [products, setProducts] = useState([]);
@@ -62,9 +63,11 @@ export default function ProductsAdmin() {
     nutrition_fact: '',
     het_price: '',
     thumbnail: '',
+    category_id: '',
     images: [],
     videos: []
   });
+  const [categories, setCategories] = useState([]);
   const [imageFiles, setImageFiles] = useState([]);
   const [videoFiles, setVideoFiles] = useState([]);
   const [uploading, setUploading] = useState(false);
@@ -73,6 +76,7 @@ export default function ProductsAdmin() {
 
   useEffect(() => {
     loadProducts();
+    loadCategories();
   }, []);
 
   const loadProducts = async () => {
@@ -83,6 +87,15 @@ export default function ProductsAdmin() {
       showAlert('Error loading products: ' + result.error, 'error');
     }
     setLoading(false);
+  };
+
+  const loadCategories = async () => {
+    const result = await getCategories();
+    if (result.success) {
+      setCategories(result.data);
+    } else {
+      showAlert('Error loading categories: ' + result.error, 'error');
+    }
   };
 
   const showAlert = (message, severity = 'success') => {
@@ -99,6 +112,7 @@ export default function ProductsAdmin() {
         nutrition_fact: product.nutrition_fact || '',
         het_price: product.het_price || '',
         thumbnail: product.thumbnail || '',
+        category_id: product.category_id || '',
         images: product.images || [],
         videos: product.videos || []
       });
@@ -130,6 +144,8 @@ export default function ProductsAdmin() {
       description: '',
       nutrition_fact: '',
       het_price: '',
+      thumbnail: '',
+      category_id: '',
       images: [],
       videos: []
     });
@@ -425,6 +441,28 @@ export default function ProductsAdmin() {
                     variant="outlined"
                     placeholder="e.g., Rp 25.000"
                   />
+                </Grid>
+                <Grid item xs={12} md={6}>
+                  <FormControl fullWidth variant="outlined">
+                    <InputLabel>Category</InputLabel>
+                    <Select
+                      value={formData.category_id}
+                      onChange={(e) => handleInputChange('category_id', e.target.value)}
+                      label="Category"
+                    >
+                      <MenuItem value="">
+                        <em>No Category</em>
+                      </MenuItem>
+                      {categories.map((category) => (
+                        <MenuItem key={category.id} value={category.id}>
+                          {category.name}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                    <FormHelperText>
+                      Select a category for this product
+                    </FormHelperText>
+                  </FormControl>
                 </Grid>
                 <Grid item xs={12} md={6}>
                   <TextField

@@ -17,6 +17,7 @@ import {
   Web as WebIcon,
   Settings as SettingsIcon,
   ShoppingBag as ProductsIcon,
+  Category as CategoryIcon,
   Menu as MenuIcon,
   Close as CloseIcon
 } from '@mui/icons-material';
@@ -41,6 +42,12 @@ const menuItems = [
     icon: <ProductsIcon />,
     path: '/admin/products',
     description: 'Manage product catalog'
+  },
+  {
+    text: 'Categories',
+    icon: <CategoryIcon />,
+    path: '/admin/categories',
+    description: 'Manage product categories'
   },
   {
     text: 'Settings',

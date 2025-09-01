@@ -126,11 +126,22 @@ export const uploadFileToStorage = async (file, folder = 'uploads') => {
 export const uploadImageToStorage = uploadFileToStorage;
 
 // Products CRUD operations
-export const getProducts = async () => {
+export const getProducts = async (from = 0, to = 19) => {
   try {
-    const { data, error } = await supabase.from('products').select('*').order('created_at', { ascending: false });
+    const { data, error, count } = await supabase
+      .from('products')
+      .select(`
+        *,
+        product_categories (
+          id,
+          name,
+          description
+        )
+      `, { count: 'exact' })
+      .order('created_at', { ascending: false })
+      .range(from, to);
     if (error) return { success: false, error: error.message };
-    return { success: true, data: data || [] };
+    return { success: true, data: data || [], count: count || 0 };
   } catch (err) {
     return { success: false, error: err.message };
   }
@@ -171,6 +182,134 @@ export const deleteProduct = async (id) => {
     const { error } = await supabase.from('products').delete().eq('id', id);
     if (error) return { success: false, error: error.message };
     return { success: true };
+  } catch (err) {
+    return { success: false, error: err.message };
+  }
+};
+
+// Categories CRUD operations
+export const getCategories = async () => {
+  try {
+    const { data, error } = await supabase
+      .from('product_categories')
+      .select('*')
+      .eq('is_active', true)
+      .order('display_order', { ascending: true });
+    if (error) return { success: false, error: error.message };
+    return { success: true, data: data || [] };
+  } catch (err) {
+    return { success: false, error: err.message };
+  }
+};
+
+export const getAllCategories = async () => {
+  try {
+    const { data, error } = await supabase
+      .from('product_categories')
+      .select('*')
+      .order('display_order', { ascending: true });
+    if (error) return { success: false, error: error.message };
+    return { success: true, data: data || [] };
+  } catch (err) {
+    return { success: false, error: err.message };
+  }
+};
+
+export const getCategoryById = async (id) => {
+  try {
+    const { data, error } = await supabase
+      .from('product_categories')
+      .select('*')
+      .eq('id', id)
+      .single();
+    if (error) return { success: false, error: error.message };
+    return { success: true, data };
+  } catch (err) {
+    return { success: false, error: err.message };
+  }
+};
+
+export const createCategory = async (category) => {
+  try {
+    const { data, error } = await supabase
+      .from('product_categories')
+      .insert(category)
+      .select()
+      .single();
+    if (error) return { success: false, error: error.message };
+    return { success: true, data };
+  } catch (err) {
+    return { success: false, error: err.message };
+  }
+};
+
+export const updateCategory = async (id, updates) => {
+  try {
+    const { data, error } = await supabase
+      .from('product_categories')
+      .update(updates)
+      .eq('id', id)
+      .select()
+      .single();
+    if (error) return { success: false, error: error.message };
+    return { success: true, data };
+  } catch (err) {
+    return { success: false, error: err.message };
+  }
+};
+
+export const deleteCategory = async (id) => {
+  try {
+    const { error } = await supabase
+      .from('product_categories')
+      .delete()
+      .eq('id', id);
+    if (error) return { success: false, error: error.message };
+    return { success: true };
+  } catch (err) {
+    return { success: false, error: err.message };
+  }
+};
+
+// Get products by category
+export const getProductsByCategory = async (categoryId, from = 0, to = 19) => {
+  try {
+    const { data, error, count } = await supabase
+      .from('products')
+      .select(`
+        *,
+        product_categories (
+          id,
+          name,
+          description
+        )
+      `, { count: 'exact' })
+      .eq('category_id', categoryId)
+      .order('created_at', { ascending: false })
+      .range(from, to);
+    if (error) return { success: false, error: error.message };
+    return { success: true, data: data || [], count: count || 0 };
+  } catch (err) {
+    return { success: false, error: err.message };
+  }
+};
+
+// Get products with category information
+export const getProductsWithCategories = async () => {
+  try {
+    const { data, error } = await supabase
+      .from('products')
+      .select(`
+        *,
+        product_categories (
+          id,
+          name,
+          description
+        )
+      `)
+      .order('created_at', { ascending: false });
+    if (error) return { success: false, error: error.message };
+    return { success: true, data: data || [] };
   } catch (err) {
     return { success: false, error: err.message };
   }
