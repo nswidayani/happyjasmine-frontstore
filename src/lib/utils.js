@@ -164,7 +164,7 @@ export const omit = (obj, keys) => {
   return result;
 };
 
-export default {
+const utils = {
   formatDate,
   formatCurrency,
   truncateText,
@@ -185,3 +185,5 @@ export default {
   pick,
   omit
 };
+
+export default utils;

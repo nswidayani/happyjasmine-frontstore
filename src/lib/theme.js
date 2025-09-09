@@ -1,4 +1,5 @@
 // Design tokens and constants for consistent styling
+import { createTheme } from '@mui/material/styles';
 
 export const COLORS = {
   primary: {
@@ -17,6 +18,12 @@ export const COLORS = {
     main: '#FF90AD',
     light: '#FFB3C1',
     dark: '#E87195'
+  },
+  tertiary: {
+    main: '#FFE347',
+    light: '#FFF176',
+    dark: '#FBC02D',
+    contrastText: '#000000'
   },
   background: {
     default: '#F5F5F5',
@@ -189,7 +196,164 @@ export const API_CONFIG = {
   locationsTable: 'locations'
 };
 
-export default {
+// Create custom Material-UI theme from configuration
+export const createCustomTheme = (config) => {
+  // Ensure config is defined
+  const safeConfig = config || {};
+
+  // Ensure COLORS object is properly defined
+  const defaultColors = {
+    primary: { main: '#005F73', light: '#338BA8', dark: '#003D4D', contrastText: '#FFFFFF' },
+    secondary: { main: '#FFE347', light: '#FFF176', dark: '#FBC02D', contrastText: '#000000' },
+    warning: { main: '#FF90AD', light: '#FFB3C1', dark: '#E87195' },
+    tertiary: { main: '#FFE347', light: '#FFF176', dark: '#FBC02D', contrastText: '#000000' },
+    background: { default: '#F5F5F5', paper: '#FFFFFF' }
+  };
+
+  const colors = COLORS || defaultColors;
+
+  return createTheme({
+    palette: {
+      mode: safeConfig.mode || 'light',
+      primary: {
+        main: safeConfig.primaryColor || colors.primary.main,
+        light: colors.primary.light,
+        dark: colors.primary.dark,
+        contrastText: colors.primary.contrastText,
+      },
+      secondary: {
+        main: safeConfig.secondaryColor || colors.secondary.main,
+        light: colors.secondary.light,
+        dark: colors.secondary.dark,
+        contrastText: colors.secondary.contrastText,
+      },
+      warning: {
+        main: safeConfig.warningColor || colors.warning.main,
+        light: colors.warning.light,
+        dark: colors.warning.dark,
+      },
+      tertiary: {
+        main: safeConfig.tertiaryColor || colors.tertiary.main,
+        light: colors.tertiary.light,
+        dark: colors.tertiary.dark,
+        contrastText: colors.tertiary.contrastText,
+      },
+      background: {
+        default: safeConfig.backgroundDefault || colors.background.default,
+        paper: safeConfig.backgroundPaper || colors.background.paper,
+      },
+    },
+    typography: {
+      fontFamily: '"Bemio", "Roboto", "Helvetica", "Arial", sans-serif',
+      h1: {
+        fontSize: '3.5rem',
+        fontWeight: 700,
+        lineHeight: 1.2,
+      },
+      h2: {
+        fontSize: '2.5rem',
+        fontWeight: 600,
+        lineHeight: 1.3,
+      },
+      h3: {
+        fontSize: '2rem',
+        fontWeight: 600,
+        lineHeight: 1.4,
+      },
+      h4: {
+        fontSize: '1.5rem',
+        fontWeight: 600,
+        lineHeight: 1.4,
+      },
+      h5: {
+        fontSize: '1.25rem',
+        fontWeight: 600,
+        lineHeight: 1.5,
+      },
+      h6: {
+        fontSize: '1.125rem',
+        fontWeight: 600,
+        lineHeight: 1.5,
+      },
+      body1: {
+        fontSize: '1rem',
+        lineHeight: 1.6,
+      },
+      body2: {
+        fontSize: '0.875rem',
+        lineHeight: 1.6,
+      },
+      button: {
+        fontSize: '0.875rem',
+        fontWeight: 600,
+        textTransform: 'none',
+      },
+    },
+    shape: {
+      borderRadius: 12,
+    },
+    components: {
+      MuiButton: {
+        styleOverrides: {
+          root: {
+            borderRadius: BORDER_RADIUS.xl,
+            fontWeight: 600,
+            textTransform: 'none',
+            padding: '12px 24px',
+            boxShadow: 'none',
+            '&:hover': {
+              boxShadow: SHADOWS.md,
+            },
+          },
+          contained: {
+            boxShadow: SHADOWS.sm,
+            '&:hover': {
+              boxShadow: SHADOWS.md,
+            },
+          },
+        },
+      },
+      MuiTextField: {
+        styleOverrides: {
+          root: {
+            '& .MuiOutlinedInput-root': {
+              borderRadius: BORDER_RADIUS.md,
+              transition: TRANSITIONS.fast,
+              '&:hover fieldset': {
+                borderColor: 'primary.main',
+              },
+              '&.Mui-focused fieldset': {
+                borderColor: 'primary.main',
+              },
+            },
+          },
+        },
+      },
+      MuiCard: {
+        styleOverrides: {
+          root: {
+            borderRadius: BORDER_RADIUS.lg,
+            boxShadow: SHADOWS.sm,
+            border: '1px solid rgba(0, 95, 115, 0.1)',
+            transition: TRANSITIONS.normal,
+          },
+        },
+      },
+      MuiPaper: {
+        styleOverrides: {
+          root: {
+            backgroundImage: 'none',
+          },
+        },
+      },
+    },
+    breakpoints: {
+      values: BREAKPOINTS,
+    },
+  });
+};
+
+const themeConstants = {
   COLORS,
   SPACING,
   BORDER_RADIUS,
@@ -201,5 +365,8 @@ export default {
   ANIMATIONS,
   VALIDATION,
   UPLOAD_CONFIG,
-  API_CONFIG
+  API_CONFIG,
+  createCustomTheme
 };
+
+export default themeConstants;

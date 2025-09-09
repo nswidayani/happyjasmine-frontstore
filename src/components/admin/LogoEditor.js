@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Box, Typography, Grid, Paper, TextField, Button } from '@mui/material';
+import Image from 'next/image';
 import { uploadFileToStorage } from '../../lib/supabase';
 
 export default function LogoEditor({ content, setContent, onError, onUploadNotice }) {
@@ -32,9 +33,11 @@ export default function LogoEditor({ content, setContent, onError, onUploadNotic
           <Typography variant="h6" sx={{ mb: 2 }}>Current Logo Preview</Typography>
           <Box sx={{ mb: 3, p: 2, border: '1px solid rgba(0, 95, 115, 0.2)', borderRadius: 1, backgroundColor: 'background.default' }}>
             <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: 100 }}>
-              <img
+              <Image
                 src={logo}
                 alt="Logo Preview"
+                width={200}
+                height={80}
                 style={{
                   maxHeight: '80px',
                   maxWidth: '200px',

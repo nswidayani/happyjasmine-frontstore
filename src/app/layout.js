@@ -52,6 +52,13 @@ export const metadata = {
   },
 };
 
+// Font loading moved to _document.js equivalent
+const fontLink = {
+  rel: 'stylesheet',
+  href: 'https://fonts.googleapis.com/css2?family=Bemio:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap',
+  crossOrigin: 'anonymous',
+};
+
 export default function RootLayout({ children }) {
   const structuredData = {
     "@context": "https://schema.org",
@@ -103,10 +110,7 @@ export default function RootLayout({ children }) {
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Bemio:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap"
-          rel="stylesheet"
-        />
+        <link {...fontLink} />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -114,7 +118,7 @@ export default function RootLayout({ children }) {
           }}
         />
       </head>
-      <body>
+      <body suppressHydrationWarning={true}>
         <ClientThemeProvider>
           {children}
         </ClientThemeProvider>

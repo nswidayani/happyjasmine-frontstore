@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, createContext, useContext } from 'react';
+import { useState, useEffect, createContext, useContext, useMemo } from 'react';
 import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import { CacheProvider } from '@emotion/react';
@@ -31,20 +31,18 @@ export default function ClientThemeProvider({ children }) {
     mode: 'light',
     primaryColor: '#005F73',
     secondaryColor: '#FFE347',
+    tertiaryColor: '#FFE347',
     warningColor: '#FF90AD',
     backgroundDefault: '#F5F5F5',
     backgroundPaper: '#FFFFFF',
   });
-  const [theme, setTheme] = useState(() => createCustomTheme(themeConfig));
+
+  // Memoize theme creation to prevent hydration mismatches
+  const theme = useMemo(() => createCustomTheme(themeConfig), [themeConfig]);
 
   const updateTheme = (newConfig) => {
     setThemeConfig(newConfig);
-    setTheme(createCustomTheme(newConfig));
   };
-
-  useEffect(() => {
-    setTheme(createCustomTheme(themeConfig));
-  }, [themeConfig]);
 
   return (
     <ThemeContext.Provider value={{ themeConfig, updateTheme, theme }}>

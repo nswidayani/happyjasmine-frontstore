@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { Dialog, DialogContent, DialogTitle, IconButton, Typography, Box, Grid, Button, ImageList, ImageListItem } from '@mui/material';
 import { Close as CloseIcon, PlayArrow as PlayIcon } from '@mui/icons-material';
+import Image from 'next/image';
 
 export default function ProductDetail({ product, open, onClose }) {
   const [selectedImage, setSelectedImage] = useState(0);
@@ -43,18 +44,16 @@ export default function ProductDetail({ product, open, onClose }) {
           {product.images && product.images.length > 0 && (
             <Grid item xs={12} md={6}>
               <Box sx={{ mb: 2 }}>
-                <Box
-                  component="img"
-                  src={product.images[selectedImage]}
-                  alt={product.title}
-                  sx={{
-                    width: '100%',
-                    height: 300,
-                    objectFit: 'cover',
-                    borderRadius: 2,
-                    boxShadow: 2
-                  }}
-                />
+                <Box sx={{ position: 'relative', width: '100%', height: 300, borderRadius: 2, overflow: 'hidden', boxShadow: 2 }}>
+                  <Image
+                    src={product.images[selectedImage]}
+                    alt={product.title}
+                    fill
+                    style={{
+                      objectFit: 'cover',
+                    }}
+                  />
+                </Box>
               </Box>
 
               {product.images.length > 1 && (
@@ -71,15 +70,16 @@ export default function ProductDetail({ product, open, onClose }) {
                       }}
                       onClick={() => handleImageClick(index)}
                     >
-                      <img
-                        src={image}
-                        alt={`${product.title} ${index + 1}`}
-                        style={{
-                          width: '100%',
-                          height: 80,
-                          objectFit: 'cover'
-                        }}
-                      />
+                      <Box sx={{ position: 'relative', width: '100%', height: 80 }}>
+                        <Image
+                          src={image}
+                          alt={`${product.title} ${index + 1}`}
+                          fill
+                          style={{
+                            objectFit: 'cover'
+                          }}
+                        />
+                      </Box>
                     </ImageListItem>
                   ))}
                 </ImageList>

@@ -50,6 +50,7 @@ import {
   Clear as ClearIcon
 } from '@mui/icons-material';
 import { getProducts, createProduct, updateProduct, deleteProduct, uploadFileToStorage, getCategories } from '../../lib/supabase';
+import Image from 'next/image';
 
 export default function ProductsAdmin() {
   const [products, setProducts] = useState([]);
@@ -77,26 +78,26 @@ export default function ProductsAdmin() {
   useEffect(() => {
     loadProducts();
     loadCategories();
-  }, [loadProducts, loadCategories]);
+  }, []);
 
   const loadProducts = useCallback(async () => {
     const result = await getProducts();
     if (result.success) {
       setProducts(result.data);
     } else {
-      showAlert('Error loading products: ' + result.error, 'error');
+      console.error('Error loading products:', result.error);
     }
     setLoading(false);
-  }, [showAlert]);
+  }, []);
 
   const loadCategories = useCallback(async () => {
     const result = await getCategories();
     if (result.success) {
       setCategories(result.data);
     } else {
-      showAlert('Error loading categories: ' + result.error, 'error');
+      console.error('Error loading categories:', result.error);
     }
-  }, [showAlert]);
+  }, []);
 
   const showAlert = useCallback((message, severity = 'success') => {
     setAlert({ message, severity });
@@ -349,12 +350,14 @@ export default function ProductsAdmin() {
               <TableRow key={product.id}>
                 <TableCell>
                   {product.thumbnail || (product.images && product.images.length > 0) ? (
-                    <Box
-                      component="img"
-                      src={product.thumbnail || product.images[0]}
-                      alt={product.title}
-                      sx={{ width: 60, height: 60, objectFit: 'cover', borderRadius: 1 }}
-                    />
+                    <Box sx={{ position: 'relative', width: 60, height: 60, borderRadius: 1, overflow: 'hidden' }}>
+                      <Image
+                        src={product.thumbnail || product.images[0]}
+                        alt={product.title}
+                        fill
+                        style={{ objectFit: 'cover' }}
+                      />
+                    </Box>
                   ) : (
                     <Box sx={{ width: 60, height: 60, bgcolor: 'grey.200', borderRadius: 1, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                       <ImageIcon />
