@@ -32,19 +32,9 @@ export default function HeroSection({ heroData }) {
         position: 'relative',
         minHeight: '100vh',
         display: 'flex',
-        alignItems: 'center',
+        alignItems: 'flex-end',
         justifyContent: 'center',
         overflow: 'hidden',
-        '&::before': {
-          content: '""',
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          background: 'rgba(0, 95, 115, 0.7)', // Semi-transparent overlay
-          zIndex: 2,
-        },
         '&::after': {
           content: '""',
           position: 'absolute',
@@ -154,7 +144,13 @@ export default function HeroSection({ heroData }) {
           sx={{
             maxWidth: '900px',
             mx: 'auto',
-            px: { xs: 2, md: 4 },
+            mb: 4,
+            px: { xs: 3, md: 5 },
+            py: { xs: 4, md: 6 },
+            background: 'linear-gradient(135deg, rgba(0, 95, 115, 0.4) 0%, rgba(0, 0, 0, 0.6) 100%)',
+            borderRadius: '24px',
+            backdropFilter: 'blur(20px)',
+            boxShadow: '0 20px 40px rgba(0, 0, 0, 0.3)',
           }}
         >
           <Typography
@@ -162,10 +158,10 @@ export default function HeroSection({ heroData }) {
             component="h1"
             sx={{
               fontSize: { xs: '2.5rem', sm: '3.5rem', md: '4.5rem', lg: '5rem' },
-              fontWeight: 800,
+              fontWeight: 900,
               mb: { xs: 2, md: 3 },
-              textShadow: '0 4px 20px rgba(0,0,0,0.1)',
-              background: 'linear-gradient(135deg, #ffffff 0%, rgba(0, 95, 115, 0.1) 100%)',
+              textShadow: '0 6px 30px rgba(0,0,0,0.4)',
+              background: 'linear-gradient(135deg, #ffffff 0%, #d0d0d0 50%, rgba(0, 95, 115, 0.3) 100%)',
               backgroundClip: 'text',
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent',
@@ -182,13 +178,13 @@ export default function HeroSection({ heroData }) {
             sx={{
               fontSize: { xs: '1.1rem', sm: '1.3rem', md: '1.5rem' },
               mb: { xs: 4, md: 6 },
-              opacity: 0.95,
+              opacity: 1,
               maxWidth: '700px',
               mx: 'auto',
               lineHeight: 1.6,
               fontWeight: 400,
-              color: 'rgba(255, 255, 255, 0.9)',
-              textShadow: '0 2px 10px rgba(0,0,0,0.1)',
+              color: 'white',
+              textShadow: '0 4px 20px rgba(0,0,0,0.6)',
             }}
           >
             {heroData?.subtitle || 'Transform your business with our innovative solutions'}

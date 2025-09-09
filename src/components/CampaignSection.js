@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Box, Typography, Container, Grid, Card, CardMedia, CardContent, Button } from '@mui/material';
+import { Box, Typography, Button } from '@mui/material';
 import { ArrowForward } from '@mui/icons-material';
 
 export default function CampaignSection({ campaigns = [] }) {
@@ -44,283 +44,251 @@ export default function CampaignSection({ campaigns = [] }) {
     <Box
       id="campaigns"
       sx={{
-        py: { xs: 8, md: 12 },
-        background: 'linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%)',
         position: 'relative',
+        height: { xs: '60vh', md: '70vh', lg: '80vh' },
+        minHeight: { xs: 400, md: 500, lg: 600 },
         overflow: 'hidden',
-        '&::before': {
-          content: '""',
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          background: 'radial-gradient(circle at 20% 80%, rgba(0, 95, 115, 0.05) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(255, 227, 71, 0.05) 0%, transparent 50%)',
-          zIndex: 0,
-        }
+        opacity: isVisible ? 1 : 0,
+        transform: isVisible ? 'translateY(0)' : 'translateY(50px)',
+        transition: 'all 0.8s cubic-bezier(0.4, 0, 0.2, 1)',
       }}
     >
-      {/* Background decorative elements */}
-      <Box
-        sx={{
-          position: 'absolute',
-          top: '20%',
-          left: '10%',
-          width: 200,
-          height: 200,
-          borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(0, 95, 115, 0.1) 0%, transparent 70%)',
-          animation: 'float 8s ease-in-out infinite',
-          zIndex: 1,
-        }}
-      />
-      <Box
-        sx={{
-          position: 'absolute',
-          bottom: '20%',
-          right: '15%',
-          width: 150,
-          height: 150,
-          borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(255, 227, 71, 0.1) 0%, transparent 70%)',
-          animation: 'float 6s ease-in-out infinite reverse',
-          zIndex: 1,
-        }}
-      />
+      {/* Fullwidth Background Image */}
+      {currentCampaign.image && (
+        <Box
+          sx={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            width: '100%',
+            height: '100%',
+            backgroundImage: `url(${currentCampaign.image})`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat',
+            '&::before': {
+              content: '""',
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              background: 'linear-gradient(135deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.1) 30%, rgba(0, 0, 0, 0.2) 70%, rgba(0, 0, 0, 0.5) 100%)',
+              zIndex: 1,
+            }
+          }}
+        />
+      )}
 
-      <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 2 }}>
-        <Box sx={{ textAlign: 'center', mb: 6 }}>
-          <Typography
-            variant="overline"
-            sx={{
-              color: 'primary.main',
-              fontWeight: 600,
-              letterSpacing: '0.1em',
-              mb: 2,
-              display: 'block',
-              fontSize: '0.875rem',
-            }}
-          >
-            Our Campaigns
-          </Typography>
+      {/* Overlay Content */}
+      <Box
+        sx={{
+          position: 'relative',
+          zIndex: 2,
+          height: '100%',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'flex-end',
+          alignItems: 'center',
+          textAlign: 'center',
+          px: { xs: 2, md: 4 },
+          pb: { xs: 10, md: 12 },
+          color: 'white',
+        }}
+      >
+        {/* Text Content Container with Background */}
+        <Box
+          sx={{
+            background: 'rgba(0, 0, 0, 0.75)',
+            backdropFilter: 'blur(25px)',
+            borderRadius: { xs: '24px', md: '32px' },
+            border: '1px solid rgba(255, 255, 255, 0.15)',
+            px: { xs: 4, md: 8, lg: 10 },
+            py: { xs: 4, md: 5, lg: 6 },
+            maxWidth: { xs: '95%', sm: '85%', md: '900px', lg: '1000px' },
+            width: '100%',
+            boxShadow: '0 25px 80px rgba(0, 0, 0, 0.5)',
+            position: 'relative',
+            mb: { xs: 6, md: 8 },
+            mx: { xs: 2, md: 3 },
+            '&::before': {
+              content: '""',
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.06) 50%, rgba(255, 255, 255, 0.03) 100%)',
+              borderRadius: 'inherit',
+              zIndex: -1,
+            },
+            '&::after': {
+              content: '""',
+              position: 'absolute',
+              top: -2,
+              left: -2,
+              right: -2,
+              bottom: -2,
+              background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, transparent 50%, rgba(255, 255, 255, 0.05) 100%)',
+              borderRadius: 'inherit',
+              zIndex: -2,
+              filter: 'blur(8px)',
+            }
+          }}
+        >
+          {/* Campaign Title */}
           <Typography
             variant="h2"
             component="h2"
             sx={{
-              fontSize: { xs: '2.5rem', sm: '3rem', md: '3.5rem' },
-              fontWeight: 700,
-              color: 'primary.main',
-              mb: 3,
+              fontSize: { xs: '2rem', sm: '2.8rem', md: '4rem', lg: '4.5rem' },
+              fontWeight: 900,
+              mb: { xs: 2.5, md: 3.5 },
+              lineHeight: 1.05,
+              color: 'white',
+              textShadow: '0 3px 15px rgba(0,0,0,0.4), 0 1px 3px rgba(0,0,0,0.2)',
+              letterSpacing: '-0.02em',
             }}
           >
-            Featured Promotions
+            {currentCampaign.title || 'Campaign Title'}
           </Typography>
-          <Typography
-            variant="body1"
-            sx={{
-              fontSize: { xs: '1.1rem', md: '1.2rem' },
-              color: 'text.secondary',
-              maxWidth: '600px',
-              mx: 'auto',
-              lineHeight: 1.6,
-            }}
-          >
-            Discover our latest campaigns and special offers designed to bring you the best value
-          </Typography>
-        </Box>
 
-        {/* Campaign Display */}
-        <Box
-          sx={{
-            maxWidth: '800px',
-            mx: 'auto',
-            opacity: isVisible ? 1 : 0,
-            transform: isVisible ? 'translateY(0)' : 'translateY(50px)',
-            transition: 'all 0.8s cubic-bezier(0.4, 0, 0.2, 1)',
-          }}
-        >
-          <Card
+          {/* Campaign Subtitle */}
+          <Typography
+            variant="h5"
+            component="p"
             sx={{
-              borderRadius: '24px',
-              overflow: 'hidden',
-              boxShadow: '0 20px 60px rgba(0, 95, 115, 0.15)',
-              position: 'relative',
-              '&::before': {
-                content: '""',
-                position: 'absolute',
-                top: 0,
-                left: 0,
-                right: 0,
-                bottom: 0,
-                background: 'linear-gradient(135deg, rgba(0, 95, 115, 0.1) 0%, rgba(255, 227, 71, 0.1) 100%)',
-                zIndex: 1,
+              fontSize: { xs: '1.1rem', sm: '1.3rem', md: '1.6rem', lg: '1.8rem' },
+              mb: { xs: 4, md: 5 },
+              maxWidth: '700px',
+              lineHeight: 1.5,
+              fontWeight: 400,
+              color: 'rgba(255, 255, 255, 0.95)',
+              mx: 'auto',
+              textShadow: '0 1px 5px rgba(0,0,0,0.3)',
+            }}
+          >
+            {currentCampaign.subtitle || 'Campaign description will appear here'}
+          </Typography>
+
+          {/* CTA Button */}
+          <Button
+            variant="contained"
+            size="large"
+            endIcon={<ArrowForward />}
+            sx={{
+              bgcolor: 'primary.main',
+              color: 'white',
+              px: { xs: 4, md: 6 },
+              py: { xs: 1.5, md: 2 },
+              borderRadius: '50px',
+              fontSize: { xs: '1rem', md: '1.2rem' },
+              fontWeight: 700,
+              boxShadow: '0 8px 32px rgba(0, 95, 115, 0.4)',
+              '&:hover': {
+                bgcolor: 'primary.dark',
+                transform: 'translateY(-3px)',
+                boxShadow: '0 12px 40px rgba(0, 95, 115, 0.6)',
+              },
+              transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+              minWidth: { xs: '180px', md: '220px' },
+              border: '2px solid rgba(255, 255, 255, 0.2)',
+              '&:hover': {
+                border: '2px solid rgba(255, 255, 255, 0.4)',
+                bgcolor: 'primary.dark',
+                transform: 'translateY(-3px)',
+                boxShadow: '0 12px 40px rgba(0, 95, 115, 0.6)',
+              },
+            }}
+          >
+            Learn More
+          </Button>
+        </Box>
+      </Box>
+
+
+      {/* Side Navigation Arrows */}
+      {campaigns.length > 1 && (
+        <>
+          <Box
+            onClick={() => setCurrentIndex(currentIndex === 0 ? campaigns.length - 1 : currentIndex - 1)}
+            sx={{
+              position: 'absolute',
+              left: { xs: 15, md: 30 },
+              bottom: { xs: 280, md: 320 },
+              zIndex: 3,
+              width: { xs: 55, md: 70 },
+              height: { xs: 55, md: 70 },
+              borderRadius: '50%',
+              backgroundColor: 'rgba(0, 0, 0, 0.6)',
+              backdropFilter: 'blur(20px)',
+              border: '2px solid rgba(255, 255, 255, 0.25)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              cursor: 'pointer',
+              transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+              boxShadow: '0 10px 30px rgba(0, 0, 0, 0.4)',
+              '&:hover': {
+                backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                border: '2px solid rgba(255, 255, 255, 0.5)',
+                transform: 'scale(1.15)',
+                boxShadow: '0 15px 40px rgba(0, 0, 0, 0.5)',
+              },
+              '&:active': {
+                transform: 'scale(1.05)',
               }
             }}
           >
-            {currentCampaign.image && (
-              <CardMedia
-                component="img"
-                image={currentCampaign.image}
-                alt={currentCampaign.title || 'Campaign'}
-                sx={{
-                  height: { xs: 250, md: 350 },
-                  objectFit: 'cover',
-                  position: 'relative',
-                  zIndex: 2,
-                }}
-              />
-            )}
-            <CardContent
-              sx={{
-                p: { xs: 3, md: 4 },
-                position: 'relative',
-                zIndex: 2,
-                textAlign: 'center',
-                background: 'rgba(255, 255, 255, 0.95)',
-                backdropFilter: 'blur(10px)',
-              }}
-            >
-              <Typography
-                variant="h4"
-                component="h3"
-                sx={{
-                  fontWeight: 700,
-                  mb: 2,
-                  color: 'primary.main',
-                  fontSize: { xs: '1.5rem', md: '2rem' },
-                }}
-              >
-                {currentCampaign.title || 'Campaign Title'}
-              </Typography>
-              <Typography
-                variant="body1"
-                sx={{
-                  color: 'text.secondary',
-                  mb: 3,
-                  fontSize: { xs: '1rem', md: '1.1rem' },
-                  lineHeight: 1.6,
-                }}
-              >
-                {currentCampaign.subtitle || 'Campaign description will appear here'}
-              </Typography>
-
-              <Box sx={{ display: 'flex', justifyContent: 'center', gap: 1, mb: 3 }}>
-                {campaigns.map((_, index) => (
-                  <Box
-                    key={index}
-                    onClick={() => setCurrentIndex(index)}
-                    sx={{
-                      width: 12,
-                      height: 12,
-                      borderRadius: '50%',
-                      backgroundColor: index === currentIndex ? 'primary.main' : 'rgba(0, 95, 115, 0.3)',
-                      cursor: 'pointer',
-                      transition: 'all 0.3s ease',
-                      '&:hover': {
-                        backgroundColor: index === currentIndex ? 'primary.main' : 'rgba(0, 95, 115, 0.5)',
-                        transform: 'scale(1.2)',
-                      }
-                    }}
-                  />
-                ))}
-              </Box>
-
-              <Button
-                variant="contained"
-                size="large"
-                endIcon={<ArrowForward />}
-                sx={{
-                  bgcolor: 'primary.main',
-                  color: 'white',
-                  px: 4,
-                  py: 1.5,
-                  borderRadius: '50px',
-                  fontWeight: 600,
-                  boxShadow: '0 8px 25px rgba(0, 95, 115, 0.3)',
-                  '&:hover': {
-                    bgcolor: 'primary.dark',
-                    transform: 'translateY(-2px)',
-                    boxShadow: '0 12px 35px rgba(0, 95, 115, 0.4)',
-                  },
-                  transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-                }}
-              >
-                Learn More
-              </Button>
-            </CardContent>
-          </Card>
-        </Box>
-
-        {/* Campaign Grid for smaller screens or additional campaigns */}
-        {campaigns.length > 1 && (
-          <Box sx={{ mt: 6 }}>
-            <Grid container spacing={3}>
-              {campaigns.slice(0, 3).map((campaign, index) => (
-                <Grid item xs={12} sm={6} md={4} key={campaign.id}>
-                  <Card
-                    onClick={() => setCurrentIndex(index)}
-                    sx={{
-                      borderRadius: '16px',
-                      overflow: 'hidden',
-                      cursor: 'pointer',
-                      transition: 'all 0.3s ease',
-                      boxShadow: index === currentIndex
-                        ? '0 15px 35px rgba(0, 95, 115, 0.2)'
-                        : '0 5px 15px rgba(0, 95, 115, 0.1)',
-                      border: index === currentIndex ? '2px solid' : 'none',
-                      borderColor: 'primary.main',
-                      transform: index === currentIndex ? 'scale(1.02)' : 'scale(1)',
-                      '&:hover': {
-                        transform: 'translateY(-5px) scale(1.02)',
-                        boxShadow: '0 15px 35px rgba(0, 95, 115, 0.2)',
-                      }
-                    }}
-                  >
-                    {campaign.image && (
-                      <CardMedia
-                        component="img"
-                        image={campaign.image}
-                        alt={campaign.title || 'Campaign'}
-                        sx={{
-                          height: 180,
-                          objectFit: 'cover',
-                        }}
-                      />
-                    )}
-                    <CardContent sx={{ p: 2, textAlign: 'center' }}>
-                      <Typography
-                        variant="h6"
-                        sx={{
-                          fontWeight: 600,
-                          color: 'primary.main',
-                          mb: 1,
-                        }}
-                      >
-                        {campaign.title || 'Campaign'}
-                      </Typography>
-                      <Typography
-                        variant="body2"
-                        sx={{
-                          color: 'text.secondary',
-                          fontSize: '0.9rem',
-                        }}
-                      >
-                        {campaign.subtitle || 'Click to view details'}
-                      </Typography>
-                    </CardContent>
-                  </Card>
-                </Grid>
-              ))}
-            </Grid>
+            <Typography variant="h4" sx={{ color: 'white', fontSize: { xs: '1.8rem', md: '2.2rem' }, fontWeight: 'bold', lineHeight: 1 }}>
+              ‹
+            </Typography>
           </Box>
-        )}
-      </Container>
+
+          <Box
+            onClick={() => setCurrentIndex(currentIndex === campaigns.length - 1 ? 0 : currentIndex + 1)}
+            sx={{
+              position: 'absolute',
+              right: { xs: 15, md: 30 },
+              bottom: { xs: 280, md: 320 },
+              zIndex: 3,
+              width: { xs: 55, md: 70 },
+              height: { xs: 55, md: 70 },
+              borderRadius: '50%',
+              backgroundColor: 'rgba(0, 0, 0, 0.6)',
+              backdropFilter: 'blur(20px)',
+              border: '2px solid rgba(255, 255, 255, 0.25)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              cursor: 'pointer',
+              transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+              boxShadow: '0 10px 30px rgba(0, 0, 0, 0.4)',
+              '&:hover': {
+                backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                border: '2px solid rgba(255, 255, 255, 0.5)',
+                transform: 'scale(1.15)',
+                boxShadow: '0 15px 40px rgba(0, 0, 0, 0.5)',
+              },
+              '&:active': {
+                transform: 'scale(1.05)',
+              }
+            }}
+          >
+            <Typography variant="h4" sx={{ color: 'white', fontSize: { xs: '1.8rem', md: '2.2rem' }, fontWeight: 'bold', lineHeight: 1 }}>
+              ›
+            </Typography>
+          </Box>
+        </>
+      )}
+
 
       <style jsx>{`
         @keyframes float {
           0%, 100% { transform: translateY(0px) rotate(0deg); }
           50% { transform: translateY(-20px) rotate(180deg); }
         }
+
       `}</style>
     </Box>
   );

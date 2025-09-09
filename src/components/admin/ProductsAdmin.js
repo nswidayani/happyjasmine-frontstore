@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import {
   Box,
   Typography,
@@ -77,9 +77,9 @@ export default function ProductsAdmin() {
   useEffect(() => {
     loadProducts();
     loadCategories();
-  }, []);
+  }, [loadProducts, loadCategories]);
 
-  const loadProducts = async () => {
+  const loadProducts = useCallback(async () => {
     const result = await getProducts();
     if (result.success) {
       setProducts(result.data);
@@ -87,21 +87,21 @@ export default function ProductsAdmin() {
       showAlert('Error loading products: ' + result.error, 'error');
     }
     setLoading(false);
-  };
+  }, [showAlert]);
 
-  const loadCategories = async () => {
+  const loadCategories = useCallback(async () => {
     const result = await getCategories();
     if (result.success) {
       setCategories(result.data);
     } else {
       showAlert('Error loading categories: ' + result.error, 'error');
     }
-  };
+  }, [showAlert]);
 
-  const showAlert = (message, severity = 'success') => {
+  const showAlert = useCallback((message, severity = 'success') => {
     setAlert({ message, severity });
     setTimeout(() => setAlert(null), 5000);
-  };
+  }, []);
 
   const handleOpenDialog = (product = null) => {
     if (product) {
@@ -383,7 +383,7 @@ export default function ProductsAdmin() {
       {products.length === 0 && (
         <Box sx={{ textAlign: 'center', py: 8 }}>
           <Typography variant="h6" color="text.secondary">
-            No products found. Click "Add Product" to create your first product.
+            No products found. Click 'Add Product' to create your first product.
           </Typography>
         </Box>
       )}

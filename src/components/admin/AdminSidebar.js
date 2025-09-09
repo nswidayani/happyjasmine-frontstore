@@ -18,6 +18,7 @@ import {
   Settings as SettingsIcon,
   ShoppingBag as ProductsIcon,
   Category as CategoryIcon,
+  LocationOn as LocationIcon,
   Menu as MenuIcon,
   Close as CloseIcon
 } from '@mui/icons-material';
@@ -48,6 +49,12 @@ const menuItems = [
     icon: <CategoryIcon />,
     path: '/admin/categories',
     description: 'Manage product categories'
+  },
+  {
+    text: 'Locations',
+    icon: <LocationIcon />,
+    path: '/admin/locations',
+    description: 'Manage business locations'
   },
   {
     text: 'Settings',

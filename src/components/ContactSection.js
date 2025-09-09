@@ -1,6 +1,7 @@
-import { Box, Typography, Container, Grid, Card, CardContent, Button } from '@mui/material';
-import { Email, Phone, LocationOn, Send } from '@mui/icons-material';
+import { Box, Typography, Container, Grid, Card, CardContent, Button, Divider } from '@mui/material';
+import { Email, Phone, LocationOn, Send, Map as MapIcon } from '@mui/icons-material';
 import { useTheme } from './ThemeProvider';
+import LocationsMap from './LocationsMap';
 
 export default function ContactSection({ contactData }) {
   const { theme } = useTheme();
@@ -362,6 +363,40 @@ export default function ContactSection({ contactData }) {
             </Card>
           </Grid>
         </Grid>
+
+        {/* Locations Map Section */}
+        <Box sx={{ mb: 8 }}>
+          <Box textAlign="center" sx={{ mb: 4 }}>
+            <Typography
+              variant="h4"
+              component="h3"
+              sx={{
+                mb: 2,
+                fontSize: { xs: '2rem', sm: '2.5rem', md: '3rem' },
+                fontWeight: 700,
+                color: 'primary.main',
+                letterSpacing: '-0.02em',
+              }}
+            >
+              Find Us
+            </Typography>
+            <Typography
+              variant="h6"
+              sx={{
+                fontSize: { xs: '1rem', md: '1.2rem' },
+                color: 'text.secondary',
+                maxWidth: '600px',
+                mx: 'auto',
+                lineHeight: 1.6,
+                fontWeight: 400,
+              }}
+            >
+              Discover our business locations across the region
+            </Typography>
+          </Box>
+
+          <LocationsMap />
+        </Box>
 
         {/* Contact Form Section */}
         <Box 

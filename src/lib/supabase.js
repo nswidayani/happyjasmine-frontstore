@@ -43,6 +43,7 @@ export const subscribeToAuthChanges = (callback) => {
 
 // Default content structure (kept in sync with previous Firebase version)
 const getDefaultContent = () => ({
+  logo: '/logo.svg',
   hero: {
     title: 'Welcome',
     subtitle: 'Transform your business with our innovative solutions',
@@ -310,6 +311,76 @@ export const getProductsWithCategories = async () => {
       .order('created_at', { ascending: false });
     if (error) return { success: false, error: error.message };
     return { success: true, data: data || [] };
+  } catch (err) {
+    return { success: false, error: err.message };
+  }
+};
+
+// Locations CRUD operations
+export const getLocations = async () => {
+  try {
+    const { data, error } = await supabase
+      .from('locations')
+      .select('*')
+      .order('created_at', { ascending: false });
+    if (error) return { success: false, error: error.message };
+    return { success: true, data: data || [] };
+  } catch (err) {
+    return { success: false, error: err.message };
+  }
+};
+
+export const getLocationById = async (id) => {
+  try {
+    const { data, error } = await supabase
+      .from('locations')
+      .select('*')
+      .eq('id', id)
+      .single();
+    if (error) return { success: false, error: error.message };
+    return { success: true, data };
+  } catch (err) {
+    return { success: false, error: err.message };
+  }
+};
+
+export const createLocation = async (location) => {
+  try {
+    const { data, error } = await supabase
+      .from('locations')
+      .insert(location)
+      .select()
+      .single();
+    if (error) return { success: false, error: error.message };
+    return { success: true, data };
+  } catch (err) {
+    return { success: false, error: err.message };
+  }
+};
+
+export const updateLocation = async (id, updates) => {
+  try {
+    const { data, error } = await supabase
+      .from('locations')
+      .update(updates)
+      .eq('id', id)
+      .select()
+      .single();
+    if (error) return { success: false, error: error.message };
+    return { success: true, data };
+  } catch (err) {
+    return { success: false, error: err.message };
+  }
+};
+
+export const deleteLocation = async (id) => {
+  try {
+    const { error } = await supabase
+      .from('locations')
+      .delete()
+      .eq('id', id);
+    if (error) return { success: false, error: error.message };
+    return { success: true };
   } catch (err) {
     return { success: false, error: err.message };
   }

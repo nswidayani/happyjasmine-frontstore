@@ -10,6 +10,7 @@ import {
   CircularProgress
 } from '@mui/material';
 import { getContent, updateContent } from '../../lib/supabase';
+import LogoEditor from './LogoEditor';
 import HeroEditor from './HeroEditor';
 import ProductsFeaturesEditor from './ProductsFeaturesEditor';
 import AboutEditor from './AboutEditor';
@@ -158,10 +159,20 @@ export default function LandingPageProperties() {
 
       {/* Content Editors */}
       <Grid container spacing={{ xs: 2, sm: 3, md: 4 }}>
+        {/* Logo Section */}
+        <Grid item xs={12}>
+          <LogoEditor
+            content={content}
+            setContent={setContent}
+            onError={setError}
+            onUploadNotice={setUploadNotice}
+          />
+        </Grid>
+
         {/* Hero Section */}
         <Grid item xs={12}>
-          <HeroEditor 
-            content={content} 
+          <HeroEditor
+            content={content}
             setContent={setContent}
             onError={setError}
             onUploadNotice={setUploadNotice}

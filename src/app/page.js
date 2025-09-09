@@ -69,7 +69,7 @@ export default function Home() {
   return (
     <Box>
       {/* Header with Logo */}
-      <Header />
+      <Header logo={content?.logo || '/logo.svg'} />
 
       {/* Page Sections */}
       <HeroSection heroData={content?.hero} />

@@ -5,7 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import FullPageMenu from './FullPageMenu';
 
-export default function Header() {
+export default function Header({ logo = '/logo.svg' }) {
   const [menuOpen, setMenuOpen] = useState(false);
 
   const toggleMenu = () => {
@@ -43,7 +43,7 @@ export default function Header() {
                 }}
               >
                 <Image
-                  src="/logo.svg"
+                  src={logo}
                   alt="Happy Jasmine"
                   width={120}
                   height={60}

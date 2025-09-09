@@ -10,18 +10,6 @@ export default function ProductCard({ product, variant = 'default', isFocused = 
     const [isVisible, setIsVisible] = useState(false);
     const cardRef = useRef(null);
 
-    if (!product) return null;
-
-    // Mouse tracking for 3D tilt effect
-    const handleMouseMove = (e) => {
-        if (cardRef.current) {
-            const rect = cardRef.current.getBoundingClientRect();
-            const x = ((e.clientX - rect.left) / rect.width) * 100;
-            const y = ((e.clientY - rect.top) / rect.height) * 100;
-            setMousePosition({ x, y });
-        }
-    };
-
     // Intersection Observer for scroll animations
     useEffect(() => {
         const observer = new IntersectionObserver(
@@ -39,6 +27,18 @@ export default function ProductCard({ product, variant = 'default', isFocused = 
 
         return () => observer.disconnect();
     }, []);
+
+    if (!product) return null;
+
+    // Mouse tracking for 3D tilt effect
+    const handleMouseMove = (e) => {
+        if (cardRef.current) {
+            const rect = cardRef.current.getBoundingClientRect();
+            const x = ((e.clientX - rect.left) / rect.width) * 100;
+            const y = ((e.clientY - rect.top) / rect.height) * 100;
+            setMousePosition({ x, y });
+        }
+    };
 
     // Size variants for different display modes
     const sizeVariants = {
