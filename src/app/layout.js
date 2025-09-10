@@ -17,6 +17,11 @@ export const metadata = {
   alternates: {
     canonical: '/',
   },
+  icons: {
+    icon: '/favicon.ico',
+    shortcut: '/favicon.ico',
+    apple: '/favicon.ico',
+  },
   openGraph: {
     title: "Happy Jasmine - Premium Teh Tarik & Happy Tea",
     description: "Experience authentic Malaysian Teh Tarik and premium Happy Tea at Happy Jasmine. Perfect blend of tradition and taste.",

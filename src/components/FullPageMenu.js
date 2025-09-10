@@ -99,7 +99,7 @@ export default function FullPageMenu({ open, onClose }) {
         left: 0,
         right: 0,
         bottom: 0,
-        bgcolor: 'secondary.main',
+        bgcolor: 'warning.main',
         zIndex: theme.zIndex.modal + 1000,
         display: 'flex',
         alignItems: 'center',

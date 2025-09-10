@@ -10,7 +10,7 @@ import AnimatedSpacer from '../components/AnimatedSpacer';
 import ProductsFeaturesSection from '../components/ProductsFeaturesSection';
 import AboutSection from '../components/AboutSection';
 import ContactSection from '../components/ContactSection';
-import { getContent } from '../lib/supabase';
+import { getContent, incrementVisitCount } from '../lib/supabase';
 
 export default function Home() {
   const { updateTheme } = useTheme();
@@ -53,6 +53,19 @@ export default function Home() {
     fetchContent();
   }, []);
 
+  // Increment visit count on page load
+  useEffect(() => {
+    const trackVisit = async () => {
+      try {
+        await incrementVisitCount('landing');
+      } catch (error) {
+        console.error('Failed to track visit:', error);
+      }
+    };
+
+    trackVisit();
+  }, []);
+
   if (loading) {
     return (
       <Box 
@@ -74,8 +87,8 @@ export default function Home() {
       {/* Page Sections */}
       <HeroSection heroData={content?.hero} />
       <AnimatedSpacer />
-      <CampaignSection campaigns={content?.hero?.campaigns} />
       <ProductsFeaturesSection products={content?.products} features={content?.features} />
+      <CampaignSection campaigns={content?.hero?.campaigns} />
       <AboutSection aboutData={content?.about} />
       <ContactSection contactData={content?.contact} />
       

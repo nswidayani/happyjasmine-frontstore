@@ -386,6 +386,31 @@ export const deleteLocation = async (id) => {
   }
 };
 
+// Visit count operations
+export const getVisitCount = async (pageType = 'landing') => {
+ try {
+   const { data, error } = await supabase
+     .from('visit_counts')
+     .select('visit_count')
+     .eq('page_type', pageType)
+     .single();
+   if (error) return { success: false, error: error.message };
+   return { success: true, count: data?.visit_count || 0 };
+ } catch (err) {
+   return { success: false, error: err.message };
+ }
+};
+
+export const incrementVisitCount = async (pageType = 'landing') => {
+ try {
+   const { data, error } = await supabase.rpc('increment_visit_count', { page_type_param: pageType });
+   if (error) return { success: false, error: error.message };
+   return { success: true, count: data };
+ } catch (err) {
+   return { success: false, error: err.message };
+ }
+};
+
 export default supabase;
 
 

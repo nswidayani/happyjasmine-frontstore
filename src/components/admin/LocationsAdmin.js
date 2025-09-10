@@ -461,8 +461,8 @@ export default function LocationsAdmin() {
               </Alert>
 
               <MapPicker
-                latitude={formData.latitude ? parseFloat(formData.latitude) : null}
-                longitude={formData.longitude ? parseFloat(formData.longitude) : null}
+                latitude={formData.latitude && formData.latitude.trim() ? parseFloat(formData.latitude) : null}
+                longitude={formData.longitude && formData.longitude.trim() ? parseFloat(formData.longitude) : null}
                 onLocationChange={(lat, lng) => {
                   handleInputChange('latitude', lat.toString());
                   handleInputChange('longitude', lng.toString());

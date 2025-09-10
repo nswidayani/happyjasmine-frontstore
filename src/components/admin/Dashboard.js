@@ -13,10 +13,57 @@ import {
   Web as WebIcon,
   Edit as EditIcon,
   Settings as SettingsIcon,
-  TrendingUp as TrendingIcon
+  TrendingUp as TrendingIcon,
+  Visibility as VisibilityIcon
 } from '@mui/icons-material';
+import { useState, useEffect } from 'react';
+import { getVisitCount, supabase } from '../../lib/supabase';
 
 export default function Dashboard() {
+  const [visitCount, setVisitCount] = useState(0);
+  const [isUpdating, setIsUpdating] = useState(false);
+
+  useEffect(() => {
+    const fetchVisitCount = async () => {
+      try {
+        const result = await getVisitCount('landing');
+        if (result.success) {
+          setVisitCount(result.count);
+        }
+      } catch (error) {
+        console.error('Failed to fetch visit count:', error);
+      }
+    };
+
+    fetchVisitCount();
+
+    // Set up real-time subscription for visit count updates
+    const subscription = supabase
+      .channel('visit_counts_changes')
+      .on(
+        'postgres_changes',
+        {
+          event: 'UPDATE',
+          schema: 'public',
+          table: 'visit_counts',
+          filter: 'page_type=eq.landing'
+        },
+        (payload) => {
+          console.log('Visit count updated:', payload);
+          setIsUpdating(true);
+          setVisitCount(payload.new.visit_count);
+          // Reset updating state after a brief delay
+          setTimeout(() => setIsUpdating(false), 1000);
+        }
+      )
+      .subscribe();
+
+    // Cleanup subscription on unmount
+    return () => {
+      subscription.unsubscribe();
+    };
+  }, []);
+
   const stats = [
     {
       title: 'Landing Page',
@@ -24,6 +71,13 @@ export default function Dashboard() {
       description: 'Your landing page is live and accessible',
       icon: <WebIcon sx={{ fontSize: 40, color: 'primary.main' }} />,
       color: 'primary.main'
+    },
+    {
+      title: 'Page Visits',
+      value: visitCount.toLocaleString(),
+      description: 'Total visits to your landing page (real-time)',
+      icon: <VisibilityIcon sx={{ fontSize: 40, color: 'info.main' }} />,
+      color: 'info.main'
     },
     {
       title: 'Content Sections',
@@ -63,16 +117,24 @@ export default function Dashboard() {
       {/* Stats Cards */}
       <Grid container spacing={3} sx={{ mb: 4 }}>
         {stats.map((stat, index) => (
-          <Grid item xs={12} sm={6} md={3} key={index}>
-            <Paper 
-              sx={{ 
-                p: 3, 
+          <Grid item xs={12} sm={6} md={6} lg={4} key={index}>
+            <Paper
+              sx={{
+                p: 3,
                 height: '100%',
                 transition: 'all 0.3s ease-in-out',
                 '&:hover': {
                   transform: 'translateY(-4px)',
                   boxShadow: '0 8px 25px rgba(0,0,0,0.15)'
-                }
+                },
+                ...(stat.title === 'Page Visits' && isUpdating && {
+                  animation: 'pulse 1s ease-in-out',
+                  '@keyframes pulse': {
+                    '0%': { boxShadow: '0 0 0 0 rgba(25, 118, 210, 0.4)' },
+                    '50%': { boxShadow: '0 0 0 8px rgba(25, 118, 210, 0)' },
+                    '100%': { boxShadow: '0 0 0 0 rgba(25, 118, 210, 0)' }
+                  }
+                })
               }}
             >
               <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
