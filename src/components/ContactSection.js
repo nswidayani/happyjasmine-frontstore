@@ -1,14 +1,14 @@
-import { Box, Typography, Container, Grid, Card, CardContent, Button, Divider } from '@mui/material';
-import { Email, Phone, LocationOn, Send, Map as MapIcon } from '@mui/icons-material';
+import { Box, Typography, Container, Grid, Card, CardContent, Button, IconButton, Link } from '@mui/material';
+import { Email, Phone, LocationOn, Send, Map as MapIcon, Facebook, Instagram, WhatsApp } from '@mui/icons-material';
 import { useTheme } from './ThemeProvider';
 import LocationsMap from './LocationsMap';
 
 export default function ContactSection({ contactData }) {
   const { theme } = useTheme();
-  
+
   return (
-    <Box 
-      sx={{ 
+    <Box
+      sx={{
         py: { xs: 12, md: 20 },
         bgcolor: 'background.default',
         position: 'relative',
@@ -53,316 +53,200 @@ export default function ContactSection({ contactData }) {
       />
 
       <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 1 }}>
-        <Box textAlign="center" sx={{ mb: { xs: 8, md: 12 } }}>
-          <Typography
-            variant="h2"
-            component="h2"
-            sx={{
-              mb: 3,
-              fontSize: { xs: '2.5rem', sm: '3rem', md: '3.5rem', lg: '4rem' },
-              fontWeight: 700,
-              color: 'primary.main',
-              letterSpacing: '-0.02em',
-            }}
-          >
-            {contactData?.title || 'Get in Touch'}
-          </Typography>
-          
-          <Typography
-            variant="h6"
-            sx={{
-              fontSize: { xs: '1.1rem', md: '1.3rem' },
-              color: 'text.secondary',
-              maxWidth: '600px',
-              mx: 'auto',
-              lineHeight: 1.6,
-              fontWeight: 400,
-            }}
-          >
-            {contactData?.description || 'Ready to get started? Contact us today!'}
-          </Typography>
+
+
+        {/* Social Media & Contact Icons */}
+        <Box sx={{ mb: 8 }}>
+          <Box textAlign="center" sx={{ mb: 4 }}>
+            <Typography
+              variant="h4"
+              component="h3"
+              sx={{
+                mb: 2,
+                fontSize: { xs: '1.8rem', sm: '2.2rem', md: '2.5rem' },
+                fontWeight: 700,
+                color: 'primary.main',
+                letterSpacing: '-0.02em',
+              }}
+            >
+              Connect With Us
+            </Typography>
+            <Typography
+              variant="body1"
+              sx={{
+                color: 'text.secondary',
+                maxWidth: '500px',
+                mx: 'auto',
+                lineHeight: 1.6,
+              }}
+            >
+              Follow us on social media and get in touch
+            </Typography>
+          </Box>
+
+          <Box sx={{ display: 'flex', justifyContent: 'center', gap: 3, flexWrap: 'wrap' }}>
+            {/* Facebook */}
+            <Box sx={{ textAlign: 'center' }}>
+              <IconButton
+                component={Link}
+                href={contactData?.facebook || 'https://facebook.com/company'}
+                target="_blank"
+                sx={{
+                  width: 70,
+                  height: 70,
+                  bgcolor: 'rgba(24, 119, 242, 0.1)',
+                  color: '#1877F2',
+                  borderRadius: '20px',
+                  '&:hover': {
+                    bgcolor: '#1877F2',
+                    color: 'white',
+                    transform: 'scale(1.1)',
+                  },
+                  transition: 'all 0.3s ease',
+                }}
+              >
+                <Facebook sx={{ fontSize: 32 }} />
+              </IconButton>
+              <Typography variant="body2" sx={{ mt: 1, fontWeight: 500 }}>
+                Facebook
+              </Typography>
+            </Box>
+
+            {/* Instagram */}
+            <Box sx={{ textAlign: 'center' }}>
+              <IconButton
+                component={Link}
+                href={contactData?.instagram || 'https://instagram.com/company'}
+                target="_blank"
+                sx={{
+                  width: 70,
+                  height: 70,
+                  bgcolor: 'rgba(225, 48, 108, 0.1)',
+                  color: '#E1306C',
+                  borderRadius: '20px',
+                  '&:hover': {
+                    bgcolor: '#E1306C',
+                    color: 'white',
+                    transform: 'scale(1.1)',
+                  },
+                  transition: 'all 0.3s ease',
+                }}
+              >
+                <Instagram sx={{ fontSize: 32 }} />
+              </IconButton>
+              <Typography variant="body2" sx={{ mt: 1, fontWeight: 500 }}>
+                Instagram
+              </Typography>
+            </Box>
+
+            {/* WhatsApp */}
+            <Box sx={{ textAlign: 'center' }}>
+              <IconButton
+                component={Link}
+                href={`https://wa.me/${contactData?.whatsapp || '1234567890'}`}
+                target="_blank"
+                sx={{
+                  width: 70,
+                  height: 70,
+                  bgcolor: 'rgba(37, 211, 102, 0.1)',
+                  color: '#25D366',
+                  borderRadius: '20px',
+                  '&:hover': {
+                    bgcolor: '#25D366',
+                    color: 'white',
+                    transform: 'scale(1.1)',
+                  },
+                  transition: 'all 0.3s ease',
+                }}
+              >
+                <WhatsApp sx={{ fontSize: 32 }} />
+              </IconButton>
+              <Typography variant="body2" sx={{ mt: 1, fontWeight: 500 }}>
+                WhatsApp
+              </Typography>
+            </Box>
+
+            {/* TikTok */}
+            <Box sx={{ textAlign: 'center' }}>
+              <IconButton
+                component={Link}
+                href={contactData?.tiktok || 'https://tiktok.com/@company'}
+                target="_blank"
+                sx={{
+                  width: 70,
+                  height: 70,
+                  bgcolor: 'rgba(0, 0, 0, 0.1)',
+                  color: '#000000',
+                  borderRadius: '20px',
+                  '&:hover': {
+                    bgcolor: '#000000',
+                    color: 'white',
+                    transform: 'scale(1.1)',
+                  },
+                  transition: 'all 0.3s ease',
+                }}
+              >
+                <Typography sx={{ fontSize: 24, fontWeight: 'bold' }}>TT</Typography>
+              </IconButton>
+              <Typography variant="body2" sx={{ mt: 1, fontWeight: 500 }}>
+                TikTok
+              </Typography>
+            </Box>
+
+            {/* YouTube */}
+            <Box sx={{ textAlign: 'center' }}>
+              <IconButton
+                component={Link}
+                href={contactData?.youtube || 'https://youtube.com/company'}
+                target="_blank"
+                sx={{
+                  width: 70,
+                  height: 70,
+                  bgcolor: 'rgba(255, 0, 0, 0.1)',
+                  color: '#FF0000',
+                  borderRadius: '20px',
+                  '&:hover': {
+                    bgcolor: '#FF0000',
+                    color: 'white',
+                    transform: 'scale(1.1)',
+                  },
+                  transition: 'all 0.3s ease',
+                }}
+              >
+                <Typography sx={{ fontSize: 24, fontWeight: 'bold' }}>YT</Typography>
+              </IconButton>
+              <Typography variant="body2" sx={{ mt: 1, fontWeight: 500 }}>
+                YouTube
+              </Typography>
+            </Box>
+
+            {/* Phone */}
+            <Box sx={{ textAlign: 'center' }}>
+              <IconButton
+                component={Link}
+                href={`tel:${contactData?.phone || '+1 (555) 123-4567'}`}
+                sx={{
+                  width: 70,
+                  height: 70,
+                  bgcolor: 'rgba(255, 227, 71, 0.1)',
+                  color: 'secondary.main',
+                  borderRadius: '20px',
+                  '&:hover': {
+                    bgcolor: 'secondary.main',
+                    color: 'primary.main',
+                    transform: 'scale(1.1)',
+                  },
+                  transition: 'all 0.3s ease',
+                }}
+              >
+                <Phone sx={{ fontSize: 32 }} />
+              </IconButton>
+              <Typography variant="body2" sx={{ mt: 1, fontWeight: 500 }}>
+                Phone
+              </Typography>
+            </Box>
+          </Box>
         </Box>
-        
-        <Grid container spacing={6} justifyContent="center" sx={{ mb: 8 }}>
-          <Grid item xs={12} sm={6} md={4}>
-            <Card 
-              className="card"
-              sx={{
-                textAlign: 'center',
-                height: '100%',
-                background: 'background.paper',
-                border: '1px solid rgba(0, 95, 115, 0.2)',
-                borderRadius: '20px',
-                boxShadow: '0 4px 6px rgba(0, 95, 115, 0.1)',
-                transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-                position: 'relative',
-                overflow: 'hidden',
-                '&::before': {
-                  content: '""',
-                  position: 'absolute',
-                  top: 0,
-                  left: 0,
-                  right: 0,
-                  height: '3px',
-                  background: 'primary.main',
-                  transform: 'scaleX(0)',
-                  transition: 'transform 0.3s ease',
-                },
-                '&:hover': {
-                  transform: 'translateY(-8px)',
-                  boxShadow: '0 8px 25px rgba(0, 95, 115, 0.15)',
-                  borderColor: 'primary.main',
-                  '&::before': {
-                    transform: 'scaleX(1)',
-                  },
-                  '& .icon-wrapper': {
-                    transform: 'scale(1.1)',
-                    background: 'primary.main',
-                  },
-                  '& .icon': {
-                    color: 'white',
-                  }
-                },
-              }}
-            >
-              <CardContent sx={{ p: 4 }}>
-                <Box 
-                  className="icon-wrapper"
-                  sx={{
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    width: 70,
-                    height: 70,
-                    borderRadius: '18px',
-                    background: 'rgba(0, 95, 115, 0.1)',
-                    mb: 3,
-                    transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-                  }}
-                >
-                  <Email 
-                    className="icon"
-                    sx={{ 
-                      fontSize: 32, 
-                      color: 'primary.main',
-                      transition: 'all 0.3s ease',
-                    }} 
-                  />
-                </Box>
-                <Typography variant="h6" sx={{ mb: 2, fontWeight: 600, color: 'text.primary' }}>
-                  Email
-                </Typography>
-                <Typography variant="body1" color="text.secondary" sx={{ mb: 2, fontWeight: 400 }}>
-                  {contactData?.email || 'hello@company.com'}
-                </Typography>
-                <Button
-                  variant="outlined"
-                  size="small"
-                  sx={{
-                    borderColor: 'rgba(0, 95, 115, 0.2)',
-                    color: 'primary.main',
-                    borderRadius: '20px',
-                    px: 2,
-                    '&:hover': {
-                      borderColor: 'primary.main',
-                      bgcolor: 'primary.main',
-                      color: 'white',
-                    },
-                    transition: 'all 0.2s ease',
-                  }}
-                >
-                  Send Email
-                </Button>
-              </CardContent>
-            </Card>
-          </Grid>
-          
-          <Grid item xs={12} sm={6} md={4}>
-            <Card 
-              className="card"
-              sx={{
-                textAlign: 'center',
-                height: '100%',
-                background: 'background.paper',
-                border: '1px solid rgba(0, 95, 115, 0.2)',
-                borderRadius: '20px',
-                boxShadow: '0 4px 6px rgba(0, 95, 115, 0.1)',
-                transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-                position: 'relative',
-                overflow: 'hidden',
-                '&::before': {
-                  content: '""',
-                  position: 'absolute',
-                  top: 0,
-                  left: 0,
-                  right: 0,
-                  height: '3px',
-                  background: 'secondary.main',
-                  transform: 'scaleX(0)',
-                  transition: 'transform 0.3s ease',
-                },
-                '&:hover': {
-                  transform: 'translateY(-8px)',
-                  boxShadow: '0 8px 25px rgba(0, 95, 115, 0.15)',
-                  borderColor: 'secondary.main',
-                  '&::before': {
-                    transform: 'scaleX(1)',
-                  },
-                  '& .icon-wrapper': {
-                    transform: 'scale(1.1)',
-                    background: 'secondary.main',
-                  },
-                  '& .icon': {
-                    color: 'primary.main',
-                  }
-                },
-              }}
-            >
-              <CardContent sx={{ p: 4 }}>
-                <Box 
-                  className="icon-wrapper"
-                  sx={{
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    width: 70,
-                    height: 70,
-                    borderRadius: '18px',
-                    background: 'rgba(255, 227, 71, 0.1)',
-                    mb: 3,
-                    transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-                  }}
-                >
-                  <Phone 
-                    className="icon"
-                    sx={{ 
-                      fontSize: 32, 
-                      color: 'secondary.main',
-                      transition: 'all 0.3s ease',
-                    }} 
-                  />
-                </Box>
-                <Typography variant="h6" sx={{ mb: 2, fontWeight: 600, color: 'text.primary' }}>
-                  Phone
-                </Typography>
-                <Typography variant="body1" color="text.secondary" sx={{ mb: 2, fontWeight: 400 }}>
-                  {contactData?.phone || '+1 (555) 123-4567'}
-                </Typography>
-                <Button
-                  variant="outlined"
-                  size="small"
-                  sx={{
-                    borderColor: 'rgba(0, 95, 115, 0.2)',
-                    color: 'secondary.main',
-                    borderRadius: '20px',
-                    px: 2,
-                    '&:hover': {
-                      borderColor: 'secondary.main',
-                      bgcolor: 'secondary.main',
-                      color: 'primary.main',
-                    },
-                    transition: 'all 0.2s ease',
-                  }}
-                >
-                  Call Now
-                </Button>
-              </CardContent>
-            </Card>
-          </Grid>
-          
-          <Grid item xs={12} sm={6} md={4}>
-            <Card 
-              className="card"
-              sx={{
-                textAlign: 'center',
-                height: '100%',
-                background: 'background.paper',
-                border: '1px solid rgba(0, 95, 115, 0.2)',
-                borderRadius: '20px',
-                boxShadow: '0 4px 6px rgba(0, 95, 115, 0.1)',
-                transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-                position: 'relative',
-                overflow: 'hidden',
-                '&::before': {
-                  content: '""',
-                  position: 'absolute',
-                  top: 0,
-                  left: 0,
-                  right: 0,
-                  height: '3px',
-                  background: 'warning.main',
-                  transform: 'scaleX(0)',
-                  transition: 'transform 0.3s ease',
-                },
-                '&:hover': {
-                  transform: 'translateY(-8px)',
-                  boxShadow: '0 8px 25px rgba(0, 95, 115, 0.15)',
-                  borderColor: 'warning.main',
-                  '&::before': {
-                    transform: 'scaleX(1)',
-                  },
-                  '& .icon-wrapper': {
-                    transform: 'scale(1.1)',
-                    background: 'warning.main',
-                  },
-                  '& .icon': {
-                    color: 'white',
-                  }
-                },
-              }}
-            >
-              <CardContent sx={{ p: 4 }}>
-                <Box 
-                  className="icon-wrapper"
-                  sx={{
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    width: 70,
-                    height: 70,
-                    borderRadius: '18px',
-                    background: 'rgba(255, 144, 173, 0.1)',
-                    mb: 3,
-                    transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-                  }}
-                >
-                  <LocationOn 
-                    className="icon"
-                    sx={{ 
-                      fontSize: 32, 
-                      color: 'warning.main',
-                      transition: 'all 0.3s ease',
-                    }} 
-                  />
-                </Box>
-                <Typography variant="h6" sx={{ mb: 2, fontWeight: 600, color: 'text.primary' }}>
-                  Address
-                </Typography>
-                <Typography variant="body1" color="text.secondary" sx={{ mb: 2, fontWeight: 400, lineHeight: 1.6 }}>
-                  {contactData?.address || '123 Business St, City, State 12345'}
-                </Typography>
-                <Button
-                  variant="outlined"
-                  size="small"
-                  sx={{
-                    borderColor: 'rgba(0, 95, 115, 0.2)',
-                    color: 'warning.main',
-                    borderRadius: '20px',
-                    px: 2,
-                    '&:hover': {
-                      borderColor: 'warning.main',
-                      bgcolor: 'warning.main',
-                      color: 'white',
-                    },
-                    transition: 'all 0.2s ease',
-                  }}
-                >
-                  Get Directions
-                </Button>
-              </CardContent>
-            </Card>
-          </Grid>
-        </Grid>
 
         {/* Locations Map Section */}
         <Box sx={{ mb: 8 }}>
@@ -395,55 +279,20 @@ export default function ContactSection({ contactData }) {
             </Typography>
           </Box>
 
-          <LocationsMap />
-        </Box>
-
-        {/* Contact Form Section */}
-        <Box 
-          sx={{ 
-            maxWidth: '600px', 
-            mx: 'auto',
-            textAlign: 'center',
-          }}
-        >
-          <Typography variant="h4" sx={{ mb: 4, fontWeight: 600, color: 'text.primary' }}>
-            Send us a Message
-          </Typography>
-          
           <Box
             sx={{
-              background: 'background.paper',
-              border: '1px solid rgba(0, 95, 115, 0.2)',
+              width: '100%',
+              height: '400px',
               borderRadius: '20px',
-              p: 4,
-              boxShadow: '0 4px 6px rgba(0, 95, 115, 0.1)',
+              overflow: 'hidden',
+              boxShadow: '0 8px 25px rgba(0, 95, 115, 0.15)',
+              border: '2px solid rgba(0, 95, 115, 0.1)',
             }}
           >
-            <Button
-              variant="contained"
-              size="large"
-              startIcon={<Send />}
-              sx={{
-                bgcolor: 'primary.main',
-                color: 'white',
-                px: 6,
-                py: 2,
-                borderRadius: '50px',
-                fontWeight: 600,
-                fontSize: '1.1rem',
-                boxShadow: '0 4px 12px rgba(0, 95, 115, 0.2)',
-                '&:hover': {
-                  bgcolor: 'primary.dark',
-                  transform: 'translateY(-2px)',
-                  boxShadow: '0 8px 25px rgba(0, 95, 115, 0.3)',
-                },
-                transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-              }}
-            >
-              Start Conversation
-            </Button>
+            <LocationsMap />
           </Box>
         </Box>
+
       </Container>
     </Box>
   );

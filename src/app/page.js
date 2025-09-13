@@ -10,6 +10,7 @@ import AnimatedSpacer from '../components/AnimatedSpacer';
 import ProductsFeaturesSection from '../components/ProductsFeaturesSection';
 import AboutSection from '../components/AboutSection';
 import ContactSection from '../components/ContactSection';
+import Footer from '../components/Footer';
 import { getContent, incrementVisitCount } from '../lib/supabase';
 
 export default function Home() {
@@ -91,20 +92,9 @@ export default function Home() {
       <CampaignSection campaigns={content?.hero?.campaigns} />
       <AboutSection aboutData={content?.about} />
       <ContactSection contactData={content?.contact} />
-      
+
       {/* Footer */}
-      <Box 
-        sx={{ 
-          bgcolor: 'primary.main', 
-          color: 'primary.contrastText', 
-          py: 3, 
-          textAlign: 'center' 
-        }}
-      >
-        <Typography variant="body2">
-          © 2024 Happy Jasmine. All rights reserved.
-        </Typography>
-      </Box>
+      <Footer />
     </Box>
   );
 }
