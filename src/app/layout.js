@@ -2,9 +2,9 @@ import ClientThemeProvider from '../components/ThemeProvider';
 import "./globals.css";
 
 export const metadata = {
-  title: "Happy Jasmine - Premium Teh Tarik & Happy Tea | Teh Tarik Berasa",
-  description: "Discover authentic Malaysian Teh Tarik and premium Happy Tea at Happy Jasmine. Experience the perfect blend of tradition and taste with our signature Teh Tarik Berasa.",
-  keywords: "happytea, happy jasmine, teh tarik, teh tarik berasa, malaysian tea, premium tea, authentic teh tarik",
+  title: "Happy Jasmine - Teh Tarik Premium & Teh Bahagia | Teh Tarik Berasa",
+  description: "Temukan Teh Tarik Malaysia asli dan Teh Bahagia premium di Happy Jasmine. Rasakan perpaduan sempurna antara tradisi dan cita rasa dengan Teh Tarik Berasa signature kami.",
+  keywords: "happytea, happy jasmine, teh tarik, teh tarik berasa, teh malaysia, teh premium, teh tarik asli",
   authors: [{ name: "Happy Jasmine" }],
   creator: "Happy Jasmine",
   publisher: "Happy Jasmine",
@@ -23,8 +23,8 @@ export const metadata = {
     apple: '/favicon.ico',
   },
   openGraph: {
-    title: "Happy Jasmine - Premium Teh Tarik & Happy Tea",
-    description: "Experience authentic Malaysian Teh Tarik and premium Happy Tea at Happy Jasmine. Perfect blend of tradition and taste.",
+    title: "Happy Jasmine - Teh Tarik Premium & Teh Bahagia",
+    description: "Rasakan Teh Tarik Malaysia asli dan Teh Bahagia premium di Happy Jasmine. Perpaduan sempurna antara tradisi dan cita rasa.",
     url: "https://happyjasmine.com",
     siteName: "Happy Jasmine",
     images: [
@@ -32,16 +32,16 @@ export const metadata = {
         url: "/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "Happy Jasmine - Premium Teh Tarik & Happy Tea",
+        alt: "Happy Jasmine - Teh Tarik Premium & Teh Bahagia",
       },
     ],
-    locale: "en_US",
+    locale: "id_ID",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Happy Jasmine - Premium Teh Tarik & Happy Tea",
-    description: "Experience authentic Malaysian Teh Tarik and premium Happy Tea at Happy Jasmine.",
+    title: "Happy Jasmine - Teh Tarik Premium & Teh Bahagia",
+    description: "Rasakan Teh Tarik Malaysia asli dan Teh Bahagia premium di Happy Jasmine.",
     images: ["/og-image.jpg"],
   },
   robots: {
@@ -69,7 +69,7 @@ export default function RootLayout({ children }) {
     "@context": "https://schema.org",
     "@type": "Restaurant",
     "name": "Happy Jasmine",
-    "description": "Premium Teh Tarik and Happy Tea experience with authentic Malaysian flavors",
+    "description": "Pengalaman Teh Tarik premium dan Teh Bahagia dengan rasa Malaysia asli",
     "url": "https://happyjasmine.com",
     "logo": "https://happyjasmine.com/logo.svg",
     "image": "https://happyjasmine.com/og-image.jpg",
@@ -82,12 +82,12 @@ export default function RootLayout({ children }) {
       {
         "@type": "MenuItem",
         "name": "Teh Tarik",
-        "description": "Authentic Malaysian pulled tea with perfect froth"
+        "description": "Teh tarik Malaysia asli dengan busa sempurna"
       },
       {
         "@type": "MenuItem",
-        "name": "Happy Tea",
-        "description": "Premium tea blend with unique flavor profile"
+        "name": "Teh Bahagia",
+        "description": "Campuran teh premium dengan profil rasa unik"
       }
     ],
     "sameAs": [
@@ -96,14 +96,14 @@ export default function RootLayout({ children }) {
     ],
     "hasOfferCatalog": {
       "@type": "OfferCatalog",
-      "name": "Teh Tarik & Happy Tea Menu",
+      "name": "Menu Teh Tarik & Teh Bahagia",
       "itemListElement": [
         {
           "@type": "Offer",
           "itemOffered": {
             "@type": "Product",
             "name": "Teh Tarik Berasa",
-            "description": "Authentic Malaysian Teh Tarik with rich flavor"
+            "description": "Teh Tarik Malaysia asli dengan rasa kaya"
           }
         }
       ]
@@ -111,7 +111,7 @@ export default function RootLayout({ children }) {
   };
 
   return (
-    <html lang="en">
+    <html lang="id">
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />

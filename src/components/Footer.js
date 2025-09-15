@@ -19,8 +19,8 @@ export default function Footer() {
               Happy Jasmine
             </Typography>
             <Typography variant="body2" sx={{ mb: 2, lineHeight: 1.6 }}>
-              Premium Teh Tarik & Happy Tea experience with authentic Malaysian flavors.
-              Discover the perfect blend of tradition and taste.
+              Pengalaman Teh Tarik Premium & Teh Bahagia dengan rasa Malaysia asli.
+              Temukan perpaduan sempurna antara tradisi dan cita rasa.
             </Typography>
             <Box sx={{ display: 'flex', gap: 1 }}>
               <IconButton
@@ -53,20 +53,20 @@ export default function Footer() {
           {/* Quick Links */}
           <Grid item xs={12} md={4}>
             <Typography variant="h6" sx={{ mb: 2, fontWeight: 600 }}>
-              Quick Links
+              Tautan Cepat
             </Typography>
             <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
               <Link href="/" sx={{ color: 'primary.contrastText', textDecoration: 'none', '&:hover': { color: 'secondary.main' } }}>
-                Home
+                Beranda
               </Link>
               <Link href="/products" sx={{ color: 'primary.contrastText', textDecoration: 'none', '&:hover': { color: 'secondary.main' } }}>
-                Products
+                Produk
               </Link>
               <Link href="/about" sx={{ color: 'primary.contrastText', textDecoration: 'none', '&:hover': { color: 'secondary.main' } }}>
-                About Us
+                Tentang Kami
               </Link>
               <Link href="/contact" sx={{ color: 'primary.contrastText', textDecoration: 'none', '&:hover': { color: 'secondary.main' } }}>
-                Contact
+                Kontak
               </Link>
             </Box>
           </Grid>
@@ -74,7 +74,7 @@ export default function Footer() {
           {/* Contact Info */}
           <Grid item xs={12} md={4}>
             <Typography variant="h6" sx={{ mb: 2, fontWeight: 600 }}>
-              Contact Info
+              Info Kontak
             </Typography>
             <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
               <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
@@ -103,10 +103,10 @@ export default function Footer() {
 
         <Box sx={{ textAlign: 'center' }}>
           <Typography variant="body2" sx={{ mb: 1 }}>
-            © 2024 Happy Jasmine. All rights reserved.
+            © 2024 Happy Jasmine. Seluruh hak cipta dilindungi.
           </Typography>
           <Typography variant="body2" sx={{ fontSize: '0.8rem', opacity: 0.8 }}>
-            Made with ❤️ for authentic Malaysian tea lovers
+            Dibuat dengan ❤️ untuk pecinta teh Malaysia asli
           </Typography>
         </Box>
       </Container>

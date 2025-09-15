@@ -191,7 +191,7 @@ const ProductsSection = ({ products: propProducts = [] }) => {
             >
                 <Box sx={{ mt: 4, mb: 4, position: 'relative', zIndex: 1 }}>
                     <Typography variant="h4" color="text.secondary">
-                        Loading...
+                        Memuat...
                     </Typography>
                 </Box>
             </Box>
@@ -308,7 +308,7 @@ const ProductsSection = ({ products: propProducts = [] }) => {
                             animationFillMode: 'both'
                         }}
                     >
-                        Loading products...
+                        Memuat produk...
                     </Typography>
                 </Box>
             </Box>
@@ -376,7 +376,7 @@ const ProductsSection = ({ products: propProducts = [] }) => {
                             animationFillMode: 'both'
                         }}
                     >
-                        Showing default products
+                        Menampilkan produk default
                     </Typography>
                     <Button
                         variant="outlined"
@@ -395,7 +395,7 @@ const ProductsSection = ({ products: propProducts = [] }) => {
                             transition: 'all 0.3s ease'
                         }}
                     >
-                        {refreshing ? 'Loading...' : 'Try Again'}
+                        {refreshing ? 'Memuat...' : 'Coba Lagi'}
                     </Button>
                 </Box>
             </Box>
@@ -528,31 +528,31 @@ const ProductsSection = ({ products: propProducts = [] }) => {
                                 animation: 'textGlow 2s ease-in-out infinite'
                             }}
                         >
-                            No products available at the moment
-                        </Typography>
-                        <Typography
-                            variant="body1"
-                            color="text.secondary"
-                            sx={{ mb: 3 }}
-                        >
-                            Check back soon for our latest products!
-                        </Typography>
-                        <Button
-                            variant="outlined"
-                            onClick={handleRefresh}
-                            disabled={refreshing}
-                            sx={{
-                                color: 'secondary.main',
-                                borderColor: 'secondary.main',
-                                '&:hover': {
-                                    transform: 'scale(1.05) translateY(-2px)',
-                                    boxShadow: '0 8px 25px rgba(0,0,0,0.15)'
-                                },
-                                transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)'
-                            }}
-                        >
-                            {refreshing ? 'Loading...' : 'Try Again'}
-                        </Button>
+                            Tidak ada produk tersedia saat ini
+                            </Typography>
+                            <Typography
+                                variant="body1"
+                                color="text.secondary"
+                                sx={{ mb: 3 }}
+                            >
+                                Kembali lagi segera untuk produk terbaru kami!
+                            </Typography>
+                            <Button
+                                variant="outlined"
+                                onClick={handleRefresh}
+                                disabled={refreshing}
+                                sx={{
+                                    color: 'secondary.main',
+                                    borderColor: 'secondary.main',
+                                    '&:hover': {
+                                        transform: 'scale(1.05) translateY(-2px)',
+                                        boxShadow: '0 8px 25px rgba(0,0,0,0.15)'
+                                    },
+                                    transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)'
+                                }}
+                            >
+                                {refreshing ? 'Memuat...' : 'Coba Lagi'}
+                            </Button>
                     </Box>
                 ) : (
                     <Box sx={{

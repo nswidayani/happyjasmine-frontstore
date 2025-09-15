@@ -64,9 +64,9 @@ export default function AboutSection({ aboutData }) {
                   fontSize: '0.875rem',
                 }}
               >
-                About Us
+                Tentang Kami
               </Typography>
-              
+
               <Typography
                 variant="h2"
                 component="h2"
@@ -81,9 +81,9 @@ export default function AboutSection({ aboutData }) {
                   display: 'block',
                 }}
               >
-                {aboutData?.title || 'About Our Company'}
+                {aboutData?.title || 'Tentang Perusahaan Kami'}
               </Typography>
-              
+
               <Typography
                 variant="body1"
                 sx={{
@@ -94,7 +94,7 @@ export default function AboutSection({ aboutData }) {
                   fontWeight: 400,
                 }}
               >
-                {aboutData?.description || 'We are a leading technology company dedicated to providing innovative solutions that help businesses grow and succeed in the digital age.'}
+                {aboutData?.description || 'Kami adalah perusahaan teknologi terkemuka yang berkomitmen untuk memberikan solusi inovatif yang membantu bisnis berkembang dan sukses di era digital.'}
               </Typography>
               
               {/* <Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap' }}>

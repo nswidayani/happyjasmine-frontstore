@@ -1,50 +1,50 @@
 {
   "hero": {
-    "title": "Happy Jasmine - Premium Teh Tarik & Happy Tea",
-    "subtitle": "Experience authentic Malaysian Teh Tarik Berasa and premium Happy Tea at Happy Jasmine. Discover the perfect blend of tradition and taste.",
-    "buttonText": "Order Now",
+    "title": "Happy Jasmine - Teh Tarik Premium & Teh Bahagia",
+    "subtitle": "Rasakan Teh Tarik Berasa Malaysia asli dan Teh Bahagia premium di Happy Jasmine. Temukan perpaduan sempurna antara tradisi dan rasa.",
+    "buttonText": "Pesan Sekarang",
     "backgroundImage": "/hero-bg.jpg",
     "imageSlider": [
       {
         "id": 1,
         "image": "/campaigns/slider2.png",
-        "title": "Authentic Teh Tarik",
-        "subtitle": "Experience the perfect Teh Tarik Berasa with our traditional Malaysian brewing technique"
+        "title": "Teh Tarik Asli",
+        "subtitle": "Rasakan Teh Tarik Berasa yang sempurna dengan teknik penyajian Malaysia tradisional kami"
       },
       {
         "id": 2,
         "image": "/campaigns/slider1.jpeg",
-        "title": "Happy Tea Collection",
-        "subtitle": "Discover our premium Happy Tea range, crafted for the perfect tea experience"
+        "title": "Koleksi Teh Bahagia",
+        "subtitle": "Temukan jajaran Teh Bahagia premium kami, dibuat untuk pengalaman teh yang sempurna"
       },
       {
         "id": 3,
         "image": "/window.svg",
-        "title": "Happy Jasmine Tradition",
-        "subtitle": "Bringing you the finest Teh Tarik and Happy Tea since our founding"
+        "title": "Tradisi Happy Jasmine",
+        "subtitle": "Membawa Teh Tarik dan Teh Bahagia terbaik sejak pendirian kami"
       }
     ]
   },
   "features": {
-    "title": "Happy Jasmine Signature Drinks",
-    "description": "Experience our premium Teh Tarik and Happy Tea collection, crafted with authentic Malaysian flavors",
+    "title": "Minuman Signature Happy Jasmine",
+    "description": "Rasakan Teh Tarik premium dan koleksi Teh Bahagia kami, dibuat dengan rasa Malaysia asli",
     "items": [
       {
         "id": 1,
-        "title": "Authentic Teh Tarik",
-        "description": "Traditional Malaysian Teh Tarik Berasa with perfect froth and rich flavor profile",
+        "title": "Teh Tarik Asli",
+        "description": "Teh Tarik Berasa Malaysia tradisional dengan busa sempurna dan profil rasa kaya",
         "icon": "Speed"
       },
       {
         "id": 2,
-        "title": "Premium Happy Tea",
-        "description": "Our signature Happy Tea blend, carefully crafted for the ultimate tea experience",
+        "title": "Teh Bahagia Premium",
+        "description": "Campuran Teh Bahagia signature kami, dibuat dengan hati-hati untuk pengalaman teh yang terbaik",
         "icon": "Integration"
       },
       {
         "id": 3,
-        "title": "Quality Ingredients",
-        "description": "Only the finest ingredients go into our Teh Tarik and Happy Tea preparations",
+        "title": "Bahan Berkualitas",
+        "description": "Hanya bahan terbaik yang masuk ke persiapan Teh Tarik dan Teh Bahagia kami",
         "icon": "Integration"
       }
     ]
@@ -52,50 +52,55 @@
   "products": [
     {
       "id": 1,
-      "name": "Classic Teh Tarik",
-      "description": "Authentic Malaysian Teh Tarik Berasa with perfect froth and traditional brewing technique",
+      "name": "Teh Tarik Klasik",
+      "description": "Teh Tarik Berasa Malaysia asli dengan busa sempurna dan teknik penyajian tradisional",
       "image": "/products/WhatsApp Image 2025-08-18 at 16.45.48.jpeg",
       "price": "RM 8.50"
     },
     {
       "id": 2,
-      "name": "Happy Tea Green",
-      "description": "Premium Happy Tea green tea blend with refreshing flavor and aromatic notes",
+      "name": "Teh Bahagia Hijau",
+      "description": "Campuran teh hijau Teh Bahagia premium dengan rasa menyegarkan dan aroma yang harum",
       "image": "/products/WhatsApp Image 2025-08-18 at 16.42.28 (2).jpeg",
       "price": "RM 9.50"
     },
     {
       "id": 3,
       "name": "Teh Tarik Special",
-      "description": "Signature Teh Tarik Berasa with special ingredients for enhanced flavor experience",
+      "description": "Teh Tarik Berasa signature dengan bahan khusus untuk pengalaman rasa yang ditingkatkan",
       "image": "/products/WhatsApp Image 2025-08-18 at 16.42.28 (1).jpeg",
       "price": "RM 10.50"
     },
     {
       "id": 4,
-      "name": "Happy Jasmine Blend",
-      "description": "Our exclusive Happy Tea blend featuring premium jasmine-infused tea leaves",
+      "name": "Campuran Happy Jasmine",
+      "description": "Campuran Teh Bahagia eksklusif kami yang menampilkan daun teh jasmine premium yang diinfus",
       "image": "/products/WhatsApp Image 2025-08-18 at 16.42.28.jpeg",
       "price": "RM 11.50"
     },
     {
       "id": 5,
       "name": "Teh Tarik Supreme",
-      "description": "Ultimate Teh Tarik Berasa experience with the finest ingredients and perfect technique",
+      "description": "Pengalaman Teh Tarik Berasa tertinggi dengan bahan terbaik dan teknik sempurna",
       "image": "/products/WhatsApp Image 2025-08-18 at 16.42.27.jpeg",
       "price": "RM 12.50"
     }
   ],
   "about": {
-    "title": "About Happy Jasmine",
-    "description": "Happy Jasmine is your premier destination for authentic Malaysian Teh Tarik and premium Happy Tea. We pride ourselves on serving the perfect Teh Tarik Berasa with traditional brewing techniques passed down through generations. Our commitment to quality and authentic flavors makes us the go-to place for tea lovers seeking the genuine Malaysian tea experience.",
+    "title": "Tentang Happy Jasmine",
+    "description": "Happy Jasmine adalah destinasi utama Anda untuk Teh Tarik Malaysia asli dan Teh Bahagia premium. Kami bangga menyajikan Teh Tarik Berasa yang sempurna dengan teknik penyajian tradisional yang diwariskan dari generasi ke generasi. Komitmen kami terhadap kualitas dan rasa asli membuat kami menjadi tempat utama bagi pecinta teh yang mencari pengalaman teh Malaysia yang asli.",
     "image": "/about-image.jpg"
   },
   "contact": {
-    "title": "Visit Happy Jasmine",
-    "description": "Ready to experience authentic Teh Tarik Berasa and premium Happy Tea? Visit us today and discover why Happy Jasmine is the premier destination for Malaysian tea lovers!",
+    "title": "Kunjungi Happy Jasmine",
+    "description": "Siap merasakan Teh Tarik Berasa asli dan Teh Bahagia premium? Kunjungi kami hari ini dan temukan mengapa Happy Jasmine adalah destinasi utama bagi pecinta teh Malaysia!",
     "email": "hello@happyjasmine.com",
     "phone": "+60 12 345 6789",
-    "address": "Happy Jasmine Tea House, Kuala Lumpur, Malaysia"
+    "address": "Happy Jasmine Tea House, Kuala Lumpur, Malaysia",
+    "facebook": "https://facebook.com/happyjasmine",
+    "instagram": "https://instagram.com/happyjasmine",
+    "whatsapp": "60123456789",
+    "tiktok": "https://tiktok.com/@happyjasmine",
+    "youtube": "https://youtube.com/happyjasmine"
   }
 }

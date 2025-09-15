@@ -69,7 +69,7 @@ export default function ContactSection({ contactData }) {
                 letterSpacing: '-0.02em',
               }}
             >
-              Connect With Us
+              Terhubung Dengan Kami
             </Typography>
             <Typography
               variant="body1"
@@ -80,7 +80,7 @@ export default function ContactSection({ contactData }) {
                 lineHeight: 1.6,
               }}
             >
-              Follow us on social media and get in touch
+              Ikuti kami di media sosial dan hubungi kami
             </Typography>
           </Box>
 
@@ -242,7 +242,7 @@ export default function ContactSection({ contactData }) {
                 <Phone sx={{ fontSize: 32 }} />
               </IconButton>
               <Typography variant="body2" sx={{ mt: 1, fontWeight: 500 }}>
-                Phone
+                Telepon
               </Typography>
             </Box>
           </Box>
@@ -262,7 +262,7 @@ export default function ContactSection({ contactData }) {
                 letterSpacing: '-0.02em',
               }}
             >
-              Find Us
+              Temukan Kami
             </Typography>
             <Typography
               variant="h6"
@@ -275,7 +275,7 @@ export default function ContactSection({ contactData }) {
                 fontWeight: 400,
               }}
             >
-              Discover our business locations across the region
+              Temukan lokasi bisnis kami di seluruh wilayah
             </Typography>
           </Box>
 

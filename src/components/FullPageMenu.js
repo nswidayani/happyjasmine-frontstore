@@ -20,29 +20,29 @@ import Link from 'next/link';
 
 const menuItems = [
   {
-    title: 'Home',
-    description: 'Welcome to Happy Jasmine',
+    title: 'Beranda',
+    description: 'Selamat datang di Happy Jasmine',
     icon: <HomeIcon sx={{ fontSize: 48, color: 'primary.main' }} />,
     path: '/#hero',
     color: 'rgba(255, 255, 255, 0.9)'
   },
   {
-    title: 'Products',
-    description: 'Explore our amazing products',
+    title: 'Produk',
+    description: 'Jelajahi produk menakjubkan kami',
     icon: <ProductsIcon sx={{ fontSize: 48, color: 'primary.main' }} />,
     path: '/#products',
     color: 'rgba(255, 255, 255, 0.9)'
   },
   {
-    title: 'About',
-    description: 'Learn more about our company',
+    title: 'Tentang',
+    description: 'Pelajari lebih lanjut tentang perusahaan kami',
     icon: <AboutIcon sx={{ fontSize: 48, color: 'primary.main' }} />,
     path: '/#about',
     color: 'rgba(255, 255, 255, 0.9)'
   },
   {
-    title: 'Campaigns',
-    description: 'Coming soon...',
+    title: 'Kampanye',
+    description: 'Segera hadir...',
     icon: <CampaignIcon sx={{ fontSize: 48, color: 'rgba(255, 255, 255, 0.5)' }} />,
     path: '#',
     color: 'rgba(255, 255, 255, 0.5)',
@@ -50,7 +50,7 @@ const menuItems = [
   },
   {
     title: 'Admin',
-    description: 'Access admin panel',
+    description: 'Akses panel admin',
     icon: <AdminIcon sx={{ fontSize: 48, color: 'primary.main' }} />,
     path: '/admin',
     color: 'rgba(255, 255, 255, 0.9)',
@@ -182,7 +182,7 @@ export default function FullPageMenu({ open, onClose }) {
                   </Typography>
                   {item.disabled && (
                     <Typography variant="caption" sx={{ color: 'rgba(255,255,255,0.6)' }}>
-                      Coming Soon
+                      Segera Hadir
                     </Typography>
                   )}
                 </Box>
@@ -317,14 +317,14 @@ export default function FullPageMenu({ open, onClose }) {
             transition: 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.4s'
           }}
         >
-          <Typography 
-            variant="body2" 
-            sx={{ 
+          <Typography
+            variant="body2"
+            sx={{
               color: 'rgba(255, 255, 255, 0.7)',
               fontSize: '0.9rem'
             }}
           >
-            Happy Jasmine - Bringing joy through quality products
+            Happy Jasmine - Membawa kebahagiaan melalui produk berkualitas
           </Typography>
         </Box>
       </Container>

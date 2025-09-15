@@ -69,21 +69,21 @@ export default function FeaturesSection({ features }) {
                             letterSpacing: '-0.02em',
                         }}
                     >
-                        {features?.title || 'Why Choose Us?'}
+                      {features?.title || 'Mengapa Memilih Kami?'}
                     </Typography>
 
                     <Typography
-                        variant="h6"
-                        sx={{
-                            fontSize: { xs: '1.1rem', md: '1.3rem' },
-                            color: 'var(--muted)',
-                            maxWidth: '600px',
-                            mx: 'auto',
-                            lineHeight: 1.6,
-                            fontWeight: 400,
-                        }}
+                      variant="h6"
+                      sx={{
+                        fontSize: { xs: '1.1rem', md: '1.3rem' },
+                        color: 'var(--muted)',
+                        maxWidth: '600px',
+                        mx: 'auto',
+                        lineHeight: 1.6,
+                        fontWeight: 400,
+                      }}
                     >
-                        {features?.description || 'Discover the advantages that set us apart from the competition'}
+                      {features?.description || 'Temukan keunggulan yang membedakan kami dari kompetitor'}
                     </Typography>
                 </Box>
 

@@ -69,13 +69,13 @@ export default function Home() {
 
   if (loading) {
     return (
-      <Box 
-        display="flex" 
-        justifyContent="center" 
-        alignItems="center" 
+      <Box
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
         minHeight="100vh"
       >
-        <Typography variant="h4">Loading...</Typography>
+        <Typography variant="h4">Memuat...</Typography>
       </Box>
     );
   }

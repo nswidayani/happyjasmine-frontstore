@@ -169,9 +169,9 @@ export default function HeroSection({ heroData }) {
               lineHeight: 1.1,
             }}
           >
-            {heroData?.title || 'Welcome'}
+            {heroData?.title || 'Selamat Datang'}
           </Typography>
-          
+
           <Typography
             variant="h5"
             component="p"
@@ -187,9 +187,9 @@ export default function HeroSection({ heroData }) {
               textShadow: '0 4px 20px rgba(0,0,0,0.6)',
             }}
           >
-            {heroData?.subtitle || 'Transform your business with our innovative solutions'}
+            {heroData?.subtitle || 'Transformasikan bisnis Anda dengan solusi inovatif kami'}
           </Typography>
-          
+
           <Box sx={{ display: 'flex', gap: 2, justifyContent: 'center', flexWrap: 'wrap' }}>
             <Button
               variant="contained"
@@ -212,9 +212,9 @@ export default function HeroSection({ heroData }) {
                 minWidth: { xs: '140px', md: '180px' },
               }}
             >
-              {heroData?.buttonText || 'Get Started'}
+              {heroData?.buttonText || 'Mulai'}
             </Button>
-            
+
             <Button
               variant="outlined"
               size="large"
@@ -236,7 +236,7 @@ export default function HeroSection({ heroData }) {
                 minWidth: { xs: '140px', md: '180px' },
               }}
             >
-              Learn More
+              Pelajari Lebih Lanjut
             </Button>
           </Box>
         </Box>
