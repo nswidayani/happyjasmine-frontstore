@@ -19,13 +19,33 @@ export default function ProductCarousel({ products, currentIndex, onPrev, onNext
     const desktopProducts = getVisibleProducts(3); // Changed from 4 to 3
 
     return (
-        <Box sx={{ position: 'relative', width: '100%', overflow: 'hidden' }}>
-            {/* Navigation Arrows */}
+        <Box sx={{
+            position: 'relative',
+            width: '100%',
+            overflow: 'hidden',
+            // Mobile-first: base mobile styles for square cards
+            py: 1,
+            minHeight: 300, // Account for 280px card + padding
+            // Desktop enhancements
+            '@media (min-width: 600px)': {
+                py: 2,
+                minHeight: 320 // Account for 300px card + padding
+            },
+            '@media (min-width: 900px)': {
+                py: 4,
+                minHeight: 380 // Account for 320px cards + padding + multi-card layout
+            },
+            '@media (min-width: 1200px)': {
+                minHeight: 420 // Account for 350px cards + padding
+            }
+        }}>
+            {/* Navigation Arrows - mobile-first */}
             <IconButton
                 onClick={onPrev}
                 sx={{
+                    // Mobile-first: base mobile styles
                     position: 'absolute',
-                    left: { xs: 5, sm: 10, md: -25 },
+                    left: 5,
                     top: '50%',
                     transform: 'translateY(-50%)',
                     bgcolor: 'rgba(255, 255, 255, 0.95)',
@@ -33,27 +53,47 @@ export default function ProductCarousel({ products, currentIndex, onPrev, onNext
                     border: '2px solid',
                     borderColor: 'primary.main',
                     zIndex: 10,
-                    width: { xs: 40, sm: 44, md: 48 },
-                    height: { xs: 40, sm: 44, md: 48 },
+                    width: 40,
+                    height: 40,
                     backdropFilter: 'blur(10px)',
+                    boxShadow: '0 4px 20px rgba(0,0,0,0.1)',
+                    transition: 'all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
                     '&:hover': {
                         bgcolor: 'primary.main',
                         color: 'white',
                         transform: 'translateY(-50%) scale(1.1)',
                         boxShadow: '0 8px 32px rgba(0, 95, 115, 0.3)'
                     },
-                    transition: 'all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
-                    boxShadow: '0 4px 20px rgba(0,0,0,0.1)'
+                    // Desktop enhancements
+                    '@media (min-width: 600px)': {
+                        left: 10,
+                        width: 44,
+                        height: 44
+                    },
+                    '@media (min-width: 900px)': {
+                        left: -25,
+                        width: 48,
+                        height: 48
+                    }
                 }}
             >
-                <ChevronLeft sx={{ fontSize: { xs: 20, sm: 24, md: 28 } }} />
+                <ChevronLeft sx={{
+                    fontSize: 20,
+                    '@media (min-width: 600px)': {
+                        fontSize: 24
+                    },
+                    '@media (min-width: 900px)': {
+                        fontSize: 28
+                    }
+                }} />
             </IconButton>
 
             <IconButton
                 onClick={onNext}
                 sx={{
+                    // Mobile-first: base mobile styles
                     position: 'absolute',
-                    right: { xs: 5, sm: 10, md: -25 },
+                    right: 5,
                     top: '50%',
                     transform: 'translateY(-50%)',
                     bgcolor: 'rgba(255, 255, 255, 0.95)',
@@ -61,46 +101,73 @@ export default function ProductCarousel({ products, currentIndex, onPrev, onNext
                     border: '2px solid',
                     borderColor: 'primary.main',
                     zIndex: 10,
-                    width: { xs: 40, sm: 44, md: 48 },
-                    height: { xs: 40, sm: 44, md: 48 },
+                    width: 40,
+                    height: 40,
                     backdropFilter: 'blur(10px)',
+                    boxShadow: '0 4px 20px rgba(0,0,0,0.1)',
+                    transition: 'all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
                     '&:hover': {
                         bgcolor: 'primary.main',
                         color: 'white',
                         transform: 'translateY(-50%) scale(1.1)',
                         boxShadow: '0 8px 32px rgba(0, 95, 115, 0.3)'
                     },
-                    transition: 'all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
-                    boxShadow: '0 4px 20px rgba(0,0,0,0.1)'
+                    // Desktop enhancements
+                    '@media (min-width: 600px)': {
+                        right: 10,
+                        width: 44,
+                        height: 44
+                    },
+                    '@media (min-width: 900px)': {
+                        right: -25,
+                        width: 48,
+                        height: 48
+                    }
                 }}
             >
-                <ChevronRight sx={{ fontSize: { xs: 20, sm: 24, md: 28 } }} />
+                <ChevronRight sx={{
+                    fontSize: 20,
+                    '@media (min-width: 600px)': {
+                        fontSize: 24
+                    },
+                    '@media (min-width: 900px)': {
+                        fontSize: 28
+                    }
+                }} />
             </IconButton>
 
-            {/* Mobile View: 1 Card */}
-            <Box sx={{
-                display: { xs: 'block', md: 'none' },
-                py: { xs: 2, sm: 3 },
-                position: 'relative',
-                minHeight: 400,
-                overflow: 'hidden'
-            }}>
-                <Box
-                    sx={{
+            {/* Mobile-first: Single card layout as base */}
+            <Box
+                sx={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    px: 4,
+                    transform: `translateX(0)`,
+                    transition: 'all 0.8s cubic-bezier(0.25, 0.1, 0.25, 1)',
+                    willChange: 'transform, opacity',
+                    // Desktop enhancements: multi-card layout
+                    '@media (min-width: 900px)': {
                         display: 'flex',
-                        justifyContent: 'center',
-                        px: { xs: 4, sm: 6 },
-                        transform: `translateX(0)`,
-                        transition: 'all 0.8s cubic-bezier(0.25, 0.1, 0.25, 1)',
-                        willChange: 'transform, opacity',
-                    }}
-                >
-                    {mobileProducts.map((product, index) => (
+                        gap: 3,
+                        px: 4,
+                        justifyContent: 'center'
+                    },
+                    '@media (min-width: 1200px)': {
+                        gap: 4,
+                        px: 6
+                    }
+                }}
+            >
+                {/* Mobile-first: Show 1 card, enhance to 3 on desktop */}
+                {products.length > 0 && (
+                    <>
+                        {/* Current card (always visible) */}
                         <Box
-                            key={`${product.id}-${currentIndex}-${index}`}
+                            key={`${products[currentIndex].id}-${currentIndex}-current`}
                             sx={{
-                                maxWidth: { xs: '280px', sm: '320px' }, // Larger single card on mobile
-                                width: '100%',
+                                // Mobile-first: square aspect ratio
+                                width: '280px',
+                                height: '280px',
                                 transition: 'all 0.8s cubic-bezier(0.25, 0.1, 0.25, 1)',
                                 transform: 'translateX(0) scale(1)',
                                 opacity: 1,
@@ -112,85 +179,141 @@ export default function ProductCarousel({ products, currentIndex, onPrev, onNext
                                     transition: 'all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)',
                                     zIndex: 2,
                                     boxShadow: '0 8px 32px rgba(0, 0, 0, 0.12)'
+                                },
+                                // Desktop enhancements - maintain square ratio
+                                '@media (min-width: 600px)': {
+                                    width: '300px',
+                                    height: '300px'
+                                },
+                                '@media (min-width: 900px)': {
+                                    flex: '1 1 0',
+                                    width: '320px',
+                                    height: '320px',
+                                    '&:hover': {
+                                        transform: 'scale(1.04) translateY(-6px)',
+                                        filter: 'brightness(1.08)',
+                                        boxShadow: '0 12px 40px rgba(0, 0, 0, 0.15)'
+                                    }
+                                },
+                                '@media (min-width: 1200px)': {
+                                    width: '360px',
+                                    height: '360px'
                                 }
                             }}
                         >
                             <ProductCard
-                                product={product}
-                                variant="default"
+                                product={products[currentIndex]}
+                                variant="minimal"
                                 isFocused={false}
                             />
                         </Box>
-                    ))}
-                </Box>
+
+                        {/* Desktop: Show additional cards */}
+                        {products.length > 1 && (
+                            <>
+                                {/* Next card */}
+                                <Box
+                                    key={`${products[(currentIndex + 1) % products.length].id}-${currentIndex}-next`}
+                                    sx={{
+                                        display: 'none', // Hidden on mobile
+                                        '@media (min-width: 900px)': {
+                                            display: 'block',
+                                            flex: '1 1 0',
+                                            width: '320px',
+                                            height: '320px',
+                                            transition: 'all 0.8s cubic-bezier(0.25, 0.1, 0.25, 1)',
+                                            transform: 'translateX(0) scale(1)',
+                                            opacity: 1,
+                                            filter: 'blur(0px)',
+                                            transitionDelay: '0.05s',
+                                            '&:hover': {
+                                                transform: 'scale(1.04) translateY(-6px)',
+                                                filter: 'brightness(1.08)',
+                                                transition: 'all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)',
+                                                zIndex: 2,
+                                                boxShadow: '0 12px 40px rgba(0, 0, 0, 0.15)'
+                                            }
+                                        },
+                                        '@media (min-width: 1200px)': {
+                                            width: '360px',
+                                            height: '360px'
+                                        }
+                                    }}
+                                >
+                                    <ProductCard
+                                        product={products[(currentIndex + 1) % products.length]}
+                                        variant="minimal"
+                                        isFocused={false}
+                                    />
+                                </Box>
+
+                                {/* Third card if available */}
+                                {products.length > 2 && (
+                                    <Box
+                                        key={`${products[(currentIndex + 2) % products.length].id}-${currentIndex}-third`}
+                                        sx={{
+                                            display: 'none', // Hidden on mobile
+                                            '@media (min-width: 900px)': {
+                                                display: 'block',
+                                                flex: '1 1 0',
+                                                width: '320px',
+                                                height: '320px',
+                                                transition: 'all 0.8s cubic-bezier(0.25, 0.1, 0.25, 1)',
+                                                transform: 'translateX(0) scale(1)',
+                                                opacity: 1,
+                                                filter: 'blur(0px)',
+                                                transitionDelay: '0.1s',
+                                                '&:hover': {
+                                                    transform: 'scale(1.04) translateY(-6px)',
+                                                    filter: 'brightness(1.08)',
+                                                    transition: 'all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)',
+                                                    zIndex: 2,
+                                                    boxShadow: '0 12px 40px rgba(0, 0, 0, 0.15)'
+                                                }
+                                            },
+                                            '@media (min-width: 1200px)': {
+                                                width: '360px',
+                                                height: '360px'
+                                            }
+                                        }}
+                                    >
+                                        <ProductCard
+                                            product={products[(currentIndex + 2) % products.length]}
+                                            variant="minimal"
+                                            isFocused={false}
+                                        />
+                                    </Box>
+                                )}
+                            </>
+                        )}
+                    </>
+                )}
             </Box>
 
-            {/* Desktop/Tablet View: 3 Cards */}
+            {/* Dots Indicator - mobile-first */}
             <Box sx={{
-                display: { xs: 'none', md: 'block' },
-                py: 4,
-                position: 'relative',
-                minHeight: 450,
-                overflow: 'hidden'
-            }}>
-                <Box
-                    sx={{
-                        display: 'flex',
-                        gap: { md: 3, lg: 4 },
-                        px: { md: 4, lg: 6 },
-                        justifyContent: 'center',
-                        transform: `translateX(0)`,
-                        transition: 'all 0.8s cubic-bezier(0.25, 0.1, 0.25, 1)',
-                        willChange: 'transform, opacity',
-                    }}
-                >
-                    {desktopProducts.map((product, index) => (
-                        <Box
-                            key={`${product.id}-${currentIndex}-${index}`}
-                            sx={{
-                                flex: '1 1 0',
-                                maxWidth: { md: '320px', lg: '360px' },
-                                transition: 'all 0.8s cubic-bezier(0.25, 0.1, 0.25, 1)',
-                                transform: 'translateX(0) scale(1)',
-                                opacity: 1,
-                                filter: 'blur(0px)',
-                                willChange: 'transform, opacity, filter',
-                                transitionDelay: `${index * 0.05}s`, // Stagger effect
-                                '&:hover': {
-                                    transform: 'scale(1.04) translateY(-6px)',
-                                    filter: 'brightness(1.08)',
-                                    transition: 'all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)',
-                                    zIndex: 2,
-                                    boxShadow: '0 12px 40px rgba(0, 0, 0, 0.15)'
-                                }
-                            }}
-                        >
-                            <ProductCard
-                                product={product}
-                                variant="default"
-                                isFocused={false}
-                            />
-                        </Box>
-                    ))}
-                </Box>
-            </Box>
-
-            {/* Dots Indicator */}
-            <Box sx={{
+                // Mobile-first: base mobile styles
                 display: 'flex',
                 justifyContent: 'center',
-                gap: { xs: 0.5, sm: 1 },
-                mt: { xs: 2, sm: 3, md: 4 }
+                gap: 0.5,
+                mt: 2,
+                // Desktop enhancements
+                '@media (min-width: 600px)': {
+                    gap: 1,
+                    mt: 3
+                },
+                '@media (min-width: 900px)': {
+                    mt: 4
+                }
             }}>
                 {products.map((_, index) => (
                     <Box
                         key={index}
                         onClick={() => onGoTo(index)}
                         sx={{
-                            width: index === currentIndex
-                                ? { xs: 24, sm: 28 }
-                                : { xs: 8, sm: 10 },
-                            height: { xs: 8, sm: 10 },
+                            // Mobile-first: base mobile styles
+                            width: index === currentIndex ? 24 : 8,
+                            height: 8,
                             borderRadius: index === currentIndex ? 2 : '50%',
                             bgcolor: index === currentIndex
                                 ? 'primary.main'
@@ -217,23 +340,34 @@ export default function ProductCarousel({ products, currentIndex, onPrev, onNext
                                 height: '100%',
                                 background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent)',
                                 animation: 'smoothSweep 2.5s ease-in-out infinite'
-                            } : {}
+                            } : {},
+                            // Desktop enhancements
+                            '@media (min-width: 600px)': {
+                                width: index === currentIndex ? 28 : 10,
+                                height: 10
+                            }
                         }}
                     />
                 ))}
             </Box>
 
-            {/* Slide Counter */}
+            {/* Slide Counter - mobile-first */}
             <Typography
                 variant="body2"
                 sx={{
+                    // Mobile-first: base mobile styles
                     textAlign: 'center',
                     color: 'text.secondary',
-                    mt: { xs: 1, sm: 2 },
-                    fontSize: { xs: '0.8rem', sm: '0.9rem' },
+                    mt: 1,
+                    fontSize: '0.8rem',
                     fontWeight: 500,
                     opacity: 0.8,
-                    transition: 'all 0.5s cubic-bezier(0.25, 0.1, 0.25, 1)'
+                    transition: 'all 0.5s cubic-bezier(0.25, 0.1, 0.25, 1)',
+                    // Desktop enhancements
+                    '@media (min-width: 600px)': {
+                        mt: 2,
+                        fontSize: '0.9rem'
+                    }
                 }}
             >
                 {currentIndex + 1} of {products.length}

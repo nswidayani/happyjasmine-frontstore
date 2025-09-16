@@ -32,7 +32,7 @@ export default function HeroSection({ heroData }) {
         position: 'relative',
         minHeight: '100vh',
         display: 'flex',
-        alignItems: 'flex-end',
+        alignItems: 'center',
         justifyContent: 'center',
         overflow: 'hidden',
         '&::after': {
@@ -79,6 +79,18 @@ export default function HeroSection({ heroData }) {
             <source src={heroData.backgroundVideo} type="video/ogg" />
             Your browser does not support the video tag.
           </Box>
+          {/* Dark overlay to make video darker */}
+          <Box
+            sx={{
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              width: '100%',
+              height: '100%',
+              backgroundColor: 'rgba(0, 0, 0, 0.4)',
+              zIndex: 1,
+            }}
+          />
           {/* Debug indicator */}
           <Box
             sx={{
@@ -138,21 +150,7 @@ export default function HeroSection({ heroData }) {
         }}
       />
 
-      <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 4 }}>
-        <Box 
-          textAlign="center"
-          sx={{
-            maxWidth: '900px',
-            mx: 'auto',
-            mb: 4,
-            px: { xs: 3, md: 5 },
-            py: { xs: 4, md: 6 },
-            background: 'linear-gradient(135deg, rgba(0, 95, 115, 0.4) 0%, rgba(0, 0, 0, 0.6) 100%)',
-            borderRadius: '24px',
-            backdropFilter: 'blur(20px)',
-            boxShadow: '0 20px 40px rgba(0, 0, 0, 0.3)',
-          }}
-        >
+      <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 4, textAlign: 'center' }}>
           <Typography
             variant="h1"
             component="h1"
@@ -239,7 +237,6 @@ export default function HeroSection({ heroData }) {
               Pelajari Lebih Lanjut
             </Button>
           </Box>
-        </Box>
       </Container>
 
       {/* Scroll indicator */}
