@@ -4,7 +4,7 @@ import { useState, useEffect, useCallback, useRef } from 'react';
 import { Box, Typography, Button, CircularProgress, Alert } from '@mui/material';
 import Link from 'next/link';
 import { useTheme } from './ThemeProvider';
-import { getContent } from '../lib/supabase';
+import { getProducts } from '../lib/supabase';
 import ProductsHeader from './products/ProductsHeader';
 import ProductCarousel from './products/ProductCarousel';
 import ProductCard from './products/ProductCard';
@@ -105,27 +105,23 @@ const ProductsSection = ({ products: propProducts = [] }) => {
             setError('');
             setRefreshing(true);
 
-            console.log('Fetching products...', { propProducts: propProducts.length });
+            console.log('Fetching products from Supabase...');
+            const result = await getProducts();
+            console.log('Supabase result:', result);
 
-            // If products are passed as props, use them
-            if (propProducts.length > 0) {
-                console.log('Using products from props');
-                setProducts(propProducts);
-                setLoading(false);
-                setRefreshing(false);
-                return;
-            }
-
-            // Otherwise, fetch from Firebase
-            console.log('Fetching from Firebase...');
-            const result = await getContent();
-            console.log('Firebase result:', result);
-
-            if (result.success && result.data.products) {
-                console.log('Setting products from Firebase:', result.data.products);
-                setProducts(result.data.products);
+            if (result.success && result.data) {
+                // Map Supabase data to component format
+                const mappedProducts = result.data.map(product => ({
+                    id: product.id,
+                    name: product.title,
+                    image: product.thumbnail || '/products/default-thumbnail.jpg', // fallback if no thumbnail
+                    description: product.description || '',
+                    price: product.het_price || ''
+                }));
+                console.log('Setting products from Supabase:', mappedProducts);
+                setProducts(mappedProducts);
             } else {
-                // Fallback to default products if Firebase fetch fails
+                // Fallback to default products if Supabase fetch fails
                 console.log('Using default products');
                 setProducts(defaultProducts);
             }
@@ -137,13 +133,20 @@ const ProductsSection = ({ products: propProducts = [] }) => {
             setLoading(false);
             setRefreshing(false);
         }
-    }, [propProducts]);
+    }, []);
 
     const displayProducts = products.length > 0 ? products : defaultProducts;
 
     useEffect(() => {
         fetchProducts();
     }, [fetchProducts]);
+
+    // Handle prop products changes
+    useEffect(() => {
+        if (propProducts.length > 0) {
+            setProducts(propProducts);
+        }
+    }, [propProducts]);
 
     // Set client flag to prevent hydration mismatch
     useEffect(() => {

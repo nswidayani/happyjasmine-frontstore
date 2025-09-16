@@ -6,6 +6,7 @@ import { useTheme as useAppTheme } from '../ThemeProvider';
 export default function ProductCard({ product, variant = 'default', isFocused = false, index = 0 }) {
     const { theme } = useAppTheme();
     const [isHovered, setIsHovered] = useState(false);
+    const [isTouched, setIsTouched] = useState(false);
     const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
     const [isVisible, setIsVisible] = useState(false);
     const cardRef = useRef(null);
@@ -40,7 +41,7 @@ export default function ProductCard({ product, variant = 'default', isFocused = 
         }
     };
 
-    // Size variants for different display modes
+    // Mobile-first size variants
     const sizeVariants = {
         default: {
             maxWidth: 600,
@@ -52,26 +53,223 @@ export default function ProductCard({ product, variant = 'default', isFocused = 
             padding: 4
         },
         focused: {
-            maxWidth: { xs: '280px', sm: '400px', md: '500px', lg: '600px' },
+            // Mobile-first: start with mobile styles
+            maxWidth: '280px',
             imageHeight: 'auto',
-            maxImageHeight: { xs: '200px', sm: '280px', md: '350px', lg: '400px' },
+            maxImageHeight: '200px',
             titleVariant: 'h4',
-            priceFontSize: { xs: '1.2rem', sm: '1.4rem', md: '1.6rem', lg: '1.8rem' },
+            priceFontSize: '1.2rem',
             buttonSize: 'large',
-            padding: { xs: 2, sm: 3, md: 4, lg: 5 }
+            padding: 2,
+            // Desktop enhancements
+            '@media (min-width: 600px)': {
+                maxWidth: '400px',
+                maxImageHeight: '280px',
+                priceFontSize: '1.4rem',
+                padding: 3
+            },
+            '@media (min-width: 900px)': {
+                maxWidth: '500px',
+                maxImageHeight: '350px',
+                priceFontSize: '1.6rem',
+                padding: 4
+            },
+            '@media (min-width: 1200px)': {
+                maxWidth: '600px',
+                maxImageHeight: '400px',
+                priceFontSize: '1.8rem',
+                padding: 5
+            }
         },
         compact: {
-            maxWidth: { xs: '180px', sm: '220px', md: '280px', lg: '320px' },
+            // Mobile-first: start with mobile styles
+            maxWidth: '180px',
             imageHeight: 'auto',
-            maxImageHeight: { xs: '120px', sm: '150px', md: '180px', lg: '200px' },
+            maxImageHeight: '120px',
             titleVariant: 'h6',
-            priceFontSize: { xs: '1rem', sm: '1.1rem', md: '1.2rem', lg: '1.3rem' },
+            priceFontSize: '1rem',
             buttonSize: 'small',
-            padding: { xs: 1.5, sm: 2, md: 2.5, lg: 3 }
+            padding: 1.5,
+            // Desktop enhancements
+            '@media (min-width: 600px)': {
+                maxWidth: '220px',
+                maxImageHeight: '150px',
+                priceFontSize: '1.1rem',
+                padding: 2
+            },
+            '@media (min-width: 900px)': {
+                maxWidth: '280px',
+                maxImageHeight: '180px',
+                priceFontSize: '1.2rem',
+                padding: 2.5
+            },
+            '@media (min-width: 1200px)': {
+                maxWidth: '320px',
+                maxImageHeight: '200px',
+                priceFontSize: '1.3rem',
+                padding: 3
+            }
+        },
+        minimal: {
+            // Mobile-first: square 1:1 aspect ratio
+            maxWidth: '280px',
+            imageHeight: '280px', // Square aspect ratio
+            maxImageHeight: '280px',
+            titleVariant: 'h6',
+            priceFontSize: '1rem',
+            buttonSize: 'small',
+            padding: 1,
+            // Desktop enhancements - maintain square ratio
+            '@media (min-width: 600px)': {
+                maxWidth: '300px',
+                imageHeight: '300px',
+                maxImageHeight: '300px'
+            },
+            '@media (min-width: 900px)': {
+                maxWidth: '320px',
+                imageHeight: '320px',
+                maxImageHeight: '320px'
+            },
+            '@media (min-width: 1200px)': {
+                maxWidth: '350px',
+                imageHeight: '350px',
+                maxImageHeight: '350px'
+            }
         }
     };
 
     const size = sizeVariants[variant] || sizeVariants.default;
+
+    // Minimal variant - mobile-first design
+    if (variant === 'minimal') {
+        const showOverlay = isHovered || isTouched;
+
+        return (
+            <Box
+                ref={cardRef}
+                onMouseEnter={() => setIsHovered(true)}
+                onMouseLeave={() => setIsHovered(false)}
+                onMouseMove={handleMouseMove}
+                onTouchStart={() => setIsTouched(!isTouched)} // Toggle overlay on touch
+                sx={{
+                    // Mobile-first: square aspect ratio - just the image container
+                    width: '280px',
+                    height: '280px',
+                    position: 'relative',
+                    cursor: 'pointer',
+                    opacity: isVisible ? 1 : 0,
+                    transform: isVisible ? 'translateY(0) scale(1)' : 'translateY(50px) scale(0.9)',
+                    transition: 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)',
+                    animationDelay: `${index * 0.1}s`,
+                    textAlign: 'center',
+                    // Desktop enhancements - maintain square ratio
+                    '@media (min-width: 600px)': {
+                        width: '300px',
+                        height: '300px'
+                    },
+                    '@media (min-width: 900px)': {
+                        width: '320px',
+                        height: '320px'
+                    },
+                    '@media (min-width: 1200px)': {
+                        width: '350px',
+                        height: '350px'
+                    }
+                }}
+            >
+                <Box
+                    component="img"
+                    src={product.image}
+                    alt={product.name}
+                    sx={{
+                        // Mobile-first: square aspect ratio with cropping - no card container
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'cover', // Crop to fit square
+                        borderRadius: '12px',
+                        transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+                        filter: showOverlay ?
+                            'brightness(1.15) contrast(1.1) saturate(1.1)' :
+                            'brightness(1)',
+                        transform: showOverlay ? 'scale(1.03)' : 'scale(1)',
+                        boxShadow: showOverlay ?
+                            '0 6px 20px rgba(0,0,0,0.2)' :
+                            'none',
+                        // Desktop enhancements
+                        '@media (min-width: 600px)': {
+                            filter: showOverlay ?
+                                'brightness(1.1) contrast(1.05)' :
+                                'brightness(1)',
+                            transform: showOverlay ? 'scale(1.05)' : 'scale(1)',
+                            boxShadow: showOverlay ?
+                                '0 8px 25px rgba(0,0,0,0.15)' :
+                                'none'
+                        }
+                    }}
+                />
+
+                    {/* Overlay title at bottom of image - mobile-first */}
+                    <Box
+                        sx={{
+                            position: 'absolute',
+                            bottom: 0,
+                            left: 0,
+                            right: 0,
+                            // Mobile-first: strong gradient for mobile readability
+                            background: 'linear-gradient(to top, rgba(0,0,0,0.9), rgba(0,0,0,0.6), rgba(0,0,0,0.3))',
+                            padding: '16px 10px 10px 10px',
+                            opacity: showOverlay ? 1 : 0,
+                            transform: showOverlay ? 'translateY(0)' : 'translateY(20px)',
+                            transition: 'all 0.3s ease',
+                            borderRadius: '0 0 12px 12px',
+                            minHeight: '45px',
+                            // Desktop enhancements
+                            '@media (min-width: 600px)': {
+                                background: 'linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0.4), transparent)',
+                                padding: '20px 12px 12px 12px',
+                                minHeight: '50px'
+                            },
+                            '@media (min-width: 900px)': {
+                                padding: '24px 16px 16px 16px',
+                                minHeight: '60px'
+                            }
+                        }}
+                    >
+                        <Typography
+                            variant="h6"
+                            component="h3"
+                            sx={{
+                                // Mobile-first: optimized for mobile
+                                color: 'white',
+                                fontWeight: 700,
+                                textShadow: '0 2px 6px rgba(0, 0, 0, 0.7)',
+                                textAlign: 'center',
+                                fontSize: '0.85rem',
+                                lineHeight: 1.3,
+                                display: '-webkit-box',
+                                WebkitLineClamp: 2,
+                                WebkitBoxOrient: 'vertical',
+                                overflow: 'hidden',
+                                textOverflow: 'ellipsis',
+                                letterSpacing: '0.5px',
+                                // Desktop enhancements
+                                '@media (min-width: 600px)': {
+                                    fontSize: '0.9rem'
+                                },
+                                '@media (min-width: 900px)': {
+                                    fontSize: '1rem'
+                                },
+                                '@media (min-width: 1200px)': {
+                                    fontSize: '1.1rem'
+                                }
+                            }}
+                        >
+                            {product.name}
+                        </Typography>
+                    </Box>
+            </Box>
+        );
+    }
 
     return (
         <Card

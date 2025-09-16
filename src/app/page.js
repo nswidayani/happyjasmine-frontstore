@@ -81,14 +81,13 @@ export default function Home() {
   }
 
   return (
-    <Box>
+    <Box sx={{ minHeight: '100vh', backgroundColor: 'background.default' }}>
       {/* Header with Logo */}
       <Header logo={content?.logo || '/logo.svg'} />
 
       {/* Page Sections */}
       <HeroSection heroData={content?.hero} />
-      <AnimatedSpacer />
-      <ProductsFeaturesSection products={content?.products} features={content?.features} />
+      <ProductsFeaturesSection features={content?.features} />
       <CampaignSection campaigns={content?.hero?.campaigns} />
       <AboutSection aboutData={content?.about} />
       <ContactSection contactData={content?.contact} />
