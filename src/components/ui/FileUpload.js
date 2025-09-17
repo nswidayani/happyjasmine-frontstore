@@ -19,6 +19,7 @@ export default function FileUpload({
   sx = {}
 }) {
   const [uploading, setUploading] = useState(false);
+  const uploadId = `file-upload-${Date.now()}`;
 
   const handleUpload = async (file) => {
     if (!file) return;
@@ -74,14 +75,14 @@ export default function FileUpload({
 
       <input
         type="file"
-        id={`file-upload-${Math.random()}`}
+        id={uploadId}
         style={{ display: 'none' }}
         accept={accept}
         onChange={handleFileChange}
         disabled={uploading || disabled}
       />
 
-      <label htmlFor={`file-upload-${Math.random()}`}>
+      <label htmlFor={uploadId}>
         <Button
           component="span"
           variant={variant}
