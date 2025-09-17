@@ -28,26 +28,9 @@
   "features": {
     "title": "Minuman Signature Happy Jasmine",
     "description": "Rasakan Teh Tarik premium dan koleksi Teh Bahagia kami, dibuat dengan rasa Malaysia asli",
-    "items": [
-      {
-        "id": 1,
-        "title": "Teh Tarik Asli",
-        "description": "Teh Tarik Berasa Malaysia tradisional dengan busa sempurna dan profil rasa kaya",
-        "icon": "Speed"
-      },
-      {
-        "id": 2,
-        "title": "Teh Bahagia Premium",
-        "description": "Campuran Teh Bahagia signature kami, dibuat dengan hati-hati untuk pengalaman teh yang terbaik",
-        "icon": "Integration"
-      },
-      {
-        "id": 3,
-        "title": "Bahan Berkualitas",
-        "description": "Hanya bahan terbaik yang masuk ke persiapan Teh Tarik dan Teh Bahagia kami",
-        "icon": "Integration"
-      }
-    ]
+    "content": "Di Happy Jasmine, kami percaya bahwa setiap cangkir teh adalah sebuah cerita. Teh Tarik Berasa kami dibuat dengan teknik penyajian tradisional Malaysia, menghasilkan busa sempurna dan rasa yang kaya. Koleksi Teh Bahagia premium kami menawarkan berbagai varian rasa yang menyegarkan, semuanya dibuat dari bahan-bahan berkualitas tinggi yang dipilih dengan hati-hati.",
+    "image": "/products/WhatsApp Image 2025-08-18 at 16.45.48.jpeg",
+    "imageWidth": 50
   },
   "products": [
     {

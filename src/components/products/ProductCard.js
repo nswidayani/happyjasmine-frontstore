@@ -218,8 +218,8 @@ export default function ProductCard({ product, variant = 'default', isFocused = 
                             // Mobile-first: strong gradient for mobile readability
                             background: 'linear-gradient(to top, rgba(0,0,0,0.9), rgba(0,0,0,0.6), rgba(0,0,0,0.3))',
                             padding: '16px 10px 10px 10px',
-                            opacity: showOverlay ? 1 : 0,
-                            transform: showOverlay ? 'translateY(0)' : 'translateY(20px)',
+                            opacity: 1,
+                            transform: 'translateY(0)',
                             transition: 'all 0.3s ease',
                             borderRadius: '0 0 12px 12px',
                             minHeight: '45px',
