@@ -7,8 +7,8 @@ export default function Footer() {
       sx={{
         bgcolor: 'primary.main',
         color: 'primary.contrastText',
-        py: 6,
-        mt: 8,
+        py: 4,
+        mt: 0,
       }}
     >
       <Container maxWidth="lg">
@@ -104,9 +104,6 @@ export default function Footer() {
         <Box sx={{ textAlign: 'center' }}>
           <Typography variant="body2" sx={{ mb: 1 }}>
             © 2024 Happy Jasmine. Seluruh hak cipta dilindungi.
-          </Typography>
-          <Typography variant="body2" sx={{ fontSize: '0.8rem', opacity: 0.8 }}>
-            Dibuat dengan ❤️ untuk pecinta teh Malaysia asli
           </Typography>
         </Box>
       </Container>

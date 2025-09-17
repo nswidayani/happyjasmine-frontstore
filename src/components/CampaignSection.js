@@ -45,8 +45,8 @@ export default function CampaignSection({ campaigns = [] }) {
       id="campaigns"
       sx={{
         position: 'relative',
-        height: { xs: '60vh', md: '70vh', lg: '80vh' },
-        minHeight: { xs: 400, md: 500, lg: 600 },
+        height: { xs: '50vh', md: '60vh', lg: '70vh' },
+        minHeight: { xs: 350, md: 450, lg: 550 },
         overflow: 'hidden',
         opacity: isVisible ? 1 : 0,
         transform: isVisible ? 'translateY(0)' : 'translateY(50px)',
@@ -96,44 +96,18 @@ export default function CampaignSection({ campaigns = [] }) {
           color: 'white',
         }}
       >
-        {/* Text Content Container with Background */}
+        {/* Simplified Text Content Container */}
         <Box
           sx={{
-            background: 'rgba(0, 0, 0, 0.75)',
-            backdropFilter: 'blur(25px)',
-            borderRadius: { xs: '24px', md: '32px' },
-            border: '1px solid rgba(255, 255, 255, 0.15)',
-            px: { xs: 4, md: 8, lg: 10 },
-            py: { xs: 4, md: 5, lg: 6 },
+            background: 'rgba(0, 0, 0, 0.8)',
+            borderRadius: { xs: '16px', md: '24px' },
+            px: { xs: 4, md: 6 },
+            py: { xs: 4, md: 5 },
             maxWidth: { xs: '95%', sm: '85%', md: '900px', lg: '1000px' },
             width: '100%',
-            boxShadow: '0 25px 80px rgba(0, 0, 0, 0.5)',
             position: 'relative',
-            mb: { xs: 6, md: 8 },
+            mb: { xs: 4, md: 6 },
             mx: { xs: 2, md: 3 },
-            '&::before': {
-              content: '""',
-              position: 'absolute',
-              top: 0,
-              left: 0,
-              right: 0,
-              bottom: 0,
-              background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.06) 50%, rgba(255, 255, 255, 0.03) 100%)',
-              borderRadius: 'inherit',
-              zIndex: -1,
-            },
-            '&::after': {
-              content: '""',
-              position: 'absolute',
-              top: -2,
-              left: -2,
-              right: -2,
-              bottom: -2,
-              background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, transparent 50%, rgba(255, 255, 255, 0.05) 100%)',
-              borderRadius: 'inherit',
-              zIndex: -2,
-              filter: 'blur(8px)',
-            }
           }}
         >
           {/* Campaign Title */}
@@ -184,21 +158,14 @@ export default function CampaignSection({ campaigns = [] }) {
               borderRadius: '50px',
               fontSize: { xs: '1rem', md: '1.2rem' },
               fontWeight: 700,
-              boxShadow: '0 8px 32px rgba(0, 95, 115, 0.4)',
+              boxShadow: '0 4px 12px rgba(0, 0, 0, 0.2)',
               '&:hover': {
                 bgcolor: 'primary.dark',
-                transform: 'translateY(-3px)',
-                boxShadow: '0 12px 40px rgba(0, 95, 115, 0.6)',
+                transform: 'translateY(-2px)',
+                boxShadow: '0 6px 20px rgba(0, 0, 0, 0.3)',
               },
-              transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+              transition: 'all 0.3s ease',
               minWidth: { xs: '180px', md: '220px' },
-              border: '2px solid rgba(255, 255, 255, 0.2)',
-              '&:hover': {
-                border: '2px solid rgba(255, 255, 255, 0.4)',
-                bgcolor: 'primary.dark',
-                transform: 'translateY(-3px)',
-                boxShadow: '0 12px 40px rgba(0, 95, 115, 0.6)',
-              },
             }}
           >
             Learn More

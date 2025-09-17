@@ -1,9 +1,10 @@
 import { useState, useRef, useEffect } from 'react';
 import { Card, CardMedia, CardContent, Typography, Box, IconButton } from '@mui/material';
 import { ShoppingCart } from '@mui/icons-material';
+import Link from 'next/link';
 import { useTheme as useAppTheme } from '../ThemeProvider';
 
-export default function ProductCard({ product, variant = 'default', isFocused = false, index = 0 }) {
+export default function ProductCard({ product, variant = 'default', isFocused = false, index = 0, href }) {
     const { theme } = useAppTheme();
     const [isHovered, setIsHovered] = useState(false);
     const [isTouched, setIsTouched] = useState(false);
@@ -144,7 +145,7 @@ export default function ProductCard({ product, variant = 'default', isFocused = 
     if (variant === 'minimal') {
         const showOverlay = isHovered || isTouched;
 
-        return (
+        const cardContent = (
             <Box
                 ref={cardRef}
                 onMouseEnter={() => setIsHovered(true)}
@@ -156,7 +157,7 @@ export default function ProductCard({ product, variant = 'default', isFocused = 
                     width: '280px',
                     height: '280px',
                     position: 'relative',
-                    cursor: 'pointer',
+                    cursor: href ? 'pointer' : 'default',
                     opacity: isVisible ? 1 : 0,
                     transform: isVisible ? 'translateY(0) scale(1)' : 'translateY(50px) scale(0.9)',
                     transition: 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)',
@@ -269,9 +270,15 @@ export default function ProductCard({ product, variant = 'default', isFocused = 
                     </Box>
             </Box>
         );
+
+        return href ? (
+            <Link href={href} style={{ textDecoration: 'none' }}>
+                {cardContent}
+            </Link>
+        ) : cardContent;
     }
 
-    return (
+    const cardContent = (
         <Card
             ref={cardRef}
             onMouseEnter={() => setIsHovered(true)}
@@ -286,7 +293,7 @@ export default function ProductCard({ product, variant = 'default', isFocused = 
                 border: isFocused ? '3px solid' : '2px solid transparent',
                 borderColor: isFocused ? 'secondary.main' : 'transparent',
                 borderRadius: '24px',
-                cursor: 'pointer',
+                cursor: href ? 'pointer' : 'default',
                 // Enhanced animations
                 opacity: isVisible ? 1 : 0,
                 transform: isVisible
@@ -563,4 +570,10 @@ export default function ProductCard({ product, variant = 'default', isFocused = 
             `}</style>
         </Card>
     );
+
+    return href ? (
+        <Link href={href} style={{ textDecoration: 'none' }}>
+            {cardContent}
+        </Link>
+    ) : cardContent;
 }

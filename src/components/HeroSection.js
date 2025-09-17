@@ -30,7 +30,7 @@ export default function HeroSection({ heroData }) {
       id="hero"
       sx={{
         position: 'relative',
-        minHeight: '100vh',
+        minHeight: '70vh',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
@@ -42,7 +42,7 @@ export default function HeroSection({ heroData }) {
           left: 0,
           right: 0,
           bottom: 0,
-          background: 'radial-gradient(circle at 20% 80%, rgba(0, 95, 115, 0.2) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(255, 227, 71, 0.2) 0%, transparent 50%)',
+          background: 'linear-gradient(135deg, rgba(0, 95, 115, 0.1) 0%, rgba(255, 227, 71, 0.1) 100%)',
           zIndex: 3,
         }
       }}
@@ -91,64 +91,8 @@ export default function HeroSection({ heroData }) {
               zIndex: 1,
             }}
           />
-          {/* Debug indicator */}
-          <Box
-            sx={{
-              position: 'absolute',
-              top: '10px',
-              right: '10px',
-              backgroundColor: 'rgba(0,0,0,0.7)',
-              color: 'white',
-              padding: '5px 10px',
-              borderRadius: '4px',
-              fontSize: '12px',
-              zIndex: 10,
-            }}
-          >
-            Video: {heroData.backgroundVideo ? 'Set' : 'Not Set'}
-          </Box>
         </>
       )}
-      {/* Floating geometric shapes */}
-      <Box
-        sx={{
-          position: 'absolute',
-          top: '10%',
-          left: '10%',
-          width: 100,
-          height: 100,
-          borderRadius: '50%',
-          background: 'rgba(255, 255, 255, 0.1)',
-          animation: 'float 6s ease-in-out infinite',
-          zIndex: 3,
-        }}
-      />
-      <Box
-        sx={{
-          position: 'absolute',
-          top: '20%',
-          right: '15%',
-          width: 60,
-          height: 60,
-          borderRadius: '50%',
-          background: 'rgba(255, 255, 255, 0.08)',
-          animation: 'float 8s ease-in-out infinite reverse',
-          zIndex: 3,
-        }}
-      />
-      <Box
-        sx={{
-          position: 'absolute',
-          bottom: '20%',
-          left: '20%',
-          width: 80,
-          height: 80,
-          borderRadius: '50%',
-          background: 'rgba(255, 255, 255, 0.06)',
-          animation: 'float 7s ease-in-out infinite',
-          zIndex: 3,
-        }}
-      />
 
       <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 4, textAlign: 'center' }}>
           <Typography
@@ -157,9 +101,9 @@ export default function HeroSection({ heroData }) {
             sx={{
               fontSize: { xs: '2.5rem', sm: '3.5rem', md: '4.5rem', lg: '5rem' },
               fontWeight: 900,
-              mb: { xs: 2, md: 3 },
+              mb: { xs: 1.5, md: 2 },
               textShadow: '0 6px 30px rgba(0,0,0,0.4)',
-              background: 'linear-gradient(135deg, #ffffff 0%, #d0d0d0 50%, rgba(0, 95, 115, 0.3) 100%)',
+              background: 'linear-gradient(135deg, #ffffff 0%, #f0f0f0 100%)',
               backgroundClip: 'text',
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent',
@@ -175,7 +119,7 @@ export default function HeroSection({ heroData }) {
             component="p"
             sx={{
               fontSize: { xs: '1.1rem', sm: '1.3rem', md: '1.5rem' },
-              mb: { xs: 4, md: 6 },
+              mb: { xs: 3, md: 4 },
               opacity: 1,
               maxWidth: '700px',
               mx: 'auto',
@@ -200,11 +144,11 @@ export default function HeroSection({ heroData }) {
                 fontSize: { xs: '1rem', md: '1.1rem' },
                 fontWeight: 600,
                 borderRadius: '50px',
-                boxShadow: '0 8px 32px rgba(0,0,0,0.12)',
+                boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
                 '&:hover': {
                   bgcolor: 'grey.50',
-                  transform: 'translateY(-2px)',
-                  boxShadow: '0 12px 40px rgba(0,0,0,0.2)',
+                  transform: 'translateY(-1px)',
+                  boxShadow: '0 6px 20px rgba(0,0,0,0.15)',
                 },
                 transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
                 minWidth: { xs: '140px', md: '180px' },
@@ -224,11 +168,10 @@ export default function HeroSection({ heroData }) {
                 fontSize: { xs: '1rem', md: '1.1rem' },
                 fontWeight: 500,
                 borderRadius: '50px',
-                backdropFilter: 'blur(10px)',
                 '&:hover': {
                   borderColor: 'white',
                   bgcolor: 'rgba(255, 255, 255, 0.1)',
-                  transform: 'translateY(-2px)',
+                  transform: 'translateY(-1px)',
                 },
                 transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
                 minWidth: { xs: '140px', md: '180px' },
