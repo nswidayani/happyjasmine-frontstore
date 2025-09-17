@@ -67,11 +67,6 @@ export default function ProductGrid({
                 <Typography variant="h6" sx={{ fontSize: '0.8rem', mb: 1, fontWeight: 300 }}>
                   {product.title}
                 </Typography>
-                {product.het_price && (
-                  <Typography variant="body1" sx={{ color: '#d32f2f', fontWeight: 600 }}>
-                    Rp {product.het_price}
-                  </Typography>
-                )}
               </CardContent>
             </Card>
           </Grid>

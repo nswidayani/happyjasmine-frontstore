@@ -6,7 +6,7 @@ export default function AboutSection({ aboutData }) {
     <Box
       id="about"
       sx={{
-        py: { xs: 12, md: 20 },
+        py: { xs: 8, md: 12 },
         bgcolor: 'secondary.main',
         position: 'relative',
         overflow: 'hidden',
@@ -17,37 +17,10 @@ export default function AboutSection({ aboutData }) {
           left: 0,
           right: 0,
           height: '1px',
-          background: 'linear-gradient(90deg, transparent 0%, var(--border) 50%, transparent 100%)',
+          background: 'rgba(0, 0, 0, 0.1)',
         }
       }}
     >
-      {/* Background decorative elements */}
-      <Box
-        sx={{
-          position: 'absolute',
-          top: '15%',
-          left: '10%',
-          width: 300,
-          height: 300,
-          borderRadius: '50%',
-          background: 'radial-gradient(circle, var(--primary-light) 0%, transparent 70%)',
-          opacity: 0.02,
-          zIndex: 0,
-        }}
-      />
-      <Box
-        sx={{
-          position: 'absolute',
-          bottom: '10%',
-          right: '15%',
-          width: 200,
-          height: 200,
-          borderRadius: '50%',
-          background: 'radial-gradient(circle, var(--accent) 0%, transparent 70%)',
-          opacity: 0.02,
-          zIndex: 0,
-        }}
-      />
 
       <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 1 }}>
         <Grid container spacing={8} alignItems="center">

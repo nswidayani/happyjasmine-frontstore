@@ -9,8 +9,8 @@ export default function ContactSection({ contactData }) {
   return (
     <Box
       sx={{
-        py: { xs: 12, md: 20 },
-        bgcolor: 'background.default',
+        py: { xs: 8, md: 12 },
+        bgcolor: 'primary.main',
         position: 'relative',
         overflow: 'hidden',
         '&::before': {
@@ -20,37 +20,10 @@ export default function ContactSection({ contactData }) {
           left: 0,
           right: 0,
           height: '1px',
-          background: 'linear-gradient(90deg, transparent 0%, rgba(0, 95, 115, 0.2) 50%, transparent 100%)',
+          background: 'rgba(0, 0, 0, 0.1)',
         }
       }}
     >
-      {/* Background decorative elements */}
-      <Box
-        sx={{
-          position: 'absolute',
-          top: '20%',
-          right: '10%',
-          width: 250,
-          height: 250,
-          borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(0, 95, 115, 0.1) 0%, transparent 70%)',
-          opacity: 0.1,
-          zIndex: 0,
-        }}
-      />
-      <Box
-        sx={{
-          position: 'absolute',
-          bottom: '15%',
-          left: '10%',
-          width: 180,
-          height: 180,
-          borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(255, 227, 71, 0.1) 0%, transparent 70%)',
-          opacity: 0.1,
-          zIndex: 0,
-        }}
-      />
 
       <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 1 }}>
 
@@ -65,7 +38,7 @@ export default function ContactSection({ contactData }) {
                 mb: 2,
                 fontSize: { xs: '1.8rem', sm: '2.2rem', md: '2.5rem' },
                 fontWeight: 700,
-                color: 'primary.main',
+                color: 'primary.contrastText',
                 letterSpacing: '-0.02em',
               }}
             >
@@ -74,7 +47,7 @@ export default function ContactSection({ contactData }) {
             <Typography
               variant="body1"
               sx={{
-                color: 'text.secondary',
+                color: 'primary.contrastText',
                 maxWidth: '500px',
                 mx: 'auto',
                 lineHeight: 1.6,
@@ -107,7 +80,7 @@ export default function ContactSection({ contactData }) {
               >
                 <Facebook sx={{ fontSize: 32 }} />
               </IconButton>
-              <Typography variant="body2" sx={{ mt: 1, fontWeight: 500 }}>
+              <Typography variant="body2" sx={{ mt: 1, fontWeight: 500, color: 'primary.contrastText' }}>
                 Facebook
               </Typography>
             </Box>
@@ -134,7 +107,7 @@ export default function ContactSection({ contactData }) {
               >
                 <Instagram sx={{ fontSize: 32 }} />
               </IconButton>
-              <Typography variant="body2" sx={{ mt: 1, fontWeight: 500 }}>
+              <Typography variant="body2" sx={{ mt: 1, fontWeight: 500, color: 'primary.contrastText' }}>
                 Instagram
               </Typography>
             </Box>
@@ -161,7 +134,7 @@ export default function ContactSection({ contactData }) {
               >
                 <WhatsApp sx={{ fontSize: 32 }} />
               </IconButton>
-              <Typography variant="body2" sx={{ mt: 1, fontWeight: 500 }}>
+              <Typography variant="body2" sx={{ mt: 1, fontWeight: 500, color: 'primary.contrastText' }}>
                 WhatsApp
               </Typography>
             </Box>
@@ -188,7 +161,7 @@ export default function ContactSection({ contactData }) {
               >
                 <Typography sx={{ fontSize: 24, fontWeight: 'bold' }}>TT</Typography>
               </IconButton>
-              <Typography variant="body2" sx={{ mt: 1, fontWeight: 500 }}>
+              <Typography variant="body2" sx={{ mt: 1, fontWeight: 500, color: 'primary.contrastText' }}>
                 TikTok
               </Typography>
             </Box>
@@ -215,7 +188,7 @@ export default function ContactSection({ contactData }) {
               >
                 <Typography sx={{ fontSize: 24, fontWeight: 'bold' }}>YT</Typography>
               </IconButton>
-              <Typography variant="body2" sx={{ mt: 1, fontWeight: 500 }}>
+              <Typography variant="body2" sx={{ mt: 1, fontWeight: 500, color: 'primary.contrastText' }}>
                 YouTube
               </Typography>
             </Box>
@@ -241,7 +214,7 @@ export default function ContactSection({ contactData }) {
               >
                 <Phone sx={{ fontSize: 32 }} />
               </IconButton>
-              <Typography variant="body2" sx={{ mt: 1, fontWeight: 500 }}>
+              <Typography variant="body2" sx={{ mt: 1, fontWeight: 500, color: 'primary.contrastText' }}>
                 Telepon
               </Typography>
             </Box>
@@ -258,7 +231,7 @@ export default function ContactSection({ contactData }) {
                 mb: 2,
                 fontSize: { xs: '2rem', sm: '2.5rem', md: '3rem' },
                 fontWeight: 700,
-                color: 'primary.main',
+                color: 'primary.contrastText',
                 letterSpacing: '-0.02em',
               }}
             >
@@ -268,7 +241,7 @@ export default function ContactSection({ contactData }) {
               variant="h6"
               sx={{
                 fontSize: { xs: '1rem', md: '1.2rem' },
-                color: 'text.secondary',
+                color: 'primary.contrastText',
                 maxWidth: '600px',
                 mx: 'auto',
                 lineHeight: 1.6,

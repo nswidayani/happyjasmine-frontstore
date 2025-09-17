@@ -51,119 +51,15 @@ export default function ProductsFeaturesSection({ features, products }) {
           id="products"
           ref={containerRef}
           sx={{
-            py: { xs: 6, md: 8 },
+            pt: 0,
+            pb: 0,
             width: '100%',
             position: 'relative',
-            background: 'transparent',
+            background: theme.palette.secondary.main,
             overflow: 'hidden',
-            minHeight: '100vh'
+            minHeight: '80vh'
           }}
       >
-        {/* Enhanced Interactive Background Elements */}
-        <Box sx={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          pointerEvents: 'none',
-          zIndex: 0
-        }}>
-          {/* Parallax Floating Bubbles with Mouse Following */}
-          {[...Array(8)].map((_, index) => (
-              <Box
-                  key={`bubble-${index}`}
-                  sx={{
-                    position: 'absolute',
-                    top: `${10 + (index * 12)}%`,
-                    left: `${5 + (index * 15)}%`,
-                    width: `${60 + (index * 15)}px`,
-                    height: `${60 + (index * 15)}px`,
-                    borderRadius: '50%',
-                    background: `rgba(255, 255, 255, ${0.08 + (index * 0.02)})`,
-                    animation: `float${index % 3} ${6 + index}s ease-in-out infinite`,
-                    transform: `translate(${mousePosition.x * (0.5 + index * 0.1)}px, ${mousePosition.y * (0.3 + index * 0.05)}px)`,
-                    transition: 'transform 0.3s ease-out',
-                    backdropFilter: 'blur(2px)',
-                    '&::before': {
-                      content: '""',
-                      position: 'absolute',
-                      top: '10%',
-                      left: '10%',
-                      width: '30%',
-                      height: '30%',
-                      borderRadius: '50%',
-                      background: 'rgba(255, 255, 255, 0.4)',
-                      animation: 'bubbleShine 3s ease-in-out infinite'
-                    },
-                    '&:hover': {
-                      transform: 'scale(1.1)',
-                      transition: 'transform 0.3s ease'
-                    }
-                  }}
-              />
-          ))}
-
-          {/* Interactive Particles */}
-          {[...Array(12)].map((_, index) => (
-              <Box
-                  key={`particle-${index}`}
-                  sx={{
-                    position: 'absolute',
-                    top: `${Math.random() * 100}%`,
-                    left: `${Math.random() * 100}%`,
-                    width: `${2 + Math.random() * 4}px`,
-                    height: `${2 + Math.random() * 4}px`,
-                    borderRadius: '50%',
-                    background: 'rgba(255, 255, 255, 0.6)',
-                    animation: `particleFloat ${10 + Math.random() * 10}s linear infinite`,
-                    transform: `translate(${mousePosition.x * 0.2}px, ${mousePosition.y * 0.1}px)`,
-                    transition: 'transform 0.5s ease-out'
-                  }}
-              />
-          ))}
-
-          {/* Enhanced Curvy Lines with Breathing Effect */}
-          <Box sx={{
-            position: 'absolute',
-            top: '15%',
-            left: '-50px',
-            width: '200px',
-            height: '100px',
-            border: '3px solid rgba(255, 255, 255, 0.1)',
-            borderTop: 'none',
-            borderRight: 'none',
-            borderRadius: '0 0 0 100px',
-            transform: 'rotate(-15deg)',
-            animation: 'breathe 4s ease-in-out infinite, drift 20s ease-in-out infinite'
-          }} />
-
-          <Box sx={{
-            position: 'absolute',
-            bottom: '25%',
-            right: '-30px',
-            width: '150px',
-            height: '80px',
-            border: '2px solid rgba(255, 255, 255, 0.08)',
-            borderBottom: 'none',
-            borderLeft: 'none',
-            borderRadius: '100px 0 0 0',
-            transform: 'rotate(25deg)',
-            animation: 'breathe 6s ease-in-out infinite reverse, drift 25s ease-in-out infinite reverse'
-          }} />
-
-          <Box sx={{
-            position: 'absolute',
-            top: '50%',
-            left: '50%',
-            width: '100px',
-            height: '60px',
-            border: '2px solid rgba(255, 255, 255, 0.06)',
-            borderRadius: '50px',
-            transform: 'translate(-50%, -50%) rotate(45deg)',
-            animation: 'breathe 8s ease-in-out infinite, spin 30s linear infinite'
-          }} />
-        </Box>
 
         {/* Main Content Container */}
         <Box sx={{
@@ -175,32 +71,20 @@ export default function ProductsFeaturesSection({ features, products }) {
           <Box sx={{
             display: 'flex',
             justifyContent: 'center',
-            mb: { xs: 4, md: 6 },
+            mt: 5,
+            mb: 0,
             position: 'relative',
-            px: { xs: 2, sm: 3 }
+            px: { xs: 2, sm: 3 },
+            zIndex: 10
           }}>
-            {/* Tab Container with Enhanced Glassmorphism */}
+            {/* Simplified Tab Container */}
             <Box sx={{
               display: 'flex',
-              background: `rgba(${theme.palette.secondary.main === '#FFE347' ? '255, 227, 71' : '255, 255, 255'}, 0.1)`,
-              backdropFilter: 'blur(20px)',
-              borderRadius: '50px',
-              p: 0.75,
-              border: `1px solid rgba(${theme.palette.secondary.main === '#FFE347' ? '255, 227, 71' : '255, 255, 255'}, 0.2)`,
-              boxShadow: '0 8px 32px rgba(0, 0, 0, 0.1)',
-              position: 'relative',
-              overflow: 'hidden',
-              '&::before': {
-                content: '""',
-                position: 'absolute',
-                top: 0,
-                left: 0,
-                right: 0,
-                bottom: 0,
-                background: `linear-gradient(45deg, rgba(${theme.palette.secondary.main === '#FFE347' ? '255, 227, 71' : '255, 255, 255'}, 0.1) 0%, transparent 50%, rgba(${theme.palette.secondary.main === '#FFE347' ? '255, 227, 71' : '255, 255, 255'}, 0.1) 100%)`,
-                animation: 'shimmer 3s ease-in-out infinite',
-                pointerEvents: 'none'
-              }
+              background: 'rgba(255, 255, 255, 0.9)',
+              borderRadius: '30px',
+              p: 0.5,
+              border: '1px solid rgba(0, 0, 0, 0.1)',
+              boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)',
             }}>
               {tabLabels.map((tab, index) => (
                   <Box
@@ -221,50 +105,18 @@ export default function ProductsFeaturesSection({ features, products }) {
                         overflow: 'hidden',
                         minWidth: { xs: '120px', sm: '140px', md: '160px' },
                         justifyContent: 'center',
-                        // Active tab with tertiary background
+                        // Simple active tab styling
                         background: activeTab === index
-                            ? theme.palette.tertiary.main
+                            ? theme.palette.primary.main
                             : 'transparent',
                         color: activeTab === index
                             ? 'white'
                             : theme.palette.text.primary,
-                        boxShadow: activeTab === index
-                            ? '0 6px 20px rgba(255, 144, 173, 0.4)'
-                            : 'none',
-                        transform: activeTab === index ? 'translateY(-2px)' : 'translateY(0)',
-                        transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
-                        '&::before': {
-                          content: '""',
-                          position: 'absolute',
-                          top: 0,
-                          left: 0,
-                          right: 0,
-                          bottom: 0,
-                          background: activeTab === index
-                              ? 'linear-gradient(135deg, rgba(255, 144, 173, 0.8) 0%, rgba(255, 144, 173, 0.9) 100%)'
-                              : 'transparent',
-                          borderRadius: '40px',
-                          zIndex: -1,
-                          transition: 'all 0.4s ease'
-                        },
-                        '&::after': {
-                          content: '""',
-                          position: 'absolute',
-                          top: '50%',
-                          left: '50%',
-                          transform: 'translate(-50%, -50%)',
-                          width: '0',
-                          height: '0',
-                          background: 'rgba(255, 255, 255, 0.3)',
-                          borderRadius: '50%',
-                          transition: 'all 0.6s ease',
-                          zIndex: -1
-                        },
+                        transition: 'all 0.3s ease',
                         '&:hover': {
-                          '&::after': {
-                            width: '120%',
-                            height: '120%'
-                          }
+                          background: activeTab === index
+                              ? theme.palette.primary.main
+                              : 'rgba(0, 0, 0, 0.05)',
                         }
                       }}
                   >
@@ -297,36 +149,21 @@ export default function ProductsFeaturesSection({ features, products }) {
             </Box>
           </Box>
 
-          {/* Enhanced Content Area */}
+          {/* Simplified Content Area */}
           <Box sx={{
             position: 'relative',
             width: '100%',
             minHeight: '400px',
-            background: `rgba(${theme.palette.secondary.main === '#FFE347' ? '255, 227, 71' : '255, 255, 255'}, 0.1)`,
-            border: `1px solid rgba(${theme.palette.secondary.main === '#FFE347' ? '255, 227, 71' : '255, 255, 255'}, 0.2)`,
-            backdropFilter: 'blur(10px)',
+            background: 'rgba(255, 255, 255, 0.95)',
+            border: '1px solid rgba(0, 0, 0, 0.1)',
+            // borderRadius: '16px',
             overflow: 'hidden',
-            '&::before': {
-              content: '""',
-              position: 'absolute',
-              top: 0,
-              left: '50%',
-              transform: 'translateX(-50%)',
-              width: '100px',
-              height: '4px',
-              background: `linear-gradient(90deg, transparent 0%, ${theme.palette.primary.main} 50%, transparent 100%)`,
-              borderRadius: '2px',
-              opacity: 0.6,
-              animation: 'topBarPulse 3s ease-in-out infinite'
-            }
           }}>
-            {/* Content with Slide Transition */}
+            {/* Simplified Content */}
             <Box sx={{
               width: '100%',
-              opacity: isTransitioning ? 0.3 : 1,
-              transform: isTransitioning ? 'scale(0.98)' : 'scale(1)',
-              transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-              filter: isTransitioning ? 'blur(2px)' : 'blur(0px)'
+              opacity: isTransitioning ? 0.7 : 1,
+              transition: 'opacity 0.3s ease',
             }}>
               {activeTab === 0 ? (
                   <ProductsSection products={products} />

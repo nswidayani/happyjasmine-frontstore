@@ -628,6 +628,7 @@ const ProductsSection = ({ products: propProducts = [] }) => {
                                             isCenter={index === 1}
                                             isVisible={isVisible}
                                             delay={index * 100}
+                                            href={`/products/${product.id}`}
                                         />
                                     </Box>
                                 ))}

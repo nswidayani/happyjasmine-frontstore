@@ -205,6 +205,7 @@ export default function ProductCarousel({ products, currentIndex, onPrev, onNext
                                 product={products[currentIndex]}
                                 variant="minimal"
                                 isFocused={false}
+                                href={`/products/${products[currentIndex].id}`}
                             />
                         </Box>
 
@@ -244,6 +245,7 @@ export default function ProductCarousel({ products, currentIndex, onPrev, onNext
                                         product={products[(currentIndex + 1) % products.length]}
                                         variant="minimal"
                                         isFocused={false}
+                                        href={`/products/${products[(currentIndex + 1) % products.length].id}`}
                                     />
                                 </Box>
 
@@ -281,6 +283,7 @@ export default function ProductCarousel({ products, currentIndex, onPrev, onNext
                                             product={products[(currentIndex + 2) % products.length]}
                                             variant="minimal"
                                             isFocused={false}
+                                            href={`/products/${products[(currentIndex + 2) % products.length].id}`}
                                         />
                                     </Box>
                                 )}
