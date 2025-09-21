@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { Box, Typography, Button, Container } from '@mui/material';
+import { motion } from 'framer-motion';
 import ImageSlider from './ImageSlider';
 import Link from 'next/link';
 
@@ -96,44 +97,61 @@ export default function HeroSection({ heroData }) {
       )}
 
       <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 4, textAlign: 'center' }}>
-          <Typography
-            variant="h1"
-            component="h1"
-            sx={{
-              fontSize: { xs: '2.5rem', sm: '3.5rem', md: '4.5rem', lg: '5rem' },
-              fontWeight: 900,
-              mb: { xs: 1.5, md: 2 },
-              textShadow: '0 6px 30px rgba(0,0,0,0.4)',
-              background: 'linear-gradient(135deg, #ffffff 0%, #f0f0f0 100%)',
-              backgroundClip: 'text',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              letterSpacing: '-0.02em',
-              lineHeight: 1.1,
-            }}
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
           >
-            {heroData?.title || 'Selamat Datang'}
-          </Typography>
+            <Typography
+              variant="h1"
+              component="h1"
+              sx={{
+                fontSize: { xs: '2.5rem', sm: '3.5rem', md: '4.5rem', lg: '5rem' },
+                fontWeight: 900,
+                mb: { xs: 1.5, md: 2 },
+                textShadow: '0 6px 30px rgba(0,0,0,0.4)',
+                background: 'linear-gradient(135deg, #ffffff 0%, #f0f0f0 100%)',
+                backgroundClip: 'text',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                letterSpacing: '-0.02em',
+                lineHeight: 1.1,
+              }}
+            >
+              {heroData?.title || 'Selamat Datang'}
+            </Typography>
+          </motion.div>
 
-          <Typography
-            variant="h5"
-            component="p"
-            sx={{
-              fontSize: { xs: '1.1rem', sm: '1.3rem', md: '1.5rem' },
-              mb: { xs: 3, md: 4 },
-              opacity: 1,
-              maxWidth: '700px',
-              mx: 'auto',
-              lineHeight: 1.6,
-              fontWeight: 400,
-              color: 'white',
-              textShadow: '0 4px 20px rgba(0,0,0,0.6)',
-            }}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.5 }}
           >
-            {heroData?.subtitle || 'Transformasikan bisnis Anda dengan solusi inovatif kami'}
-          </Typography>
+            <Typography
+              variant="h5"
+              component="p"
+              sx={{
+                fontSize: { xs: '1.1rem', sm: '1.3rem', md: '1.5rem' },
+                mb: { xs: 3, md: 4 },
+                opacity: 1,
+                maxWidth: '700px',
+                mx: 'auto',
+                lineHeight: 1.6,
+                fontWeight: 400,
+                color: 'white',
+                textShadow: '0 4px 20px rgba(0,0,0,0.6)',
+              }}
+            >
+              {heroData?.subtitle || 'Transformasikan bisnis Anda dengan solusi inovatif kami'}
+            </Typography>
+          </motion.div>
 
-          <Box sx={{ display: 'flex', gap: 2, justifyContent: 'center', flexWrap: 'wrap' }}>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.8 }}
+          >
+            <Box sx={{ display: 'flex', gap: 2, justifyContent: 'center', flexWrap: 'wrap' }}>
             <Button
               variant="contained"
               size="large"
@@ -185,19 +203,25 @@ export default function HeroSection({ heroData }) {
               {heroData?.secondButtonText || 'Pelajari Lebih Lanjut'}
             </Button>
           </Box>
+          </motion.div>
       </Container>
 
       {/* Scroll indicator */}
-      <Box
-        sx={{
-          position: 'absolute',
-          bottom: '2rem',
-          left: '50%',
-          transform: 'translateX(-50%)',
-          zIndex: 4,
-          animation: 'bounce 2s infinite',
-        }}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.8, delay: 1.2 }}
       >
+        <Box
+          sx={{
+            position: 'absolute',
+            bottom: '2rem',
+            left: '50%',
+            transform: 'translateX(-50%)',
+            zIndex: 4,
+            animation: 'bounce 2s infinite',
+          }}
+        >
         <Box
           sx={{
             width: 2,
@@ -219,6 +243,7 @@ export default function HeroSection({ heroData }) {
           }}
         />
       </Box>
+      </motion.div>
 
       <style jsx>{`
         @keyframes float {

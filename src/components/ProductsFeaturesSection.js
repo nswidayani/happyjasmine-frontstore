@@ -71,74 +71,85 @@ export default function ProductsFeaturesSection({ features, products }) {
           <Box sx={{
             display: 'flex',
             justifyContent: 'center',
-            mt: 5,
+            mt: 3,
             mb: 0,
             position: 'relative',
             px: { xs: 2, sm: 3 },
             zIndex: 10
           }}>
-            {/* Simplified Tab Container */}
-            <Box sx={{
+            {/* Compact Tab Container with Primary Background */}
+            <Box className="tab-container" sx={{
               display: 'flex',
-              background: 'rgba(255, 255, 255, 0.9)',
+              background: theme.palette.primary.main,
               borderRadius: '30px',
-              p: 0.5,
-              border: '1px solid rgba(0, 0, 0, 0.1)',
-              boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)',
+              p: 1,
+              border: `2px solid ${theme.palette.primary.dark}`,
+              boxShadow: '0 4px 20px rgba(0, 0, 0, 0.15)',
+              position: 'relative',
             }}>
               {tabLabels.map((tab, index) => (
                   <Box
                       key={index}
                       ref={el => tabsRef.current[index] = el}
                       onClick={() => handleTabChange(index)}
-                      className="magnetic-tab"
+                      className="compact-tab"
                       sx={{
                         display: 'flex',
                         alignItems: 'center',
                         gap: 1.5,
-                        px: { xs: 3, sm: 4, md: 5 },
-                        py: { xs: 1.5, sm: 2 },
-                        borderRadius: '40px',
+                        px: { xs: 3, sm: 4 },
+                        py: { xs: 2, sm: 2.5 },
+                        borderRadius: '25px',
                         cursor: 'pointer',
                         position: 'relative',
                         zIndex: 2,
                         overflow: 'hidden',
-                        minWidth: { xs: '120px', sm: '140px', md: '160px' },
+                        minWidth: { xs: '120px', sm: '130px' },
                         justifyContent: 'center',
-                        // Simple active tab styling
-                        background: activeTab === index
-                            ? theme.palette.primary.main
-                            : 'transparent',
-                        color: activeTab === index
-                            ? 'white'
-                            : theme.palette.text.primary,
                         transition: 'all 0.3s ease',
+                        // Compact active tab styling with white background
+                        background: activeTab === index
+                            ? '#FFFFFF'
+                            : 'rgba(255, 255, 255, 0.2)',
+                        color: activeTab === index
+                            ? theme.palette.primary.main
+                            : '#FFFFFF',
+                        boxShadow: activeTab === index
+                            ? '0 4px 15px rgba(0, 0, 0, 0.2)'
+                            : 'none',
+                        transform: activeTab === index ? 'scale(1.02)' : 'scale(1)',
                         '&:hover': {
                           background: activeTab === index
-                              ? theme.palette.primary.main
-                              : 'rgba(0, 0, 0, 0.05)',
+                              ? '#FFFFFF'
+                              : 'rgba(255, 255, 255, 0.3)',
+                          transform: 'scale(1.02)',
+                          boxShadow: '0 4px 15px rgba(0, 0, 0, 0.15)',
+                        },
+                        '&:active': {
+                          transform: 'scale(0.98)',
+                          transition: 'all 0.1s ease',
                         }
                       }}
                   >
                     <Typography
                         sx={{
-                          fontSize: { xs: '0.9rem', sm: '1rem', md: '1.1rem' },
+                          fontSize: { xs: '1rem', sm: '1.1rem' },
                           fontWeight: activeTab === index ? 600 : 500,
                           position: 'relative',
                           zIndex: 3,
-                          transition: 'all 0.3s ease'
+                          transition: 'all 0.3s ease',
                         }}
                     >
                       {tab.icon}
                     </Typography>
                     <Typography
                         sx={{
-                          fontSize: { xs: '0.85rem', sm: '0.95rem', md: '1rem' },
+                          fontSize: { xs: '0.8rem', sm: '0.9rem' },
                           fontWeight: activeTab === index ? 600 : 500,
                           position: 'relative',
                           zIndex: 3,
                           whiteSpace: 'nowrap',
-                          animation: activeTab === index ? 'iconBounce 1s ease-in-out' : 'none',
+                          letterSpacing: '0.3px',
                           transition: 'all 0.3s ease'
                         }}
                     >
@@ -268,15 +279,18 @@ export default function ProductsFeaturesSection({ features, products }) {
             100% { transform: translateX(-100%) scale(0.9); opacity: 0; }
           }
 
-          /* Magnetic effect for tabs */
-          @media (min-width: 900px) {
-            .magnetic-tab {
-              transition: transform 0.2s ease-out;
-            }
+          /* Compact tab effects */
+          .compact-tab {
+            transition: all 0.3s ease;
+          }
 
-            .magnetic-tab:hover {
-              transform: translateY(-2px) scale(1.02);
-            }
+          .compact-tab:hover {
+            transform: scale(1.02);
+          }
+
+          .compact-tab:active {
+            transform: scale(0.98);
+            transition: all 0.1s ease;
           }
         `}</style>
       </Box>

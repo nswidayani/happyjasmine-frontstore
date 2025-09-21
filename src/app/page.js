@@ -2,6 +2,7 @@
 
 import { useEffect, useState, useRef } from 'react';
 import { Box, Typography } from '@mui/material';
+import { motion } from 'framer-motion';
 import { useTheme } from '../components/ThemeProvider';
 import Header from '../components/Header';
 import HeroSection from '../components/HeroSection';
@@ -79,17 +80,23 @@ export default function Home() {
   }
 
   return (
-    <Box sx={{ minHeight: '100vh', backgroundColor: 'background.default' }}>
-      {/* Header with Logo */}
-      <Header logo={content?.logo || '/logo.svg'} />
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5 }}
+    >
+      <Box sx={{ minHeight: '100vh', backgroundColor: 'background.default' }}>
+        {/* Header with Logo */}
+        <Header logo={content?.logo || '/logo.svg'} />
 
-      {/* Page Sections */}
-      <HeroSection heroData={content?.hero} />
-      <ProductsFeaturesSection features={content?.features} />
-      <CampaignSection campaigns={content?.hero?.campaigns} />
+        {/* Page Sections */}
+        <HeroSection heroData={content?.hero} />
+        <ProductsFeaturesSection features={content?.features} />
+        <CampaignSection campaigns={content?.hero?.campaigns} />
 
-      {/* Footer */}
-      <Footer contactData={content?.contact} />
-    </Box>
+        {/* Footer */}
+        <Footer contactData={content?.contact} />
+      </Box>
+    </motion.div>
   );
 }
