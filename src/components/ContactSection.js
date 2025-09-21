@@ -1,7 +1,9 @@
-import { Box, Typography, Container, Grid, Card, CardContent, Button, IconButton, Link } from '@mui/material';
+import { Box, Typography, Container, Grid, Card, CardContent, Button, IconButton } from '@mui/material';
+import Link from 'next/link';
 import { Email, Phone, LocationOn, Send, Map as MapIcon, Facebook, Instagram, WhatsApp } from '@mui/icons-material';
 import { useTheme } from './ThemeProvider';
 import LocationsMap from './LocationsMap';
+import { TikTokIcon, YouTubeIcon } from './SocialIcons';
 
 export default function ContactSection({ contactData }) {
   const { theme } = useTheme();
@@ -80,9 +82,6 @@ export default function ContactSection({ contactData }) {
               >
                 <Facebook sx={{ fontSize: 32 }} />
               </IconButton>
-              <Typography variant="body2" sx={{ mt: 1, fontWeight: 500, color: 'primary.contrastText' }}>
-                Facebook
-              </Typography>
             </Box>
 
             {/* Instagram */}
@@ -107,9 +106,6 @@ export default function ContactSection({ contactData }) {
               >
                 <Instagram sx={{ fontSize: 32 }} />
               </IconButton>
-              <Typography variant="body2" sx={{ mt: 1, fontWeight: 500, color: 'primary.contrastText' }}>
-                Instagram
-              </Typography>
             </Box>
 
             {/* WhatsApp */}
@@ -134,9 +130,6 @@ export default function ContactSection({ contactData }) {
               >
                 <WhatsApp sx={{ fontSize: 32 }} />
               </IconButton>
-              <Typography variant="body2" sx={{ mt: 1, fontWeight: 500, color: 'primary.contrastText' }}>
-                WhatsApp
-              </Typography>
             </Box>
 
             {/* TikTok */}
@@ -159,11 +152,8 @@ export default function ContactSection({ contactData }) {
                   transition: 'all 0.3s ease',
                 }}
               >
-                <Typography sx={{ fontSize: 24, fontWeight: 'bold' }}>TT</Typography>
+                <TikTokIcon />
               </IconButton>
-              <Typography variant="body2" sx={{ mt: 1, fontWeight: 500, color: 'primary.contrastText' }}>
-                TikTok
-              </Typography>
             </Box>
 
             {/* YouTube */}
@@ -186,11 +176,8 @@ export default function ContactSection({ contactData }) {
                   transition: 'all 0.3s ease',
                 }}
               >
-                <Typography sx={{ fontSize: 24, fontWeight: 'bold' }}>YT</Typography>
+                <YouTubeIcon />
               </IconButton>
-              <Typography variant="body2" sx={{ mt: 1, fontWeight: 500, color: 'primary.contrastText' }}>
-                YouTube
-              </Typography>
             </Box>
 
             {/* Phone */}
@@ -214,57 +201,10 @@ export default function ContactSection({ contactData }) {
               >
                 <Phone sx={{ fontSize: 32 }} />
               </IconButton>
-              <Typography variant="body2" sx={{ mt: 1, fontWeight: 500, color: 'primary.contrastText' }}>
-                Telepon
-              </Typography>
             </Box>
           </Box>
         </Box>
 
-        {/* Locations Map Section */}
-        <Box sx={{ mb: 8 }}>
-          <Box textAlign="center" sx={{ mb: 4 }}>
-            <Typography
-              variant="h4"
-              component="h3"
-              sx={{
-                mb: 2,
-                fontSize: { xs: '2rem', sm: '2.5rem', md: '3rem' },
-                fontWeight: 700,
-                color: 'primary.contrastText',
-                letterSpacing: '-0.02em',
-              }}
-            >
-              Temukan Kami
-            </Typography>
-            <Typography
-              variant="h6"
-              sx={{
-                fontSize: { xs: '1rem', md: '1.2rem' },
-                color: 'primary.contrastText',
-                maxWidth: '600px',
-                mx: 'auto',
-                lineHeight: 1.6,
-                fontWeight: 400,
-              }}
-            >
-              Temukan lokasi bisnis kami di seluruh wilayah
-            </Typography>
-          </Box>
-
-          <Box
-            sx={{
-              width: '100%',
-              height: '400px',
-              borderRadius: '20px',
-              overflow: 'hidden',
-              boxShadow: '0 8px 25px rgba(0, 95, 115, 0.15)',
-              border: '2px solid rgba(0, 95, 115, 0.1)',
-            }}
-          >
-            <LocationsMap />
-          </Box>
-        </Box>
 
       </Container>
     </Box>

@@ -2,16 +2,13 @@
 
 import { useEffect, useState, useRef } from 'react';
 import { Box, Typography } from '@mui/material';
-import { useTheme } from '../components/ThemeProvider';
-import Header from '../components/Header';
-import HeroSection from '../components/HeroSection';
-import CampaignSection from '../components/CampaignSection';
-import AnimatedSpacer from '../components/AnimatedSpacer';
-import ProductsFeaturesSection from '../components/ProductsFeaturesSection';
-import Footer from '../components/Footer';
-import { getContent, incrementVisitCount } from '../lib/supabase';
+import { useTheme } from '../../components/ThemeProvider';
+import Header from '../../components/Header';
+import AboutSection from '../../components/AboutSection';
+import Footer from '../../components/Footer';
+import { getContent, incrementVisitCount } from '../../lib/supabase';
 
-export default function Home() {
+export default function AboutPage() {
   const { updateTheme } = useTheme();
   const [content, setContent] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -27,7 +24,7 @@ export default function Home() {
         const result = await getContent();
         if (result.success) {
           setContent(result.data);
-          
+
           // Apply theme from content if available
           if (result.data.theme) {
             updateThemeRef.current({
@@ -56,7 +53,7 @@ export default function Home() {
   useEffect(() => {
     const trackVisit = async () => {
       try {
-        await incrementVisitCount('landing');
+        await incrementVisitCount('about');
       } catch (error) {
         console.error('Failed to track visit:', error);
       }
@@ -83,10 +80,8 @@ export default function Home() {
       {/* Header with Logo */}
       <Header logo={content?.logo || '/logo.svg'} />
 
-      {/* Page Sections */}
-      <HeroSection heroData={content?.hero} />
-      <ProductsFeaturesSection features={content?.features} />
-      <CampaignSection campaigns={content?.hero?.campaigns} />
+      {/* About Section */}
+      <AboutSection aboutData={content?.about} />
 
       {/* Footer */}
       <Footer contactData={content?.contact} />

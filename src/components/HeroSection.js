@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { Box, Typography, Button, Container } from '@mui/material';
 import ImageSlider from './ImageSlider';
+import Link from 'next/link';
 
 export default function HeroSection({ heroData }) {
   console.log('HeroSection received heroData:', heroData);
@@ -136,6 +137,8 @@ export default function HeroSection({ heroData }) {
             <Button
               variant="contained"
               size="large"
+              component={heroData?.buttonUrl ? Link : 'button'}
+              href={heroData?.buttonUrl || '#'}
               sx={{
                 bgcolor: 'white',
                 color: 'primary.main',
@@ -160,6 +163,8 @@ export default function HeroSection({ heroData }) {
             <Button
               variant="outlined"
               size="large"
+              component={heroData?.secondButtonUrl ? Link : 'button'}
+              href={heroData?.secondButtonUrl || '#'}
               sx={{
                 borderColor: 'rgba(255, 255, 255, 0.3)',
                 color: 'white',
@@ -177,7 +182,7 @@ export default function HeroSection({ heroData }) {
                 minWidth: { xs: '140px', md: '180px' },
               }}
             >
-              Pelajari Lebih Lanjut
+              {heroData?.secondButtonText || 'Pelajari Lebih Lanjut'}
             </Button>
           </Box>
       </Container>
