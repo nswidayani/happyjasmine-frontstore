@@ -1,4 +1,4 @@
-import { Box, Typography, Grid, Card, CardContent, CardMedia, Chip, Container } from '@mui/material';
+import { Box, Typography, Grid, Card, CardContent, CardMedia } from '@mui/material';
 import { useRouter } from 'next/navigation';
 
 export default function ProductGrid({
@@ -8,43 +8,65 @@ export default function ProductGrid({
   sidebarWidth = 280
 }) {
   const router = useRouter();
+
   return (
     <Box sx={{ mb: 4 }}>
       {/* Filter indicator */}
       {selectedCategory && (
-        <Box sx={{ mb: 2, textAlign: 'center' }}>
-          <Typography variant="body2" sx={{ color: '#666' }}>
+        <Box sx={{ mb: 3, textAlign: 'center' }}>
+          <Typography
+            variant="body2"
+            sx={{
+              color: '#666',
+              fontWeight: 500,
+              fontSize: '0.9rem'
+            }}
+          >
             Showing: {categories.find(cat => cat.id === selectedCategory)?.name || 'Category'}
           </Typography>
         </Box>
       )}
 
-      {/* Simple grid */}
-      <Grid container spacing={2}>
+      {/* Elegant grid */}
+      <Grid container spacing={3}>
         {products.map((product) => (
-          <Grid item xs={12} sm={6} md={4} key={product.id}>
+          <Grid item xs={12} sm={6} md={4} lg={3} key={product.id}>
             <Card
               sx={{
                 cursor: 'pointer',
-                border: '1px solid #ddd',
-                borderRadius: 1,
+                border: '1px solid #e8e8e8',
+                borderRadius: 2,
                 overflow: 'hidden',
-                transition: 'box-shadow 0.2s',
+                transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                boxShadow: '0 1px 3px rgba(0,0,0,0.05)',
                 '&:hover': {
-                  boxShadow: '0 2px 8px rgba(0,0,0,0.1)'
+                  boxShadow: '0 8px 25px rgba(0,0,0,0.1)',
+                  transform: 'translateY(-2px)',
+                  borderColor: '#d0d0d0'
                 }
               }}
               onClick={() => router.push(`/products/${product.id}`)}
             >
               {/* Image */}
-              <Box sx={{ height: 200, bgcolor: '#f5f5f5' }}>
+              <Box sx={{
+                height: 240,
+                bgcolor: '#fafafa',
+                position: 'relative',
+                overflow: 'hidden'
+              }}>
                 {product.images && product.images.length > 0 ? (
                   <CardMedia
                     component="img"
                     height="100%"
                     image={product.images[0]}
                     alt={product.title}
-                    sx={{ objectFit: 'cover' }}
+                    sx={{
+                      objectFit: 'cover',
+                      transition: 'transform 0.3s ease',
+                      '&:hover': {
+                        transform: 'scale(1.05)'
+                      }
+                    }}
                     onError={(e) => {
                       e.target.src = '/placeholder.jpg';
                     }}
@@ -55,16 +77,39 @@ export default function ProductGrid({
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    color: '#999'
+                    color: '#999',
+                    flexDirection: 'column'
                   }}>
-                    <Typography variant="body2">No Image</Typography>
+                    <Typography variant="body2" sx={{ mb: 1 }}>
+                      No Image
+                    </Typography>
+                    <Typography variant="caption" sx={{ color: '#ccc' }}>
+                      {product.title}
+                    </Typography>
                   </Box>
                 )}
               </Box>
 
               {/* Content */}
-              <CardContent sx={{ p: 2 }}>
-                <Typography variant="h6" sx={{ fontSize: '0.8rem', mb: 1, fontWeight: 300 }}>
+              <CardContent sx={{
+                p: 2.5,
+                '&:last-child': { pb: 2.5 }
+              }}>
+                <Typography
+                  variant="h6"
+                  sx={{
+                    fontSize: '1rem',
+                    fontWeight: 500,
+                    color: '#333',
+                    lineHeight: 1.4,
+                    mb: 0.5,
+                    display: '-webkit-box',
+                    WebkitLineClamp: 2,
+                    WebkitBoxOrient: 'vertical',
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis'
+                  }}
+                >
                   {product.title}
                 </Typography>
               </CardContent>
@@ -75,9 +120,30 @@ export default function ProductGrid({
 
       {/* No products */}
       {products.length === 0 && (
-        <Box sx={{ textAlign: 'center', py: 4 }}>
-          <Typography variant="body1" sx={{ color: '#666' }}>
+        <Box sx={{
+          textAlign: 'center',
+          py: 8,
+          px: 2
+        }}>
+          <Typography
+            variant="h6"
+            sx={{
+              color: '#666',
+              fontWeight: 400,
+              mb: 1
+            }}
+          >
             No products found
+          </Typography>
+          <Typography
+            variant="body2"
+            sx={{
+              color: '#999',
+              maxWidth: '400px',
+              mx: 'auto'
+            }}
+          >
+            Try adjusting your filters or check back later for new products.
           </Typography>
         </Box>
       )}

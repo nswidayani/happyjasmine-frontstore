@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import {
   Box,
   IconButton,
@@ -23,21 +24,21 @@ const menuItems = [
     title: 'Beranda',
     description: 'Selamat datang di Happy Jasmine',
     icon: <HomeIcon sx={{ fontSize: 48, color: 'primary.main' }} />,
-    path: '/#hero',
+    path: '/',
     color: 'rgba(255, 255, 255, 0.9)'
   },
   {
     title: 'Produk',
     description: 'Jelajahi produk menakjubkan kami',
     icon: <ProductsIcon sx={{ fontSize: 48, color: 'primary.main' }} />,
-    path: '/#products',
+    path: '/products',
     color: 'rgba(255, 255, 255, 0.9)'
   },
   {
     title: 'Tentang',
     description: 'Pelajari lebih lanjut tentang perusahaan kami',
     icon: <AboutIcon sx={{ fontSize: 48, color: 'primary.main' }} />,
-    path: '/#about',
+    path: '/about',
     color: 'rgba(255, 255, 255, 0.9)'
   },
   {
@@ -62,6 +63,7 @@ export default function FullPageMenu({ open, onClose }) {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const [animateIn, setAnimateIn] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     if (open) {
@@ -75,7 +77,7 @@ export default function FullPageMenu({ open, onClose }) {
   const handleMenuClick = (item) => {
     if (!item.disabled) {
       onClose();
-      
+
       if (item.external) {
         // For external links like Admin, navigate directly
         window.location.href = item.path;
@@ -85,6 +87,9 @@ export default function FullPageMenu({ open, onClose }) {
         if (element) {
           element.scrollIntoView({ behavior: 'smooth' });
         }
+      } else {
+        // Navigate to internal page
+        router.push(item.path);
       }
     }
   };

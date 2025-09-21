@@ -19,7 +19,7 @@ export default function HeroEditor({ content, setContent, onError, onUploadNotic
   };
 
   const addCampaign = () => {
-    const newCampaign = { id: Date.now(), image: '', title: '', subtitle: '' };
+    const newCampaign = { id: Date.now(), image: '', title: '', subtitle: '', buttonText: 'Learn More', buttonUrl: '' };
     setContent({ ...content, hero: { ...hero, campaigns: [...campaigns, newCampaign] } });
   };
 
@@ -64,12 +64,38 @@ export default function HeroEditor({ content, setContent, onError, onUploadNotic
             onChange={(e) => setContent({ ...content, hero: { ...hero, subtitle: e.target.value } })}
           />
         </Grid>
-        <Grid item xs={12}>
+        <Grid item xs={12} md={6}>
           <TextField
             fullWidth
             label="Button Text"
             value={hero?.buttonText || ''}
             onChange={(e) => setContent({ ...content, hero: { ...hero, buttonText: e.target.value } })}
+          />
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <TextField
+            fullWidth
+            label="Button URL"
+            value={hero?.buttonUrl || ''}
+            onChange={(e) => setContent({ ...content, hero: { ...hero, buttonUrl: e.target.value } })}
+            placeholder="/#products"
+          />
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <TextField
+            fullWidth
+            label="Second Button Text"
+            value={hero?.secondButtonText || ''}
+            onChange={(e) => setContent({ ...content, hero: { ...hero, secondButtonText: e.target.value } })}
+          />
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <TextField
+            fullWidth
+            label="Second Button URL"
+            value={hero?.secondButtonUrl || ''}
+            onChange={(e) => setContent({ ...content, hero: { ...hero, secondButtonUrl: e.target.value } })}
+            placeholder="/locations"
           />
         </Grid>
 
@@ -173,7 +199,7 @@ export default function HeroEditor({ content, setContent, onError, onUploadNotic
           {campaigns.map((campaign, index) => (
             <Paper key={campaign.id} sx={{ p: 2, mb: 2, border: '1px solid rgba(0, 95, 115, 0.2)' }}>
               <Grid container spacing={2} alignItems="center">
-                <Grid item xs={12} md={3}>
+                <Grid item xs={12} md={2}>
                   <TextField
                     fullWidth
                     label="Campaign Image URL"
@@ -201,7 +227,7 @@ export default function HeroEditor({ content, setContent, onError, onUploadNotic
                     </label>
                   </Box>
                 </Grid>
-                <Grid item xs={12} md={3}>
+                <Grid item xs={12} md={2}>
                   <TextField
                     fullWidth
                     label="Campaign Title"
@@ -210,7 +236,7 @@ export default function HeroEditor({ content, setContent, onError, onUploadNotic
                     placeholder="Enter campaign title"
                   />
                 </Grid>
-                <Grid item xs={12} md={4}>
+                <Grid item xs={12} md={3}>
                   <TextField
                     fullWidth
                     label="Campaign Subtitle"
@@ -220,6 +246,24 @@ export default function HeroEditor({ content, setContent, onError, onUploadNotic
                   />
                 </Grid>
                 <Grid item xs={12} md={2}>
+                  <TextField
+                    fullWidth
+                    label="Button Text"
+                    value={campaign.buttonText || ''}
+                    onChange={(e) => updateCampaignAt(index, { ...campaign, buttonText: e.target.value })}
+                    placeholder="Learn More"
+                  />
+                </Grid>
+                <Grid item xs={12} md={2}>
+                  <TextField
+                    fullWidth
+                    label="Button URL"
+                    value={campaign.buttonUrl || ''}
+                    onChange={(e) => updateCampaignAt(index, { ...campaign, buttonUrl: e.target.value })}
+                    placeholder="https://example.com"
+                  />
+                </Grid>
+                <Grid item xs={12} md={1}>
                   <Button variant="outlined" color="error" onClick={() => removeCampaignAt(index)}>Remove</Button>
                 </Grid>
               </Grid>

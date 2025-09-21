@@ -45,13 +45,16 @@ export const subscribeToAuthChanges = (callback) => {
 const getDefaultContent = () => ({
   logo: '/logo.svg',
   hero: {
-    title: 'Welcome',
-    subtitle: 'Transform your business with our innovative solutions',
-    buttonText: 'Get Started',
+    title: 'Selamat Datang',
+    subtitle: 'Transformasikan bisnis Anda dengan solusi inovatif kami',
+    buttonText: 'Mulai',
+    buttonUrl: '/#products',
+    secondButtonText: 'Cek Distributor',
+    secondButtonUrl: '/locations',
     backgroundImage: '/hero-bg.jpg',
     backgroundVideo: '',
     campaigns: [
-      { id: 1, image: '/campaigns/slider2.png', title: 'Welcome Campaign', subtitle: 'Transform your business with our innovative solutions' },
+      { id: 1, image: '/campaigns/slider2.png', title: 'Welcome Campaign', subtitle: 'Transform your business with our innovative solutions', buttonText: 'Learn More', buttonUrl: '' },
     ],
   },
   features: {
@@ -322,14 +325,15 @@ export const getProductsWithCategories = async () => {
 };
 
 // Locations CRUD operations
-export const getLocations = async () => {
+export const getLocations = async (from = 0, to = 19) => {
   try {
-    const { data, error } = await supabase
+    const { data, error, count } = await supabase
       .from('locations')
-      .select('*')
-      .order('created_at', { ascending: false });
+      .select('*', { count: 'exact' })
+      .order('created_at', { ascending: false })
+      .range(from, to);
     if (error) return { success: false, error: error.message };
-    return { success: true, data: data || [] };
+    return { success: true, data: data || [], count: count || 0 };
   } catch (err) {
     return { success: false, error: err.message };
   }
