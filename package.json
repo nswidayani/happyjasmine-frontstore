@@ -23,6 +23,7 @@
     "@supabase/storage-js": "^2.11.0",
     "@supabase/supabase-js": "^2.57.0",
     "dotenv": "^17.2.1",
+    "framer-motion": "^12.23.16",
     "leaflet": "^1.9.4",
     "next": "15.4.6",
     "react": "19.1.0",

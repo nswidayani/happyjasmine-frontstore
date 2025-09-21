@@ -1,4 +1,5 @@
 import ClientThemeProvider from '../components/ThemeProvider';
+import PageTransition from '../components/PageTransition';
 import "./globals.css";
 
 export const metadata = {
@@ -125,7 +126,9 @@ export default function RootLayout({ children }) {
       </head>
       <body suppressHydrationWarning={true}>
         <ClientThemeProvider>
-          {children}
+          <PageTransition>
+            {children}
+          </PageTransition>
         </ClientThemeProvider>
       </body>
     </html>
