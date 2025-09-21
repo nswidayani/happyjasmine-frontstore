@@ -3,8 +3,8 @@ import "./globals.css";
 
 export const metadata = {
   title: "Happy Jasmine - Teh Tarik Premium & Teh Bahagia | Teh Tarik Berasa",
-  description: "Temukan Teh Tarik Malaysia asli dan Teh Bahagia premium di Happy Jasmine. Rasakan perpaduan sempurna antara tradisi dan cita rasa dengan Teh Tarik Berasa signature kami.",
-  keywords: "happytea, happy jasmine, teh tarik, teh tarik berasa, teh malaysia, teh premium, teh tarik asli",
+  description: "Temukan Teh Tarik Indonesia asal Bekasi, Teh Tarik Malaysia asli, Teh Bahagia premium, dan berbagai Minuman Greentea Kemasan, Minuman Rasa Kemasan di Happy Jasmine. Rasakan perpaduan sempurna antara tradisi dan cita rasa dengan Teh Tarik Berasa signature kami.",
+  keywords: "happytea, happy jasmine, teh tarik, teh tarik berasa, teh malaysia, teh premium, teh tarik asli, Teh Tarik Indonesia, Tah Tarik Cup, teh Tarik, Minuman Greentea Kemasan, Minuman Rasa Kemasan, Minuman Thattea Kemasan, Minuman Coklat Kemasan, happyjasmine, happy tea",
   authors: [{ name: "Happy Jasmine" }],
   creator: "Happy Jasmine",
   publisher: "Happy Jasmine",
@@ -13,7 +13,7 @@ export const metadata = {
     address: false,
     telephone: false,
   },
-  metadataBase: new URL('https://happyjasmine.com'),
+  metadataBase: new URL('https://happyjasmine.co'),
   alternates: {
     canonical: '/',
   },
@@ -24,8 +24,8 @@ export const metadata = {
   },
   openGraph: {
     title: "Happy Jasmine - Teh Tarik Premium & Teh Bahagia",
-    description: "Rasakan Teh Tarik Malaysia asli dan Teh Bahagia premium di Happy Jasmine. Perpaduan sempurna antara tradisi dan cita rasa.",
-    url: "https://happyjasmine.com",
+    description: "Rasakan Teh Tarik Indonesia asal Bekasi, Teh Tarik Malaysia asli, Teh Bahagia premium, dan berbagai Minuman Greentea Kemasan di Happy Jasmine. Perpaduan sempurna antara tradisi dan cita rasa.",
+    url: "https://happyjasmine.co",
     siteName: "Happy Jasmine",
     images: [
       {
@@ -41,7 +41,7 @@ export const metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Happy Jasmine - Teh Tarik Premium & Teh Bahagia",
-    description: "Rasakan Teh Tarik Malaysia asli dan Teh Bahagia premium di Happy Jasmine.",
+    description: "Rasakan Teh Tarik Indonesia asal Bekasi, Teh Tarik Malaysia asli, Teh Bahagia premium, dan berbagai Minuman Greentea Kemasan di Happy Jasmine.",
     images: ["/og-image.jpg"],
   },
   robots: {
@@ -67,47 +67,47 @@ const fontLink = {
 export default function RootLayout({ children }) {
   const structuredData = {
     "@context": "https://schema.org",
-    "@type": "Restaurant",
+    "@type": "Organization",
     "name": "Happy Jasmine",
-    "description": "Pengalaman Teh Tarik premium dan Teh Bahagia dengan rasa Malaysia asli",
-    "url": "https://happyjasmine.com",
-    "logo": "https://happyjasmine.com/logo.svg",
-    "image": "https://happyjasmine.com/og-image.jpg",
+    "description": "Produsen Teh Tarik Indonesia asal Bekasi, Teh Tarik premium, Teh Bahagia, dan berbagai Minuman Greentea Kemasan, Minuman Rasa Kemasan",
+    "url": "https://happyjasmine.co",
+    "logo": "https://happyjasmine.co/logo.svg",
+    "image": "https://happyjasmine.co/og-image.jpg",
     "address": {
       "@type": "PostalAddress",
-      "addressCountry": "Malaysia"
+      "addressLocality": "Bekasi",
+      "addressCountry": "Indonesia"
     },
-    "servesCuisine": "Malaysian",
-    "menu": [
-      {
-        "@type": "MenuItem",
-        "name": "Teh Tarik",
-        "description": "Teh tarik Malaysia asli dengan busa sempurna"
-      },
-      {
-        "@type": "MenuItem",
-        "name": "Teh Bahagia",
-        "description": "Campuran teh premium dengan profil rasa unik"
-      }
-    ],
     "sameAs": [
       "https://www.facebook.com/happyjasmine",
       "https://www.instagram.com/happyjasmine"
     ],
-    "hasOfferCatalog": {
-      "@type": "OfferCatalog",
-      "name": "Menu Teh Tarik & Teh Bahagia",
-      "itemListElement": [
-        {
-          "@type": "Offer",
-          "itemOffered": {
-            "@type": "Product",
-            "name": "Teh Tarik Berasa",
-            "description": "Teh Tarik Malaysia asli dengan rasa kaya"
-          }
+    "makesOffer": [
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Product",
+          "name": "Teh Tarik Indonesia",
+          "description": "Teh Tarik asli dengan cita rasa Indonesia"
         }
-      ]
-    }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Product",
+          "name": "Minuman Greentea Kemasan",
+          "description": "Minuman greentea kemasan premium"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Product",
+          "name": "Minuman Coklat Kemasan",
+          "description": "Minuman coklat kemasan berkualitas"
+        }
+      }
+    ]
   };
 
   return (
