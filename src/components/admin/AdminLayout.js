@@ -19,12 +19,15 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import AdminSidebar from './AdminSidebar';
 import { signOutUser } from '../../lib/supabase';
+import { useContent } from '../../hooks/useContent';
 
 export default function AdminLayout({ children, onLogout }) {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const pathname = usePathname();
+  const { content } = useContent();
+  const logo = content?.logo || '/logo.svg';
 
   const handleLogout = async () => {
     try {
@@ -103,7 +106,7 @@ export default function AdminLayout({ children, onLogout }) {
                 }}
               >
                 <Image
-                  src="/logo.svg"
+                  src={logo}
                   alt="Happy Jasmine"
                   width={isMobile ? 50 : 60}
                   height={isMobile ? 25 : 30}

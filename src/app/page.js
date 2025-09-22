@@ -87,7 +87,7 @@ export default function Home() {
     >
       <Box sx={{ minHeight: '100vh', backgroundColor: 'background.default' }}>
         {/* Header with Logo */}
-        <Header logo={content?.logo || '/logo.svg'} />
+        <Header />
 
         {/* Page Sections */}
         <HeroSection heroData={content?.hero} />

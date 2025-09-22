@@ -4,8 +4,11 @@ import { Menu as MenuIcon } from '@mui/icons-material';
 import Image from 'next/image';
 import Link from 'next/link';
 import FullPageMenu from './FullPageMenu';
+import { useContent } from '../hooks/useContent';
 
-export default function Header({ logo = '/logo.svg' }) {
+export default function Header({ logo: propLogo }) {
+  const { content } = useContent();
+  const logo = content?.logo || propLogo || '/logo.svg';
   const [menuOpen, setMenuOpen] = useState(false);
 
   const toggleMenu = () => {
