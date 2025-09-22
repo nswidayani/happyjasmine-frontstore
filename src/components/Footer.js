@@ -50,18 +50,15 @@ export default function Footer({ contactData }) {
               sx={{
                 width: { xs: 44, sm: 48 },
                 height: { xs: 44, sm: 48 },
-                bgcolor: 'rgba(24, 119, 242, 0.1)',
                 color: '#1877F2',
-                borderRadius: '12px',
                 '&:hover': {
-                  bgcolor: '#1877F2',
                   color: 'white',
                   transform: 'scale(1.1)',
                 },
                 transition: 'all 0.3s ease',
               }}
             >
-              <Facebook sx={{ fontSize: { xs: 22, sm: 24 } }} />
+              <Facebook sx={{ fontSize: 32 }} />
             </IconButton>
             <IconButton
               component={Link}
@@ -70,18 +67,15 @@ export default function Footer({ contactData }) {
               sx={{
                 width: { xs: 44, sm: 48 },
                 height: { xs: 44, sm: 48 },
-                bgcolor: 'rgba(225, 48, 108, 0.1)',
                 color: '#E1306C',
-                borderRadius: '12px',
                 '&:hover': {
-                  bgcolor: '#E1306C',
                   color: 'white',
                   transform: 'scale(1.1)',
                 },
                 transition: 'all 0.3s ease',
               }}
             >
-              <Instagram sx={{ fontSize: { xs: 22, sm: 24 } }} />
+              <Instagram sx={{ fontSize: 32 }} />
             </IconButton>
             <IconButton
               component={Link}
@@ -90,18 +84,15 @@ export default function Footer({ contactData }) {
               sx={{
                 width: { xs: 44, sm: 48 },
                 height: { xs: 44, sm: 48 },
-                bgcolor: 'rgba(37, 211, 102, 0.1)',
                 color: '#25D366',
-                borderRadius: '12px',
                 '&:hover': {
-                  bgcolor: '#25D366',
                   color: 'white',
                   transform: 'scale(1.1)',
                 },
                 transition: 'all 0.3s ease',
               }}
             >
-              <WhatsApp sx={{ fontSize: { xs: 22, sm: 24 } }} />
+              <WhatsApp sx={{ fontSize: 32 }} />
             </IconButton>
             <IconButton
               component={Link}
@@ -110,11 +101,8 @@ export default function Footer({ contactData }) {
               sx={{
                 width: { xs: 44, sm: 48 },
                 height: { xs: 44, sm: 48 },
-                bgcolor: 'rgba(0, 0, 0, 0.1)',
                 color: '#000000',
-                borderRadius: '12px',
                 '&:hover': {
-                  bgcolor: '#000000',
                   color: 'white',
                   transform: 'scale(1.1)',
                 },
@@ -130,11 +118,8 @@ export default function Footer({ contactData }) {
               sx={{
                 width: { xs: 44, sm: 48 },
                 height: { xs: 44, sm: 48 },
-                bgcolor: 'rgba(255, 0, 0, 0.1)',
                 color: '#FF0000',
-                borderRadius: '12px',
                 '&:hover': {
-                  bgcolor: '#FF0000',
                   color: 'white',
                   transform: 'scale(1.1)',
                 },
