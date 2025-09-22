@@ -6,7 +6,16 @@ import { Close as CloseIcon, PlayArrow as PlayIcon } from '@mui/icons-material';
 import Image from 'next/image';
 
 export default function ProductDetail({ product, open, onClose }) {
-   const [selectedImage, setSelectedImage] = useState(0);
+    const [selectedImage, setSelectedImage] = useState(0);
+
+    const isValidUrl = (string) => {
+      try {
+        new URL(string);
+        return true;
+      } catch (_) {
+        return false;
+      }
+    };
 
    if (!product) return null;
 
@@ -150,10 +159,10 @@ export default function ProductDetail({ product, open, onClose }) {
           </Grid>
 
           {/* Details Section */}
-          <Grid item xs={12} md={product.images && product.images.length > 0 ? 6 : 12}>
+          <Grid item xs={12} md={12}>
             <Box sx={{ mb: 3 }}>
               <Typography variant="h5" gutterBottom sx={{ color: 'primary.main' }}>
-                Product Details
+                Detail Produk
               </Typography>
 
               {product.description && (
@@ -162,14 +171,20 @@ export default function ProductDetail({ product, open, onClose }) {
                 </Typography>
               )}
 
-              {product.nutrition_fact && (
+              {product.nutrition_fact && product.nutrition_fact.trim() && isValidUrl(product.nutrition_fact) && (
                 <Box sx={{ mb: 2 }}>
                   <Typography variant="h6" gutterBottom>
                     Nutrition Facts
                   </Typography>
-                  <Typography variant="body2" sx={{ bgcolor: 'grey.100', p: 2, borderRadius: 1 }}>
-                    {product.nutrition_fact}
-                  </Typography>
+                  <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+                    <Image
+                      src={product.nutrition_fact}
+                      alt="Nutrition Facts"
+                      width={1000}
+                      height={1000}
+                      style={{ objectFit: 'contain', maxWidth: '100%', height: 'auto' }}
+                    />
+                  </Box>
                 </Box>
               )}
 

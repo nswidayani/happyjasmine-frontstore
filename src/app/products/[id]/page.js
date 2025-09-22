@@ -16,6 +16,15 @@ export default function ProductDetailPage() {
   const [loading, setLoading] = useState(true);
   const [activeImage, setActiveImage] = useState(0);
 
+  const isValidUrl = (string) => {
+    try {
+      new URL(string);
+      return true;
+    } catch (_) {
+      return false;
+    }
+  };
+
   const productId = params.id;
 
   useEffect(() => {
@@ -337,7 +346,7 @@ export default function ProductDetailPage() {
                     fontSize: '1.1rem'
                   }}
                 >
-                  Description
+                  Deskripsi Produk
                 </Typography>
                 <Typography
                   variant="body1"
@@ -353,7 +362,7 @@ export default function ProductDetailPage() {
             )}
 
             {/* Nutrition Facts */}
-            {product.nutrition_fact && (
+            {product.nutrition_fact && product.nutrition_fact.trim() && isValidUrl(product.nutrition_fact) && (
               <Box sx={{ mb: 3 }}>
                 <Typography
                   variant="h6"
@@ -364,27 +373,25 @@ export default function ProductDetailPage() {
                     fontSize: '1.1rem'
                   }}
                 >
-                  Nutrition Facts
+                  Komposisi
                 </Typography>
                 <Paper
                   sx={{
                     p: 3,
                     bgcolor: '#f8f9fa',
                     border: '1px solid #e0e0e0',
-                    borderRadius: 2
+                    borderRadius: 2,
+                    display: 'flex',
+                    justifyContent: 'center'
                   }}
                 >
-                  <Typography
-                    variant="body1"
-                    sx={{
-                      color: '#666',
-                      lineHeight: 1.8,
-                      fontSize: '1rem',
-                      whiteSpace: 'pre-line'
-                    }}
-                  >
-                    {product.nutrition_fact}
-                  </Typography>
+                  <Image
+                    src={product.nutrition_fact}
+                    alt="Nutrition Facts"
+                    width={800}
+                    height={800}
+                    style={{ objectFit: 'contain', maxWidth: '100%', height: 'auto' }}
+                  />
                 </Paper>
               </Box>
             )}

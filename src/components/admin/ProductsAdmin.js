@@ -68,6 +68,7 @@ export default function ProductsAdmin() {
     images: [],
     videos: []
   });
+  const [nutritionFactFile, setNutritionFactFile] = useState(null);
   const [categories, setCategories] = useState([]);
   const [imageFiles, setImageFiles] = useState([]);
   const [videoFiles, setVideoFiles] = useState([]);
@@ -133,6 +134,7 @@ export default function ProductsAdmin() {
     }
     setImageFiles([]);
     setVideoFiles([]);
+    setNutritionFactFile(null);
     setActiveTab(0);
     setDialogOpen(true);
   };
@@ -152,6 +154,7 @@ export default function ProductsAdmin() {
     });
     setImageFiles([]);
     setVideoFiles([]);
+    setNutritionFactFile(null);
   };
 
   const handleInputChange = (field, value) => {
@@ -209,6 +212,9 @@ export default function ProductsAdmin() {
     }
     if (videoFiles.length > 0) {
       await handleVideoUpload(videoFiles);
+    }
+    if (nutritionFactFile) {
+      await handleNutritionFactUpload(nutritionFactFile);
     }
 
     const productData = {
@@ -306,6 +312,20 @@ export default function ProductsAdmin() {
       videos: [...prev.videos, ...uploadedUrls]
     }));
 
+    setUploading(false);
+  };
+
+  const handleNutritionFactUpload = async (file) => {
+    setUploading(true);
+    const result = await uploadFileToStorage(file, 'products');
+    if (result.success) {
+      setFormData(prev => ({
+        ...prev,
+        nutrition_fact: result.url
+      }));
+    } else {
+      showAlert('Error uploading nutrition fact image: ' + result.error, 'error');
+    }
     setUploading(false);
   };
 
@@ -468,16 +488,57 @@ export default function ProductsAdmin() {
                   </FormControl>
                 </Grid>
                 <Grid item xs={12} md={6}>
-                  <TextField
-                    fullWidth
-                    label="Nutrition Facts"
-                    value={formData.nutrition_fact}
-                    onChange={(e) => handleInputChange('nutrition_fact', e.target.value)}
-                    multiline
-                    rows={4}
-                    variant="outlined"
-                    placeholder="List nutrition information..."
-                  />
+                  <Box>
+                    <Typography variant="subtitle1" gutterBottom>
+                      Nutrition Facts Image
+                    </Typography>
+                    {formData.nutrition_fact ? (
+                      <Box sx={{ mb: 2 }}>
+                        <Box sx={{ position: 'relative', display: 'inline-block' }}>
+                          <Image
+                            src={formData.nutrition_fact}
+                            alt="Nutrition Facts"
+                            width={200}
+                            height={150}
+                            style={{ objectFit: 'contain', border: '1px solid #ccc', borderRadius: 4 }}
+                          />
+                          <IconButton
+                            size="small"
+                            onClick={() => setFormData(prev => ({ ...prev, nutrition_fact: '' }))}
+                            sx={{ position: 'absolute', top: -8, right: -8, bgcolor: 'error.main', color: 'white' }}
+                          >
+                            <ClearIcon fontSize="small" />
+                          </IconButton>
+                        </Box>
+                      </Box>
+                    ) : null}
+                    <Button
+                      variant="outlined"
+                      component="label"
+                      startIcon={<UploadIcon />}
+                      disabled={uploading}
+                      fullWidth
+                    >
+                      {uploading ? <CircularProgress size={20} /> : 'Upload Nutrition Facts Image'}
+                      <input
+                        type="file"
+                        accept="image/*"
+                        hidden
+                        onChange={(e) => setNutritionFactFile(e.target.files[0])}
+                      />
+                    </Button>
+                    {nutritionFactFile && (
+                      <Button
+                        variant="contained"
+                        onClick={() => handleNutritionFactUpload(nutritionFactFile)}
+                        disabled={uploading}
+                        sx={{ mt: 1 }}
+                        fullWidth
+                      >
+                        {uploading ? 'Uploading...' : 'Upload Selected Image'}
+                      </Button>
+                    )}
+                  </Box>
                 </Grid>
               </Grid>
             </Box>
